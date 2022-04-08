@@ -15,6 +15,7 @@
     <modules>
         <module>flinkful-cli-base</module>
         <module>flinkful-cli-frontend</module>
+        <module>flinkful-cli-descriptor</module>
     </modules>
 
     <dependencyManagement>
