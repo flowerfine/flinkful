@@ -10,6 +10,8 @@
     <description>flink endpoint for open world</description>
 
     <modules>
+        <module>flinkful-common</module>
+        <module>flinkful-cli</module>
     </modules>
 
     <properties>
@@ -42,6 +44,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
             <optional>true</optional>
         </dependency>
     </dependencies>
@@ -49,13 +52,10 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.fasterxml.jackson</groupId>
-                <artifactId>jackson-bom</artifactId>
-                <version>${jackson-bom.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>flinkful-common</artifactId>
+                <version>${project.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.flink</groupId>
                 <artifactId>flink-java</artifactId>
@@ -114,12 +114,10 @@
     </dependencyManagement>
 
     <repositories>
-        
         <repository>
             <id>sonatype-nexus-snapshots</id>
             <name>Sonatype Nexus Snapshots</name>
             <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
     </repositories>
-
 </project>
