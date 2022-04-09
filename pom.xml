@@ -261,7 +261,6 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <useAgent>true</useAgent>
                             <!-- Prevent `gpg` from using pinentry programs -->
                             <gpgArguments>
                                 <arg>--pinentry-mode</arg>
