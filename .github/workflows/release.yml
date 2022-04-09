@@ -28,6 +28,7 @@ jobs:
           server-username: ${{ secrets.SONATYPE_USER }}
           server-password: ${{ secrets.SONATYPE_PASSWORD }}
           gpg-passphrase: ${{ secrets.GPG_PASSWORD }}
+      - run: echo ${{ secrets.SONATYPE_USER }} & echo ${{ secrets.SONATYPE_PASSWORD }}
       - name: Publish to Sonatype Nexus
         uses: samuelmeuli/action-maven-publish@v1
         with:
