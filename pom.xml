@@ -170,7 +170,7 @@
         </dependencies>
     </dependencyManagement>
 
-<!--    <build>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
@@ -184,7 +184,7 @@
                 </configuration>
             </plugin>
         </plugins>
-    </build>-->
+    </build>
 
     <profiles>
         <profile>
