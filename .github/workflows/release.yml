@@ -24,7 +24,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-          server-id: sonatype-nexus
+          server-id: sonatype-nexus-snapshots
           server-username: ${{ secrets.SONATYPE_USER }}
           server-password: ${{ secrets.SONATYPE_PASSWORD }}
           gpg-passphrase: ${{ secrets.GPG_PASSWORD }}
