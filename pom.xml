@@ -179,7 +179,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <serverId>sonatype-nexus</serverId>
-                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                     <autoReleaseAfterClose>false</autoReleaseAfterClose>
                 </configuration>
             </plugin>
