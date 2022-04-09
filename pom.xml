@@ -13,6 +13,7 @@
         <module>flinkful-common</module>
         <module>flinkful-cli</module>
         <module>flinkful-rest</module>
+        <module>flinkful-examples</module>
     </modules>
 
     <properties>
