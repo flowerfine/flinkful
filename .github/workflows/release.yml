@@ -7,9 +7,8 @@ on:
       - 'releases/**'
 
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -20,13 +19,13 @@ jobs:
         with:
           java-version: 11
           server-id: sonatype-nexus
-          server-username: ${{ secrets.OSSRH_USER }}
-          server-password: ${{ secrets.OSSRH_PASSWORD }}
+          server-username: ${{ secrets.SONATYPE_USER }}
+          server-password: ${{ secrets.SONATYPE_PASSWORD }}
           gpg-passphrase: ${{ secrets.GPG_PASSWORD }}
       - name: Publish to Sonatype Nexus
         uses: samuelmeuli/action-maven-publish@v1
         with:
           gpg_private_key: ${{ secrets.GPG_SECRET }}
           gpg_passphrase: ${{ secrets.GPG_PASSWORD }}
-          nexus_username: ${{ secrets.OSSRH_USER }}
-          nexus_password: ${{ secrets.OSSRH_PASSWORD }}
+          nexus_username: ${{ secrets.SONATYPE_USER }}
+          nexus_password: ${{ secrets.SONATYPE_PASSWORD }}
