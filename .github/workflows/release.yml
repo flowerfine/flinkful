@@ -21,9 +21,13 @@ jobs:
           distribution: adopt
           cache: maven
           server-id: sonatype-nexus
-          server-username: ${{ secrets.SONATYPE_USER }}
-          server-password: ${{ secrets.SONATYPE_PASSWORD }}
+          server-username: OSSRH_USERNAME
+          server-password: OSSRH_PASSWORD
           gpg-private-key: ${{ secrets.GPG_SECRET }}
-          gpg-passphrase: ${{ secrets.GPG_PASSWORD }}
+          gpg-passphrase: GPG_PASSWORD
       - name: Publish to Sonatype Nexus
         run: mvn clean deploy -Poss-release -B -DskipTests -Dgpg.passphrase=${{ secrets.GPG_PASSWORD }}
+        env:
+          OSSRH_USERNAME: ${{ secrets.SONATYPE_USER }}
+          OSSRH_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
