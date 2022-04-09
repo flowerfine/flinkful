@@ -15,6 +15,7 @@
     <modules>
         <module>flinkful-rest-base</module>
         <module>flinkful-rest-http</module>
+        <module>flinkful-rest-client</module>
     </modules>
 
     <dependencyManagement>
