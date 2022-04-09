@@ -23,11 +23,11 @@ jobs:
           server-password: ${{ secrets.SONATYPE_PASSWORD }}
           gpg-private-key: ${{ secrets.GPG_SECRET }}
           gpg-passphrase: ${{ secrets.GPG_PASSWORD }}
-      - name: Publish to Sonatype Nexus
-        uses: samuelmeuli/action-maven-publish@v1
+      - name: Cache Maven Repository
+        uses: actions/cache@v2
         with:
-          maven_profiles: oss-release
-          gpg_private_key: ${{ secrets.GPG_SECRET }}
-          gpg_passphrase: ${{ secrets.GPG_PASSWORD }}
-          nexus_username: ${{ secrets.SONATYPE_USER }}
-          nexus_password: ${{ secrets.SONATYPE_PASSWORD }}
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
+      - name: Publish to Sonatype Nexus
+        run: mvn clean deploy -Poss-release -B -DskipTests -Dgpg.passphrase=${{ secrets.GPG_PASSWORD }}
