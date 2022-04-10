@@ -84,7 +84,7 @@
         <docker.java.version>3.2.13</docker.java.version>
         <flink.version>1.14.4</flink.version>
         <knife4j.version>3.0.2</knife4j.version>
-        <milky.version>1.0.5</milky.version>
+        <milky.version>1.0.6_8</milky.version>
         <mybatis.plus.version>3.5.1</mybatis.plus.version>
         <mysql.connector.version>8.0.28</mysql.connector.version>
         <okhttp.version>4.9.3</okhttp.version>
@@ -180,7 +180,7 @@
                 <configuration>
                     <serverId>sonatype-nexus</serverId>
                     <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
         </plugins>
