@@ -26,7 +26,19 @@ Except that, there is `WebOptions#SUBMIT_ENABLE` option indicating whether jobs 
 
 ![image-20220412220000689](README.assets/image-20220412220000689.png)
 
-As complex deployment ways, it is also a challenage for Flink on how to design cluster client API and `ClusterDescriptor` would be answer.
+For complex deployment ways, it is also a challenage for Flink on how to design cluster client API and `ClusterDescriptor` would be the answer.
+
+Through `ClusterDescriptor`, Flink can create deployment mode cluster on different resource providers:
+
+* `#deploySessionCluster` creates Session cluster.
+* `#deployApplication` creates Application cluster.
+* `#deployJobCluster` creates Per-Job Cluster.
+
+For different resource providers, Flink provides corresponding implementation:
+
+* `StandaloneClusterDescriptor` supports `RemoteExecutor#NAME`.
+* `YarnClusterDescriptor` supports `YarnDeploymentTarget#APPLICATION`, `YarnDeploymentTarget#PER_JOB`, `YarnDeploymentTarget#SESSION`.
+* `KubernetesClusterDescriptor` supports `KubernetesDeploymentTarget#APPLICATION`, `KubernetesDeploymentTarget#SESSION`.
 
 
 
