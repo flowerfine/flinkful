@@ -95,11 +95,11 @@ Flink has a monitoring API  for runtime web-ui, here is [link](https://nightlies
 
 There are a few excellent http clients for executing http request, Flinkful implements it by `OkHttp` on `flinkful-rest-http`.
 
-
+If you are tired of http API query and path parameters, also `openfeign` and [`retrofit`](https://github.com/square/retrofit) is a good choice for Flink http API implemention by yourself.
 
 #### `RestClient`
 
-If you are tired of 
+
 
 
 
