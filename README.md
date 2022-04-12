@@ -42,7 +42,7 @@ For different resource providers, Flink provides corresponding implementation:
 * `YarnClusterDescriptor` supports `YarnDeploymentTarget#APPLICATION`, `YarnDeploymentTarget#PER_JOB`, `YarnDeploymentTarget#SESSION`.
 * `KubernetesClusterDescriptor` supports `KubernetesDeploymentTarget#APPLICATION`, `KubernetesDeploymentTarget#SESSION`.
 
-With the help of `ClusterDescriptor`, Flinkful provides `flinkful-cli-descriptor` for submiting jobs by `ClusterClient`.
+With the helpment of `ClusterDescriptor`, Flinkful provides `flinkful-cli-descriptor` for submiting jobs by `ClusterClient`.
 
 #### `CliFrontend`
 
