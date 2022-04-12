@@ -4,7 +4,7 @@
 
 Flink is a popular stateful compute engine and it has provided a few ways for management such as cli, http, python and scala REPLs,  which would only satisfy some purposes and people have to choose one or  all of them for needs.
 
-I have done some exciting work which developed generic Java flink client supporting submit jobs、access cluster  and jobs status, and more features to be adding. Through it, I believed people can concern more on how to manage and maintain flink infrastructure prevent by the absence of Java client.
+I have done some exciting work which developed generic Java Flink client supporting submit jobs、access cluster  and jobs status, and more features to be adding. Through it, I believed people can concern more on how to manage and maintain flink infrastructure prevent by the absence of Java client.
 
 ## How Flinkful?
 
@@ -91,11 +91,15 @@ comming soon.
 
 #### http client
 
+Flink has a monitoring API  for runtime web-ui, here is [link](https://nightlies.apache.org/flink/flink-docs-release-1.14/docs/ops/rest_api/).
+
+There are a few excellent http clients for executing http request, Flinkful implements it by `OkHttp` on `flinkful-rest-http`.
 
 
-#### RestClient
 
+#### `RestClient`
 
+If you are tired of 
 
 
 
