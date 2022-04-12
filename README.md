@@ -6,7 +6,7 @@ Flink is a popular stateful compute engine and it has provided a few ways for ma
 
 I have done some exciting work which developed generic Java Flink client supporting submit jobs、access cluster  and jobs status, and more features to be adding. Through it, I believed people can concern more on how to manage and maintain flink infrastructure prevent by the absence of Java client.
 
-Flinkful aims to help people build their own data and computation platform by Flink and never will shade Flink. We don't make gap between people with Flink but try to bridge them totally. 
+Flinkful aims to help people build their own data and computation platform by Flink and would never shade Flink. We don't make gap between people with Flink but try to bridge them totally, that's why named `Flinkful`.
 
 Flinkful makes best effort for releasing Flink source code internal potentials and preventing introducing new concept. If you dive into Flinkful, We believe the clean and Flink likely source code will confuse user are reading Flink official repository code.
 
