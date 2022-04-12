@@ -6,6 +6,12 @@ Flink is a popular stateful compute engine and it has provided a few ways for ma
 
 I have done some exciting work which developed generic Java Flink client supporting submit jobs、access cluster  and jobs status, and more features to be adding. Through it, I believed people can concern more on how to manage and maintain flink infrastructure prevent by the absence of Java client.
 
+Flinkful aims to help people build their own data and computation platform by Flink and never will shade Flink. We don't make gap between people with Flink but try to bridge them totally. 
+
+Flinkful makes best effort for releasing Flink source code internal potentials and preventing introducing new concept. If you dive into Flinkful, We believe the clean and Flink likely source code will confuse user are reading Flink official repository code.
+
+Hope user like and appreciate our work.
+
 ## How Flinkful?
 
 As mentioned [here](https://nightlies.apache.org/flink/flink-docs-release-1.14/docs/deployment/overview/), Flink consists of `JobManager`, `TaskManager` and `client`. After `JobManager` bootstraped, people can access Flink cluster with runtime-webui by http, In fact, most Flink cluster and job status can be obtained by http.
@@ -102,6 +108,12 @@ If you are tired of http API query and path parameters, also [`openfeign`](https
 Thankfully, Flink provides `RestClient` for runtime web-ui access internally and Flinkful help people access cluster and job status by `RestClient` easily.
 
 User can explore Flinkful what to do on `flinkful-rest-client` module.
+
+## Flink vs Flinkful
+
+|         | Flink  | Flinkful |
+| ------- | ------ | -------- |
+| Version | 1.13.5 | 1.0.1    |
 
 ## Next Flinkful
 
