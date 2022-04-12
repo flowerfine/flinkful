@@ -99,7 +99,7 @@ If you are tired of http API query and path parameters, also [`openfeign`](https
 
 #### `RestClient`
 
-
+Thankfully, Flink provides `RestClient` for runtime web-ui access internally.
 
 
 
