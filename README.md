@@ -46,9 +46,40 @@ With the helpment of `ClusterDescriptor`, Flinkful provides `flinkful-cli-descri
 
 #### `CliFrontend`
 
-cli interface is Flink job entrypoint, 
+`$FLINK_HOME/bin/flink` is Flink job submission entrypoint and `CliFrontend` is cli interface core class, we can also be inspired by it.
 
+cut cli parameter parse and command route, we find a clean job sumission implementation follow:
 
+```java
+public class FrontendCliClient implements CliClient {
+
+    private final ClusterClientServiceLoader clusterClientServiceLoader = new DefaultClusterClientServiceLoader();
+    private final ApplicationDeployer deployer = new ApplicationClusterDeployer(clusterClientServiceLoader);
+
+    private final PipelineExecutorServiceLoader pipelineExecutorServiceLoader = new DefaultExecutorServiceLoader();
+
+    /**
+     * @see CliFrontend#run(String[])
+     */
+    @Override
+    public void submit(DeploymentTarget deploymentTarget, Configuration configuration, PackageJarJob job) throws Exception {
+        deploymentTarget.apply(configuration);
+        try (PackagedProgram program = FlinkUtil.buildProgram(configuration, job)) {
+            ClientUtils.executeProgram(pipelineExecutorServiceLoader, configuration, program, false, false);
+        }
+    }
+
+    /**
+     * @see CliFrontend#runApplication(String[])
+     */
+    @Override
+    public void submitApplication(DeploymentTarget deploymentTarget, Configuration configuration, PackageJarJob job) throws Exception {
+        deploymentTarget.apply(configuration);
+        ApplicationConfiguration applicationConfiguration = new ApplicationConfiguration(job.getProgramArgs(), job.getEntryPointClass());
+        deployer.run(configuration, applicationConfiguration);
+    }
+}
+```
 
 ### Access cluster and job status
 
