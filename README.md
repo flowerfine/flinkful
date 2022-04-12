@@ -20,7 +20,7 @@ Application and Per-Job deployment mode will create a new Flink cluster through 
 
 Except that, there is `WebOptions#SUBMIT_ENABLE` option indicating whether jobs can be uploaded and run from the web-frontend.
 
-Flinkful consists of two module: `flinkful-cli` and `flinkful-rest`, the former for submiting jobs and latter for cluster and job status accessment.
+So job submission and Flink cluster and job status access can vary significantly, Flinkful distinguish them on two module: `flinkful-cli` and `flinkful-rest`, the former for submiting jobs and latter for cluster and job status accessment.
 
 ### Job Submission
 
