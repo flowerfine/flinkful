@@ -16,11 +16,23 @@ Flink supports 3 deployment mode:
 * Per-Job
 * Session
 
-Application and Per-Job deployment mode will create a new Flink cluster through resource providers such as YARN or Kubernetes, so Flink http api is limited on job submission.
+Application and Per-Job deployment mode will create a new Flink cluster through resource providers such as YARN or Kubernetes, so Flink http API is limited on job submission for http API based on `JobManager`。
 
-
+Except that, there is `WebOptions#SUBMIT_ENABLE` option indicating whether jobs can be uploaded and run from the web-frontend.
 
 ### Job Submission
+
+#### `ClusterDescriptor`
+
+![image-20220412220000689](README.assets/image-20220412220000689.png)
+
+As complex deployment ways, it is also a challenage for Flink on how to design cluster client API and `ClusterDescriptor` would be answer.
+
+
+
+#### `CliFrontend`
+
+
 
 
 
