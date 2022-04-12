@@ -81,5 +81,19 @@ public class FrontendCliClient implements CliClient {
 }
 ```
 
+User can add `flinkful-cli-frontend` to their project to obtain this clean code.
+
+#### Flinkful submission examples
+
+
+
 ### Access cluster and job status
 
+
+
+
+
+## Next Flinkful
+
+* SQL client.
+* QueryableState client.
