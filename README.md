@@ -99,9 +99,9 @@ If you are tired of http API query and path parameters, also [`openfeign`](https
 
 #### `RestClient`
 
-Thankfully, Flink provides `RestClient` for runtime web-ui access internally.
+Thankfully, Flink provides `RestClient` for runtime web-ui access internally and Flinkful help people access cluster and job status by `RestClient` easily.
 
-
+User can explore Flinkful what to do on `flinkful-rest-client` module.
 
 ## Next Flinkful
 
