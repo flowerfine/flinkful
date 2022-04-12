@@ -85,9 +85,15 @@ User can add `flinkful-cli-frontend` to their project to obtain this clean code.
 
 #### Flinkful submission examples
 
-
+comming soon.
 
 ### Access cluster and job status
+
+#### http client
+
+
+
+#### RestClient
 
 
 
