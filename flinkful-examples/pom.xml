@@ -19,7 +19,18 @@
 
     <modules>
         <module>flinkful-cli-examples</module>
+        <module>flinkful-examples-common</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>flinkful-examples-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 
 </project>
