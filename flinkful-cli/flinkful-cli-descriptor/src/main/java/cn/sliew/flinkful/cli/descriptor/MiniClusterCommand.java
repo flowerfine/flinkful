@@ -18,13 +18,12 @@ import java.util.concurrent.ExecutionException;
 public class MiniClusterCommand implements Command {
 
     @Override
-    public void submit(Configuration configuration, PackageJarJob job) throws Exception {
+    public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
         MiniCluster cluster = createCluster(configuration);
         MiniClusterClient client = createClusterClient(cluster, configuration);
         PackagedProgram program = FlinkUtil.buildProgram(configuration, job);
         JobGraph jobGraph = PackagedProgramUtils.createJobGraph(program, configuration, 1, false);
-        JobID jobId = client.submitJob(jobGraph).get();
-        System.out.println(jobId);
+        return client.submitJob(jobGraph).get();
     }
 
     private MiniCluster createCluster(Configuration config) throws Exception {

@@ -3,6 +3,7 @@ package cn.sliew.flinkful.cli.descriptor;
 import cn.sliew.flinkful.cli.base.FlinkUtil;
 import cn.sliew.flinkful.cli.base.PackageJarJob;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.flink.api.common.JobID;
 import org.apache.flink.client.deployment.ClusterClientFactory;
 import org.apache.flink.client.deployment.ClusterDeploymentException;
 import org.apache.flink.client.deployment.ClusterSpecification;
@@ -12,6 +13,7 @@ import org.apache.flink.client.program.ClusterClientProvider;
 import org.apache.flink.client.program.PackagedProgram;
 import org.apache.flink.client.program.PackagedProgramUtils;
 import org.apache.flink.configuration.*;
+import org.apache.flink.runtime.client.JobStatusMessage;
 import org.apache.flink.runtime.jobgraph.JobGraph;
 import org.apache.flink.runtime.util.HadoopUtils;
 import org.apache.flink.yarn.YarnClusterDescriptor;
@@ -20,18 +22,26 @@ import org.apache.flink.yarn.configuration.YarnDeploymentTarget;
 import org.apache.hadoop.yarn.api.records.ApplicationId;
 
 import java.net.MalformedURLException;
+import java.util.Collection;
+import java.util.Optional;
 
 @Slf4j
 public class YarnPerJobCommand implements Command {
 
     @Override
-    public void submit(Configuration configuration, PackageJarJob job) throws Exception {
+    public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
         ClusterClientFactory<ApplicationId> factory = createClientFactory(configuration);
         YarnClusterDescriptor clusterDescriptor = createClusterDescriptor(factory, configuration);
         ClusterSpecification clusterSpecification = YarnFlinkUtil.createClusterSpecification();
         PackagedProgram program = FlinkUtil.buildProgram(configuration, job);
         JobGraph jobGraph = PackagedProgramUtils.createJobGraph(program, configuration, 1, false);
         ClusterClient<ApplicationId> clusterClient = createClusterClient(clusterDescriptor, clusterSpecification, jobGraph);
+        Collection<JobStatusMessage> jobStatusMessages = clusterClient.listJobs().get();
+        Optional<JobStatusMessage> optional = jobStatusMessages.stream().findFirst();
+        if (optional.isEmpty()) {
+            throw new IllegalStateException("任务信息异常");
+        }
+        return optional.get().getJobId();
     }
 
     /**

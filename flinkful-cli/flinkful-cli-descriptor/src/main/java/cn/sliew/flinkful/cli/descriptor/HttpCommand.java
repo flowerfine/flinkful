@@ -22,12 +22,11 @@ import java.util.stream.Collectors;
 public class HttpCommand implements Command {
 
     @Override
-    public void submit(Configuration configuration, PackageJarJob job) throws Exception {
+    public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
         String webInterfaceURL = "http://localhost:8081";
         JarUploadResponse jarUploadResponse = uploadJar(webInterfaceURL, new File(job.getJarFilePath()));
         String jarId = jarUploadResponse.getFilename().substring(jarUploadResponse.getFilename().lastIndexOf("/") + 1);
-        JobID jobID = run(webInterfaceURL, jarId, job);
-        System.out.println(jobID);
+        return run(webInterfaceURL, jarId, job);
     }
 
     private JarUploadResponse uploadJar(String webInterfaceURL, File jarFile) throws IOException {

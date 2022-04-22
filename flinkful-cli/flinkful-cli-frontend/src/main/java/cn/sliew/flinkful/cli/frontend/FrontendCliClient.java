@@ -4,6 +4,7 @@ import cn.sliew.flinkful.cli.base.CliClient;
 import cn.sliew.flinkful.cli.base.FlinkUtil;
 import cn.sliew.flinkful.cli.base.PackageJarJob;
 import cn.sliew.flinkful.common.enums.DeploymentTarget;
+import org.apache.flink.api.common.JobID;
 import org.apache.flink.client.ClientUtils;
 import org.apache.flink.client.cli.ApplicationDeployer;
 import org.apache.flink.client.cli.CliFrontend;
@@ -27,20 +28,22 @@ public class FrontendCliClient implements CliClient {
      * @see CliFrontend#run(String[])
      */
     @Override
-    public void submit(DeploymentTarget deploymentTarget, Configuration configuration, PackageJarJob job) throws Exception {
+    public JobID submit(DeploymentTarget deploymentTarget, Configuration configuration, PackageJarJob job) throws Exception {
         deploymentTarget.apply(configuration);
         try (PackagedProgram program = FlinkUtil.buildProgram(configuration, job)) {
             ClientUtils.executeProgram(pipelineExecutorServiceLoader, configuration, program, false, false);
         }
+        return null;
     }
 
     /**
      * @see CliFrontend#runApplication(String[])
      */
     @Override
-    public void submitApplication(DeploymentTarget deploymentTarget, Configuration configuration, PackageJarJob job) throws Exception {
+    public JobID submitApplication(DeploymentTarget deploymentTarget, Configuration configuration, PackageJarJob job) throws Exception {
         deploymentTarget.apply(configuration);
         ApplicationConfiguration applicationConfiguration = new ApplicationConfiguration(job.getProgramArgs(), job.getEntryPointClass());
         deployer.run(configuration, applicationConfiguration);
+        return null;
     }
 }

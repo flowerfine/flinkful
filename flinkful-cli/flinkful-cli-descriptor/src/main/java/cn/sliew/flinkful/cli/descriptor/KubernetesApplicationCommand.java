@@ -2,6 +2,7 @@ package cn.sliew.flinkful.cli.descriptor;
 
 import cn.sliew.flinkful.cli.base.PackageJarJob;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.flink.api.common.JobID;
 import org.apache.flink.client.deployment.ClusterClientFactory;
 import org.apache.flink.client.deployment.ClusterDeploymentException;
 import org.apache.flink.client.deployment.ClusterSpecification;
@@ -13,9 +14,12 @@ import org.apache.flink.configuration.*;
 import org.apache.flink.kubernetes.KubernetesClusterDescriptor;
 import org.apache.flink.kubernetes.configuration.KubernetesConfigOptions;
 import org.apache.flink.kubernetes.configuration.KubernetesDeploymentTarget;
+import org.apache.flink.runtime.client.JobStatusMessage;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 
 /**
  * 首先通过命令 docker build -f Dockerfile -t flink-example:1 . 创建镜像
@@ -24,13 +28,19 @@ import java.util.Collections;
 public class KubernetesApplicationCommand implements Command {
 
     @Override
-    public void submit(Configuration configuration, PackageJarJob job) throws Exception {
+    public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
         ClusterClientFactory<String> factory = createClientFactory(configuration);
         KubernetesClusterDescriptor clusterDescriptor = createClusterDescriptor(factory, configuration, job);
         ClusterSpecification clusterSpecification = YarnFlinkUtil.createClusterSpecification();
 
         ApplicationConfiguration applicationConfiguration = new ApplicationConfiguration(job.getProgramArgs(), job.getEntryPointClass());
         ClusterClient<String> clusterClient = createClusterClient(clusterDescriptor, clusterSpecification, applicationConfiguration);
+        Collection<JobStatusMessage> jobStatusMessages = clusterClient.listJobs().get();
+        Optional<JobStatusMessage> optional = jobStatusMessages.stream().findFirst();
+        if (optional.isEmpty()) {
+            throw new IllegalStateException("任务信息异常");
+        }
+        return optional.get().getJobId();
     }
 
     private ClusterClientFactory<String> createClientFactory(Configuration config) {

@@ -18,7 +18,7 @@ import org.apache.flink.runtime.jobgraph.JobGraph;
 public class KubernetesSessionSubmitCommand implements Command {
 
     @Override
-    public void submit(Configuration configuration, PackageJarJob job) throws Exception {
+    public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
         ClusterClientFactory<String> factory = createClientFactory(configuration);
         KubernetesClusterDescriptor clusterDescriptor = (KubernetesClusterDescriptor) factory.createClusterDescriptor(configuration);
         String clusterId = factory.getClusterId(configuration);
@@ -26,8 +26,7 @@ public class KubernetesSessionSubmitCommand implements Command {
 
         PackagedProgram program = FlinkUtil.buildProgram(configuration, job);
         JobGraph jobGraph = PackagedProgramUtils.createJobGraph(program, configuration, 1, false);
-        JobID jobID = clusterClient.submitJob(jobGraph).get();
-        System.out.println(jobID);
+        return clusterClient.submitJob(jobGraph).get();
     }
 
     private ClusterClientFactory<String> createClientFactory(Configuration config) {

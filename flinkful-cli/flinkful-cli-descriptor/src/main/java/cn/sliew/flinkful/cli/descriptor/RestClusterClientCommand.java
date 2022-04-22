@@ -15,12 +15,11 @@ import org.apache.flink.runtime.jobgraph.JobGraph;
 public class RestClusterClientCommand implements Command {
 
     @Override
-    public void submit(Configuration configuration, PackageJarJob job) throws Exception {
+    public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
         RestClusterClient<StandaloneClusterId> client = createClusterClient(configuration);
         PackagedProgram program = FlinkUtil.buildProgram(configuration, job);
         JobGraph jobGraph = PackagedProgramUtils.createJobGraph(program, configuration, 1, false);
-        JobID jobId = client.submitJob(jobGraph).get();
-        System.out.println(jobId);
+        return client.submitJob(jobGraph).get();
     }
 
     private RestClusterClient<StandaloneClusterId> createClusterClient(Configuration configuration) throws Exception {

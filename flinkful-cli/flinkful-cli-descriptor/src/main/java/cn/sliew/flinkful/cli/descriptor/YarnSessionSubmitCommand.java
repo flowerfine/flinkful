@@ -21,7 +21,7 @@ import org.apache.hadoop.yarn.api.records.ApplicationId;
 public class YarnSessionSubmitCommand implements Command {
 
     @Override
-    public void submit(Configuration configuration, PackageJarJob job) throws Exception {
+    public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
         ClusterClientFactory<ApplicationId> factory = createClientFactory(configuration);
         YarnClusterDescriptor clusterDescriptor = (YarnClusterDescriptor) factory.createClusterDescriptor(configuration);
         ApplicationId clusterId = factory.getClusterId(configuration);
@@ -29,8 +29,7 @@ public class YarnSessionSubmitCommand implements Command {
 
         PackagedProgram program = FlinkUtil.buildProgram(configuration, job);
         JobGraph jobGraph = PackagedProgramUtils.createJobGraph(program, configuration, 1, false);
-        JobID jobID = clusterClient.submitJob(jobGraph).get();
-        System.out.println(jobID);
+        return clusterClient.submitJob(jobGraph).get();
     }
 
     private ClusterClientFactory<ApplicationId> createClientFactory(Configuration config) {

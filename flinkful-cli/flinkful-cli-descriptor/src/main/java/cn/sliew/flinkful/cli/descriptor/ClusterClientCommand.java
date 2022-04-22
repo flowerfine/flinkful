@@ -16,13 +16,12 @@ import org.apache.flink.runtime.jobgraph.JobGraph;
 public class ClusterClientCommand implements Command {
 
     @Override
-    public void submit(Configuration configuration, PackageJarJob job) throws Exception {
+    public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
         ClusterClientFactory<StandaloneClusterId> factory = createClientFactory(configuration);
         ClusterClient<StandaloneClusterId> client = createClusterClient(configuration, factory);
         PackagedProgram program = FlinkUtil.buildProgram(configuration, job);
         JobGraph jobGraph = PackagedProgramUtils.createJobGraph(program, configuration, 1, false);
-        JobID jobId = client.submitJob(jobGraph).get();
-        System.out.println(jobId);
+        return client.submitJob(jobGraph).get();
     }
 
     /**
