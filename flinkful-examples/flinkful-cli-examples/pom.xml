@@ -18,6 +18,7 @@
 
     <modules>
         <module>flinkful-cli-frontend-examples</module>
+        <module>flinkful-cli-descriptor-examples</module>
     </modules>
 
 </project>

@@ -38,7 +38,7 @@ public class YarnPerJobCommand implements Command {
         ClusterClient<ApplicationId> clusterClient = createClusterClient(clusterDescriptor, clusterSpecification, jobGraph);
         Collection<JobStatusMessage> jobStatusMessages = clusterClient.listJobs().get();
         Optional<JobStatusMessage> optional = jobStatusMessages.stream().findFirst();
-        if (optional.isEmpty()) {
+        if (optional.isPresent() == false) {
             throw new IllegalStateException("任务信息异常");
         }
         return optional.get().getJobId();

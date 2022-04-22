@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.sliew</groupId>
-        <artifactId>flinkful-examples</artifactId>
+        <artifactId>flinkful-cli-examples</artifactId>
         <version>1.0.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>flinkful-examples-common</artifactId>
+    <artifactId>flinkful-cli-descriptor-examples</artifactId>
 
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>
@@ -17,9 +17,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-java</artifactId>
-            <scope>provided</scope>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>flinkful-examples-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>flinkful-cli-descriptor</artifactId>
         </dependency>
     </dependencies>
 
