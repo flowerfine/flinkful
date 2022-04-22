@@ -4,8 +4,8 @@ import cn.sliew.flinkful.rest.base.*;
 import cn.sliew.milky.common.exception.Rethrower;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.runtime.rest.RestClient;
+import org.apache.flink.runtime.util.ExecutorThreadFactory;
 import org.apache.flink.util.ConfigurationException;
-import org.apache.flink.util.concurrent.ExecutorThreadFactory;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
