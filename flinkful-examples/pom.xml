@@ -19,6 +19,7 @@
 
     <modules>
         <module>flinkful-cli-examples</module>
+        <module>flinkful-rest-examples</module>
         <module>flinkful-examples-common</module>
     </modules>
 

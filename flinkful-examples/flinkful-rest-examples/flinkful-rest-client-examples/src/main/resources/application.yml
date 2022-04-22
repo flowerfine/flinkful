@@ -1,0 +1,8 @@
+server:
+  port: 8080
+  servlet.context-path: /
+
+spring:
+  application.name: flinkful-rest-client-examples
+  main.banner-mode: log
+  jackson.default-property-inclusion: non_null
