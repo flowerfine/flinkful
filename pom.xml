@@ -92,7 +92,7 @@
 
         <disruptor.version>3.4.4</disruptor.version>
         <docker.java.version>3.2.13</docker.java.version>
-        <flink.version>1.14.4</flink.version>
+        <flink.version>1.13.6</flink.version>
         <knife4j.version>3.0.2</knife4j.version>
         <milky.version>1.0.6_8</milky.version>
         <mybatis.plus.version>3.5.1</mybatis.plus.version>
