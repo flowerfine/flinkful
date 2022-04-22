@@ -3,14 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>cn.sliew</groupId>
-        <artifactId>flinkful</artifactId>
+        <artifactId>flinkful-examples</artifactId>
         <version>1.0.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>flinkful-examples</artifactId>
+    <artifactId>flinkful-cli-examples</artifactId>
     <packaging>pom</packaging>
 
     <properties>
@@ -18,8 +17,7 @@
     </properties>
 
     <modules>
-        <module>flinkful-cli-examples</module>
+        <module>flinkful-cli-frontend-examples</module>
     </modules>
-
 
 </project>
