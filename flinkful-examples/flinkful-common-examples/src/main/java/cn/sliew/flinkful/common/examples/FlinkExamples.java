@@ -1,4 +1,4 @@
-package cn.sliew.flinkful.examples.common;
+package cn.sliew.flinkful.common.examples;
 
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.GlobalConfiguration;

@@ -13,9 +13,9 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>flinkful-common-examples</module>
         <module>flinkful-cli-examples</module>
         <module>flinkful-rest-examples</module>
-        <module>flinkful-examples-common</module>
     </modules>
 
     <properties>
@@ -26,7 +26,7 @@
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>flinkful-examples-common</artifactId>
+                <artifactId>flinkful-common-examples</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

@@ -18,7 +18,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>flinkful-examples-common</artifactId>
+            <artifactId>flinkful-common-examples</artifactId>
         </dependency>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>

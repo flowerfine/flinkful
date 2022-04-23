@@ -4,7 +4,7 @@ import cn.sliew.flinkful.cli.base.CliClient;
 import cn.sliew.flinkful.cli.base.PackageJarJob;
 import cn.sliew.flinkful.cli.descriptor.DescriptorCliClient;
 import cn.sliew.flinkful.common.enums.DeploymentTarget;
-import cn.sliew.flinkful.examples.common.FlinkExamples;
+import cn.sliew.flinkful.common.examples.FlinkExamples;
 import org.apache.flink.configuration.*;
 import org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;
 
