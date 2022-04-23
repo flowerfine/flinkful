@@ -1,6 +1,5 @@
 package cn.sliew.flinkful.cli.base;
 
-import org.apache.flink.client.deployment.ClusterSpecification;
 import org.apache.flink.client.program.PackagedProgram;
 import org.apache.flink.client.program.ProgramInvocationException;
 import org.apache.flink.configuration.Configuration;
@@ -8,6 +7,8 @@ import org.apache.flink.configuration.GlobalConfiguration;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public enum FlinkUtil {
     ;
@@ -46,7 +47,7 @@ public enum FlinkUtil {
         return GlobalConfiguration.loadConfiguration(getFlinkConfDir(), new Configuration());
     }
 
-    public static PackagedProgram buildProgram(Configuration configuration, PackageJarJob job) throws FileNotFoundException, ProgramInvocationException {
+    public static PackagedProgram buildProgram(Configuration configuration, PackageJarJob job) throws FileNotFoundException, ProgramInvocationException, URISyntaxException {
         String jarFilePath = job.getJarFilePath();
         File jarFile = jarFilePath != null ? getJarFile(jarFilePath) : null;
         return PackagedProgram.newBuilder()
@@ -65,8 +66,8 @@ public enum FlinkUtil {
      * @param jarFilePath The path of JAR file
      * @throws FileNotFoundException The JAR file does not exist.
      */
-    private static File getJarFile(String jarFilePath) throws FileNotFoundException {
-        File jarFile = new File(jarFilePath);
+    private static File getJarFile(String jarFilePath) throws FileNotFoundException, URISyntaxException {
+        File jarFile = new File(new URI(jarFilePath));
         // Check if JAR file exists
         if (!jarFile.exists()) {
             throw new FileNotFoundException("JAR file does not exist: " + jarFile);
