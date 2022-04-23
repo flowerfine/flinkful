@@ -16,4 +16,7 @@
         <module>flinkful-rest-client-examples</module>
     </modules>
 
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
 </project>

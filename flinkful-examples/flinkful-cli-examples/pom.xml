@@ -12,13 +12,12 @@
     <artifactId>flinkful-cli-examples</artifactId>
     <packaging>pom</packaging>
 
-    <properties>
-        <maven.deploy.skip>true</maven.deploy.skip>
-    </properties>
-
     <modules>
         <module>flinkful-cli-frontend-examples</module>
         <module>flinkful-cli-descriptor-examples</module>
     </modules>
 
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
 </project>
