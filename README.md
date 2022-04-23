@@ -111,9 +111,10 @@ User can explore Flinkful what to do on `flinkful-rest-client` module.
 
 ## Flink vs Flinkful
 
-|         | Flink  | Flinkful |
-| ------- | ------ | -------- |
-| Version | 1.13.5 | 1.0.1    |
+| java | Flink  | Flinkful             |
+| ---- | ------ | -------------------- |
+| 1.8  | 1.13.6 | 1.13.6_1_8-SNAPSHOT  |
+| 11   | 1.14.4 | 1.14.2_1_11-SNAPSHOT |
 
 ## Next Flinkful
 
