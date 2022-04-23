@@ -6,7 +6,7 @@
     <parent>
         <groupId>cn.sliew</groupId>
         <artifactId>flinkful-cli</artifactId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>1.14.4_1_11-SNAPSHOT</version>
     </parent>
     <artifactId>flinkful-cli-descriptor</artifactId>
 
@@ -14,17 +14,6 @@
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>flinkful-cli-base</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-yarn_${scala.binary.version}</artifactId>
-            <version>${flink.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-kubernetes_${scala.binary.version}</artifactId>
-            <version>${flink.version}</version>
         </dependency>
 
         <dependency>

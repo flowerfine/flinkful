@@ -37,7 +37,7 @@ public class KubernetesApplicationCommand implements Command {
         ClusterClient<String> clusterClient = createClusterClient(clusterDescriptor, clusterSpecification, applicationConfiguration);
         Collection<JobStatusMessage> jobStatusMessages = clusterClient.listJobs().get();
         Optional<JobStatusMessage> optional = jobStatusMessages.stream().findFirst();
-        if (optional.isEmpty()) {
+        if (optional.isPresent() == false) {
             throw new IllegalStateException("任务信息异常");
         }
         return optional.get().getJobId();
