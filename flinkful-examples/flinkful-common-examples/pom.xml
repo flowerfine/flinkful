@@ -9,7 +9,7 @@
         <version>1.13.6_1_8-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>flinkful-examples-common</artifactId>
+    <artifactId>flinkful-common-examples</artifactId>
 
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>

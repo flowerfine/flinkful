@@ -9,12 +9,11 @@
         <version>1.13.6_1_8-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>flinkful-cli-examples</artifactId>
+    <artifactId>flinkful-rest-examples</artifactId>
     <packaging>pom</packaging>
 
     <modules>
-        <module>flinkful-cli-frontend-examples</module>
-        <module>flinkful-cli-descriptor-examples</module>
+        <module>flinkful-rest-client-examples</module>
     </modules>
 
     <properties>
