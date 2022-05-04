@@ -11,7 +11,6 @@ import org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,16 +37,15 @@ public class StandaloneSession2Example {
         configuration.setString(JobManagerOptions.ADDRESS, "localhost");
         configuration.setInteger(JobManagerOptions.PORT, 6123);
         configuration.setInteger(RestOptions.PORT, 8081);
-        URL seatunnelURL = new File(seatunnelPath).toURL();
         URL mysqlURL = new File(mysqlPath).toURL();
-        List<URL> jars = Arrays.asList(seatunnelURL, mysqlURL);
+        List<URL> jars = Collections.singletonList(mysqlURL);
         ConfigUtils.encodeCollectionToConfig(configuration, PipelineOptions.JARS, jars, Object::toString);
         return configuration;
     }
 
     private static PackageJarJob buildJarJob() {
         PackageJarJob job = new PackageJarJob();
-        job.setJarFilePath(seatunnelPath);
+        job.setJarFilePath("file://" + seatunnelPath);
         job.setEntryPointClass("org.apache.seatunnel.SeatunnelFlink");
         URL resource = StandaloneSession2Example.class.getClassLoader().getResource("flink_jdbc_file.conf");
         job.setProgramArgs(new String[]{"--config", resource.getPath()});
