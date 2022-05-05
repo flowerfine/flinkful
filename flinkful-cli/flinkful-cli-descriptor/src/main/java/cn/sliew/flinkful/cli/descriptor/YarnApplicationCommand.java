@@ -57,7 +57,7 @@ public class YarnApplicationCommand implements Command {
 
         config.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://hadoop:9000/flink/1.13.6"}));
         config.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://hadoop:9000/flink/1.13.6/flink-dist_2.11-1.13.6.jar");
-//        Util.addJarFiles(clusterDescriptor, config);
+//        YarnFlinkUtil.addJarFiles(clusterDescriptor, config);
 
         ConfigUtils.encodeCollectionToConfig(config, PipelineOptions.JARS, Collections.singletonList(new File(job.getJarFilePath())), Object::toString);
 

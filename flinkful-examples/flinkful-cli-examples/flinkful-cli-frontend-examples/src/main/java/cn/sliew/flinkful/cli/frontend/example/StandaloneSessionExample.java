@@ -1,12 +1,10 @@
 package cn.sliew.flinkful.cli.frontend.example;
 
 import cn.sliew.flinkful.cli.base.CliClient;
-import cn.sliew.flinkful.cli.base.PackageJarJob;
-import cn.sliew.flinkful.cli.frontend.FrontendCliClient;
 import cn.sliew.flinkful.common.enums.DeploymentTarget;
 import cn.sliew.flinkful.common.examples.FlinkExamples;
+import org.apache.flink.client.program.PackagedProgram;
 import org.apache.flink.configuration.*;
-import org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -16,13 +14,18 @@ import java.util.Collections;
 public class StandaloneSessionExample {
 
     public static void main(String[] args) throws Exception {
-        CliClient client = new FrontendCliClient();
-        client.submit(DeploymentTarget.STANDALONE_SESSION, buildConfiguration(), buildJarJob());
+        CliClient client = Util.buildCliClient();
+        client.submit(DeploymentTarget.STANDALONE_SESSION, buildConfiguration(), Util.buildJarJob());
     }
 
     /**
      * 通过 {@link PipelineOptions#JARS} 将任务 jar 包和对应的依赖都可以一起传到 JobManager。
-     * 通过这种方式，可以避免在 JobManager 手动添加 seatunnel-core-flink.jar 或 mysql-connector-java.jar
+     * 在提交任务时，除了任务本身 jar 包外，还可以添加额外的依赖 jar 包。
+     * 如 seatunnel 的 flink-jdbc-connector 因为开源协议兼容的问题，是不包含 jdbc Driver 的，所以提交
+     * seatunnel 任务时需要一起提交 seatunnel-core-flink.jar 和 mysql-connector-java.jar。
+     * 通过 {@link PipelineOptions#JARS} 就可以实现这个功能。
+     *
+     * @see PackagedProgram#getJobJarAndDependencies()
      */
     private static Configuration buildConfiguration() throws MalformedURLException {
         Configuration configuration = FlinkExamples.loadConfiguration();
@@ -32,15 +35,5 @@ public class StandaloneSessionExample {
         URL exampleUrl = new File(FlinkExamples.EXAMPLE_JAR).toURL();
         ConfigUtils.encodeCollectionToConfig(configuration, PipelineOptions.JARS, Collections.singletonList(exampleUrl), Object::toString);
         return configuration;
-    }
-
-    private static PackageJarJob buildJarJob() {
-        PackageJarJob job = new PackageJarJob();
-        job.setJarFilePath(FlinkExamples.EXAMPLE_JAR);
-        job.setEntryPointClass(FlinkExamples.EXAMPLE_ENTRY_CLASS);
-        job.setProgramArgs(new String[]{});
-        job.setClasspaths(Collections.emptyList());
-        job.setSavepointSettings(SavepointRestoreSettings.none());
-        return job;
     }
 }
