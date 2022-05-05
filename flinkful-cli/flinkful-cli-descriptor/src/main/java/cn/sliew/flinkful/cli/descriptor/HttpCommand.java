@@ -7,6 +7,7 @@ import cn.sliew.flinkful.cli.descriptor.protocol.JarUploadResponse;
 import cn.sliew.milky.common.util.JacksonUtil;
 import org.apache.flink.api.common.JobID;
 import org.apache.flink.configuration.Configuration;
+import org.apache.flink.configuration.RestOptions;
 import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
 import org.apache.hc.client5.http.fluent.Request;
 import org.apache.hc.core5.http.ContentType;
@@ -23,7 +24,7 @@ public class HttpCommand implements Command {
 
     @Override
     public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
-        String webInterfaceURL = "http://localhost:8081";
+        String webInterfaceURL = configuration.get(RestOptions.ADDRESS);
         JarUploadResponse jarUploadResponse = uploadJar(webInterfaceURL, new File(job.getJarFilePath()));
         String jarId = jarUploadResponse.getFilename().substring(jarUploadResponse.getFilename().lastIndexOf("/") + 1);
         return run(webInterfaceURL, jarId, job);

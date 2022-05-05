@@ -1,7 +1,10 @@
 package cn.sliew.flinkful.cli.descriptor;
 
 import cn.sliew.flinkful.cli.base.FlinkUtil;
+import org.apache.flink.client.deployment.ClusterClientFactory;
+import org.apache.flink.client.deployment.ClusterDescriptor;
 import org.apache.flink.client.deployment.ClusterSpecification;
+import org.apache.flink.client.deployment.DefaultClusterClientServiceLoader;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.util.CollectionUtil;
 import org.apache.flink.yarn.YarnClusterDescriptor;
@@ -14,8 +17,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public enum YarnFlinkUtil {
+public enum Util {
     ;
+
+    public static ClusterDescriptor createClusterDescriptor(Configuration config) {
+        final ClusterClientFactory factory = createClientFactory(config);
+        return factory.createClusterDescriptor(config);
+    }
+
+    public static ClusterDescriptor createClusterDescriptor(ClusterClientFactory factory, Configuration config) {
+        return factory.createClusterDescriptor(config);
+    }
+
+    public static ClusterClientFactory createClientFactory(Configuration config) {
+        DefaultClusterClientServiceLoader serviceLoader = new DefaultClusterClientServiceLoader();
+        return serviceLoader.getClusterClientFactory(config);
+    }
 
     public static ClusterSpecification createClusterSpecification() {
         return new ClusterSpecification.ClusterSpecificationBuilder()
@@ -23,6 +40,15 @@ public enum YarnFlinkUtil {
                 .setTaskManagerMemoryMB(2048)
                 .setSlotsPerTaskManager(2)
                 .createClusterSpecification();
+    }
+
+    /**
+     * 也可以通过 {@link YarnConfigOptions#FLINK_DIST_JAR} 配置 flink-dist-xxx.jar
+     * {@link YarnConfigOptions#SHIP_FILES} 配置 ship jars.
+     */
+    public static void addJarFiles(Configuration config) {
+        config.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://hadoop:9000/flink/1.13.6"}));
+        config.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://hadoop:9000/flink/1.13.6/flink-dist_2.11-1.13.6.jar");
     }
 
     public static void addJarFiles(YarnClusterDescriptor clusterDescriptor, Configuration config) throws MalformedURLException {
@@ -50,7 +76,6 @@ public enum YarnFlinkUtil {
                 }
             }
         }
-//        shipFiles.forEach(file -> System.out.println(file.getAbsolutePath()));
         clusterDescriptor.addShipFiles(shipFiles);
     }
 }
