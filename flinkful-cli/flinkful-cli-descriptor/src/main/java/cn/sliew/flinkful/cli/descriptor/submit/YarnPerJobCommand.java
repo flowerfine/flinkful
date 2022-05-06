@@ -1,7 +1,8 @@
-package cn.sliew.flinkful.cli.descriptor;
+package cn.sliew.flinkful.cli.descriptor.submit;
 
-import cn.sliew.flinkful.cli.base.FlinkUtil;
-import cn.sliew.flinkful.cli.base.PackageJarJob;
+import cn.sliew.flinkful.cli.base.util.FlinkUtil;
+import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
+import cn.sliew.flinkful.cli.descriptor.util.Util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.common.JobID;
 import org.apache.flink.client.deployment.ClusterDeploymentException;
@@ -23,7 +24,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Slf4j
-public class YarnPerJobCommand implements Command {
+public class YarnPerJobCommand implements SubmitCommand {
 
     /**
      * 需提供 hadoop 的配置文件，以便 flink 获取 hadoop 集群地址。
@@ -38,9 +39,9 @@ public class YarnPerJobCommand implements Command {
      */
     @Override
     public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
-        YarnClusterDescriptor clusterDescriptor = (YarnClusterDescriptor) Util.createClusterDescriptor(configuration);
+        YarnClusterDescriptor clusterDescriptor = (YarnClusterDescriptor) FlinkUtil.createClusterDescriptor(configuration);
         Util.addJarFiles(clusterDescriptor, configuration);
-        ClusterSpecification clusterSpecification = Util.createClusterSpecification(configuration);
+        ClusterSpecification clusterSpecification = FlinkUtil.createClusterSpecification(configuration);
 
         PackagedProgram program = FlinkUtil.buildProgram(configuration, job);
         JobGraph jobGraph = PackagedProgramUtils.createJobGraph(program, configuration, 1, false);

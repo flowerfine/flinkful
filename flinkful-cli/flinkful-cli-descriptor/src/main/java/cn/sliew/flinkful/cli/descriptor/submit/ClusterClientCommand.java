@@ -1,7 +1,7 @@
-package cn.sliew.flinkful.cli.descriptor;
+package cn.sliew.flinkful.cli.descriptor.submit;
 
-import cn.sliew.flinkful.cli.base.FlinkUtil;
-import cn.sliew.flinkful.cli.base.PackageJarJob;
+import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
+import cn.sliew.flinkful.cli.base.util.FlinkUtil;
 import org.apache.flink.api.common.JobID;
 import org.apache.flink.client.deployment.ClusterClientFactory;
 import org.apache.flink.client.deployment.ClusterRetrieveException;
@@ -13,7 +13,7 @@ import org.apache.flink.client.program.PackagedProgramUtils;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.runtime.jobgraph.JobGraph;
 
-public class ClusterClientCommand implements Command {
+public class ClusterClientCommand implements SubmitCommand {
 
     /**
      * Standalone 模式下可以使用 jobmanager 的地址或者使用 rest 地址。
@@ -23,7 +23,7 @@ public class ClusterClientCommand implements Command {
      */
     @Override
     public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
-        ClusterClientFactory<StandaloneClusterId> factory = Util.createClientFactory(configuration);
+        ClusterClientFactory<StandaloneClusterId> factory = FlinkUtil.createClientFactory(configuration);
         ClusterClient<StandaloneClusterId> client = createClusterClient(configuration, factory);
         PackagedProgram program = FlinkUtil.buildProgram(configuration, job);
         JobGraph jobGraph = PackagedProgramUtils.createJobGraph(program, configuration, 1, false);

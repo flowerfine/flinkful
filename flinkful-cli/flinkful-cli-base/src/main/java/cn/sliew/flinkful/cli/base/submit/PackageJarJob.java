@@ -1,4 +1,4 @@
-package cn.sliew.flinkful.cli.base;
+package cn.sliew.flinkful.cli.base.submit;
 
 import lombok.Getter;
 import lombok.Setter;

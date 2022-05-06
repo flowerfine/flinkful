@@ -1,6 +1,8 @@
-package cn.sliew.flinkful.cli.descriptor;
+package cn.sliew.flinkful.cli.descriptor.submit;
 
-import cn.sliew.flinkful.cli.base.PackageJarJob;
+import cn.sliew.flinkful.cli.base.util.FlinkUtil;
+import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
+import cn.sliew.flinkful.cli.descriptor.util.Util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.common.JobID;
 import org.apache.flink.client.deployment.ClusterDeploymentException;
@@ -17,13 +19,13 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Slf4j
-public class YarnApplicationCommand implements Command {
+public class YarnApplicationCommand implements SubmitCommand {
 
     @Override
     public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
-        YarnClusterDescriptor clusterDescriptor = (YarnClusterDescriptor) Util.createClusterDescriptor(configuration);
+        YarnClusterDescriptor clusterDescriptor = (YarnClusterDescriptor) FlinkUtil.createClusterDescriptor(configuration);
         Util.addJarFiles(clusterDescriptor, configuration);
-        ClusterSpecification clusterSpecification = Util.createClusterSpecification(configuration);
+        ClusterSpecification clusterSpecification = FlinkUtil.createClusterSpecification(configuration);
 
         ApplicationConfiguration applicationConfiguration = new ApplicationConfiguration(job.getProgramArgs(), job.getEntryPointClass());
         ClusterClient<ApplicationId> clusterClient = createClusterClient(clusterDescriptor, clusterSpecification, applicationConfiguration);

@@ -1,10 +1,15 @@
-package cn.sliew.flinkful.cli.frontend.example;
+package cn.sliew.flinkful.cli.descriptor.example.session;
 
 import cn.sliew.flinkful.cli.base.CliClient;
+import cn.sliew.flinkful.cli.base.SessionClient;
+import cn.sliew.flinkful.cli.descriptor.example.Util;
+import cn.sliew.flinkful.cli.descriptor.example.YarnApplicationExample;
 import cn.sliew.flinkful.common.enums.DeploymentTarget;
 import cn.sliew.flinkful.common.examples.FlinkExamples;
+import org.apache.flink.client.program.ClusterClient;
 import org.apache.flink.configuration.*;
 import org.apache.flink.yarn.configuration.YarnConfigOptions;
+import org.apache.hadoop.yarn.api.records.ApplicationId;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -15,17 +20,26 @@ import java.util.Collections;
 public class YarnSessionCreateExample {
 
     public static void main(String[] args) throws Exception {
+        ClusterClient<ApplicationId> clusterClient = SessionClient.create(DeploymentTarget.YARN_SESSION, buildSessionConfiguration());
         CliClient client = Util.buildCliClient();
-        client.submit(DeploymentTarget.YARN_SESSION, buildConfiguration(), Util.buildJarJob());
+        client.submit(DeploymentTarget.YARN_SESSION, buildConfiguration(clusterClient.getClusterId()), Util.buildJarJob());
+    }
+
+    private static Configuration buildSessionConfiguration() {
+        Configuration configuration = FlinkExamples.loadConfiguration();
+        configuration.setLong(JobManagerOptions.TOTAL_PROCESS_MEMORY.key(), MemorySize.ofMebiBytes(2048).getBytes());
+        configuration.setLong(TaskManagerOptions.TOTAL_PROCESS_MEMORY.key(), MemorySize.ofMebiBytes(2048).getBytes());
+        configuration.set(TaskManagerOptions.NUM_TASK_SLOTS, 2);
+        return configuration;
     }
 
     /**
      * 创建 YARN session 集群的过程与 YARN application 模式类似。
      * 参考 {@link YarnApplicationExample#buildConfiguration()}
      */
-    private static Configuration buildConfiguration() throws MalformedURLException {
+    private static Configuration buildConfiguration(ApplicationId clusterId) throws MalformedURLException {
         Configuration configuration = FlinkExamples.loadConfiguration();
-        configuration.setString(YarnConfigOptions.APPLICATION_ID, "application_1651836467749_0019");
+        configuration.setString(YarnConfigOptions.APPLICATION_ID, clusterId.toString());
 
         configuration.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://hadoop:9000/flink/1.13.6"}));
         configuration.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://hadoop:9000/flink/1.13.6/flink-dist_2.11-1.13.6.jar");

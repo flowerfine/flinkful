@@ -1,7 +1,7 @@
-package cn.sliew.flinkful.cli.descriptor;
+package cn.sliew.flinkful.cli.descriptor.submit;
 
-import cn.sliew.flinkful.cli.base.FlinkUtil;
-import cn.sliew.flinkful.cli.base.PackageJarJob;
+import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
+import cn.sliew.flinkful.cli.base.util.FlinkUtil;
 import org.apache.flink.api.common.JobID;
 import org.apache.flink.client.deployment.executors.LocalExecutor;
 import org.apache.flink.client.program.MiniClusterClient;
@@ -15,7 +15,7 @@ import org.apache.flink.runtime.minicluster.MiniClusterConfiguration;
 import java.net.URI;
 import java.util.concurrent.ExecutionException;
 
-public class MiniClusterCommand implements Command {
+public class MiniClusterCommand implements SubmitCommand {
 
     @Override
     public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {

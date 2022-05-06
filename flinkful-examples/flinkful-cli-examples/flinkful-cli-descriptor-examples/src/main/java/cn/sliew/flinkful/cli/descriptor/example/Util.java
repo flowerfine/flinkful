@@ -1,9 +1,8 @@
 package cn.sliew.flinkful.cli.descriptor.example;
 
 import cn.sliew.flinkful.cli.base.CliClient;
-import cn.sliew.flinkful.cli.base.PackageJarJob;
+import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
 import cn.sliew.flinkful.cli.descriptor.DescriptorCliClient;
-import cn.sliew.flinkful.cli.descriptor.DescriptorSessionCreateCliClient;
 import cn.sliew.flinkful.common.examples.FlinkExamples;
 import org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;
 
@@ -12,15 +11,11 @@ import java.util.Collections;
 public enum Util {
     ;
 
-    static CliClient buildCliClient() {
+    public static CliClient buildCliClient() {
         return new DescriptorCliClient();
     }
 
-    static CliClient buildSessionCreateCliClient() {
-        return new DescriptorSessionCreateCliClient();
-    }
-
-    static PackageJarJob buildJarJob() {
+    public static PackageJarJob buildJarJob() {
         PackageJarJob job = new PackageJarJob();
         job.setJarFilePath(FlinkExamples.EXAMPLE_JAR_URL);
         job.setEntryPointClass(FlinkExamples.EXAMPLE_ENTRY_CLASS);

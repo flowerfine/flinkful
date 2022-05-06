@@ -1,8 +1,8 @@
 package cn.sliew.flinkful.cli.frontend;
 
 import cn.sliew.flinkful.cli.base.CliClient;
-import cn.sliew.flinkful.cli.base.FlinkUtil;
-import cn.sliew.flinkful.cli.base.PackageJarJob;
+import cn.sliew.flinkful.cli.base.util.FlinkUtil;
+import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
 import cn.sliew.flinkful.common.enums.DeploymentTarget;
 import org.apache.flink.api.common.JobID;
 import org.apache.flink.client.ClientUtils;

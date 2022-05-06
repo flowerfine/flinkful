@@ -1,6 +1,6 @@
-package cn.sliew.flinkful.cli.descriptor;
+package cn.sliew.flinkful.cli.descriptor.submit;
 
-import cn.sliew.flinkful.cli.base.PackageJarJob;
+import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
 import cn.sliew.flinkful.cli.descriptor.protocol.JarRunRequest;
 import cn.sliew.flinkful.cli.descriptor.protocol.JarRunResponse;
 import cn.sliew.flinkful.cli.descriptor.protocol.JarUploadResponse;
@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class HttpCommand implements Command {
+public class HttpCommand implements SubmitCommand {
 
     @Override
     public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {

@@ -1,7 +1,7 @@
-package cn.sliew.flinkful.cli.descriptor;
+package cn.sliew.flinkful.cli.descriptor.submit;
 
-import cn.sliew.flinkful.cli.base.FlinkUtil;
-import cn.sliew.flinkful.cli.base.PackageJarJob;
+import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
+import cn.sliew.flinkful.cli.base.util.FlinkUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.common.JobID;
 import org.apache.flink.client.deployment.ClusterClientFactory;
@@ -14,12 +14,12 @@ import org.apache.flink.yarn.YarnClusterDescriptor;
 import org.apache.hadoop.yarn.api.records.ApplicationId;
 
 @Slf4j
-public class YarnSessionSubmitCommand implements Command {
+public class YarnSessionSubmitCommand implements SubmitCommand {
 
     @Override
     public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
-        ClusterClientFactory<ApplicationId> factory = Util.createClientFactory(configuration);
-        YarnClusterDescriptor clusterDescriptor = (YarnClusterDescriptor) Util.createClusterDescriptor(factory, configuration);
+        ClusterClientFactory<ApplicationId> factory = FlinkUtil.createClientFactory(configuration);
+        YarnClusterDescriptor clusterDescriptor = (YarnClusterDescriptor) FlinkUtil.createClusterDescriptor(factory, configuration);
 
         ApplicationId clusterId = factory.getClusterId(configuration);
         ClusterClient<ApplicationId> clusterClient = clusterDescriptor.retrieve(clusterId).getClusterClient();

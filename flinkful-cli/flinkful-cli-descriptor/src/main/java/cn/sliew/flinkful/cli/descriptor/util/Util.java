@@ -1,14 +1,7 @@
-package cn.sliew.flinkful.cli.descriptor;
+package cn.sliew.flinkful.cli.descriptor.util;
 
-import cn.sliew.flinkful.cli.base.FlinkUtil;
-import org.apache.flink.client.deployment.ClusterClientFactory;
-import org.apache.flink.client.deployment.ClusterDescriptor;
-import org.apache.flink.client.deployment.ClusterSpecification;
-import org.apache.flink.client.deployment.DefaultClusterClientServiceLoader;
+import cn.sliew.flinkful.cli.base.util.FlinkUtil;
 import org.apache.flink.configuration.Configuration;
-import org.apache.flink.configuration.JobManagerOptions;
-import org.apache.flink.configuration.MemorySize;
-import org.apache.flink.configuration.TaskManagerOptions;
 import org.apache.flink.util.CollectionUtil;
 import org.apache.flink.yarn.YarnClusterDescriptor;
 import org.apache.flink.yarn.configuration.YarnConfigOptions;
@@ -22,31 +15,6 @@ import java.util.List;
 
 public enum Util {
     ;
-
-    public static ClusterDescriptor createClusterDescriptor(Configuration config) {
-        final ClusterClientFactory factory = createClientFactory(config);
-        return factory.createClusterDescriptor(config);
-    }
-
-    public static ClusterDescriptor createClusterDescriptor(ClusterClientFactory factory, Configuration config) {
-        return factory.createClusterDescriptor(config);
-    }
-
-    public static ClusterClientFactory createClientFactory(Configuration config) {
-        DefaultClusterClientServiceLoader serviceLoader = new DefaultClusterClientServiceLoader();
-        return serviceLoader.getClusterClientFactory(config);
-    }
-
-    public static ClusterSpecification createClusterSpecification(Configuration configuration) {
-        MemorySize jobManagerMem = configuration.getOptional(JobManagerOptions.TOTAL_PROCESS_MEMORY).orElse(MemorySize.ofMebiBytes(1024));
-        MemorySize taskManagerMem = configuration.getOptional(TaskManagerOptions.TOTAL_PROCESS_MEMORY).orElse(MemorySize.ofMebiBytes(1024));
-        Integer slots = configuration.get(TaskManagerOptions.NUM_TASK_SLOTS);
-        return new ClusterSpecification.ClusterSpecificationBuilder()
-                .setMasterMemoryMB(jobManagerMem.getMebiBytes())
-                .setTaskManagerMemoryMB(taskManagerMem.getMebiBytes())
-                .setSlotsPerTaskManager(slots)
-                .createClusterSpecification();
-    }
 
     /**
      * 也可以通过 {@link YarnConfigOptions#FLINK_DIST_JAR} 配置 flink-dist-xxx.jar

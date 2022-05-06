@@ -1,7 +1,7 @@
 package cn.sliew.flinkful.cli.frontend.example;
 
 import cn.sliew.flinkful.cli.base.CliClient;
-import cn.sliew.flinkful.cli.base.PackageJarJob;
+import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
 import cn.sliew.flinkful.cli.frontend.FrontendCliClient;
 import cn.sliew.flinkful.common.examples.FlinkExamples;
 import org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;

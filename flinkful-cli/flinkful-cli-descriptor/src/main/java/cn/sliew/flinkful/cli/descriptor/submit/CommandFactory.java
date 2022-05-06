@@ -1,24 +1,11 @@
-package cn.sliew.flinkful.cli.descriptor;
+package cn.sliew.flinkful.cli.descriptor.submit;
 
 import cn.sliew.flinkful.common.enums.DeploymentTarget;
 
 public enum CommandFactory {
     ;
 
-    public static Command buildSessionCommand(DeploymentTarget target) {
-        switch (target) {
-            case STANDALONE_SESSION:
-                throw new UnsupportedOperationException();
-            case YARN_SESSION:
-                return new YarnSessionCreateCommand();
-            case NATIVE_KUBERNETES_SESSION:
-                return new KubernetesSessionCreateCommand();
-            default:
-                throw new UnsupportedOperationException();
-        }
-    }
-
-    public static Command buildSubmitCommand(DeploymentTarget target) {
+    public static SubmitCommand buildSubmitCommand(DeploymentTarget target) {
         switch (target) {
             case STANDALONE_SESSION:
                 return new RestClusterClientCommand();

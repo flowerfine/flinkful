@@ -1,6 +1,7 @@
-package cn.sliew.flinkful.cli.descriptor;
+package cn.sliew.flinkful.cli.descriptor.submit;
 
-import cn.sliew.flinkful.cli.base.PackageJarJob;
+import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
+import cn.sliew.flinkful.cli.base.util.FlinkUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.common.JobID;
 import org.apache.flink.client.deployment.ClusterDeploymentException;
@@ -19,12 +20,12 @@ import java.util.Optional;
  * 首先通过命令 docker build -f Dockerfile -t flink-example:1 . 创建镜像
  */
 @Slf4j
-public class KubernetesApplicationCommand implements Command {
+public class KubernetesApplicationCommand implements SubmitCommand {
 
     @Override
     public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
-        KubernetesClusterDescriptor clusterDescriptor = (KubernetesClusterDescriptor) Util.createClusterDescriptor(configuration);
-        ClusterSpecification clusterSpecification = Util.createClusterSpecification(configuration);
+        KubernetesClusterDescriptor clusterDescriptor = (KubernetesClusterDescriptor) FlinkUtil.createClusterDescriptor(configuration);
+        ClusterSpecification clusterSpecification = FlinkUtil.createClusterSpecification(configuration);
 
         ApplicationConfiguration applicationConfiguration = new ApplicationConfiguration(job.getProgramArgs(), job.getEntryPointClass());
         ClusterClient<String> clusterClient = createClusterClient(clusterDescriptor, clusterSpecification, applicationConfiguration);
