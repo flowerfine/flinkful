@@ -62,7 +62,7 @@ public enum FlinkShadedJacksonUtil {
         } else {
             try {
                 CollectionType listType = OBJECT_MAPPER.getTypeFactory().constructCollectionType(ArrayList.class, clazz);
-                return (List)OBJECT_MAPPER.readValue(json, listType);
+                return OBJECT_MAPPER.readValue(json, listType);
             } catch (Exception var3) {
                 log.error("json 反序列化为 list 失败 clazz: {}, json: {}", new Object[]{clazz.getName(), json, var3});
                 return Collections.emptyList();
