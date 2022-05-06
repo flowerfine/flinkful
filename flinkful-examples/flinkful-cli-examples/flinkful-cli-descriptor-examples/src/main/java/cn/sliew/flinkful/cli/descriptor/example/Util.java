@@ -3,6 +3,7 @@ package cn.sliew.flinkful.cli.descriptor.example;
 import cn.sliew.flinkful.cli.base.CliClient;
 import cn.sliew.flinkful.cli.base.PackageJarJob;
 import cn.sliew.flinkful.cli.descriptor.DescriptorCliClient;
+import cn.sliew.flinkful.cli.descriptor.DescriptorSessionCreateCliClient;
 import cn.sliew.flinkful.common.examples.FlinkExamples;
 import org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;
 
@@ -13,6 +14,10 @@ public enum Util {
 
     static CliClient buildCliClient() {
         return new DescriptorCliClient();
+    }
+
+    static CliClient buildSessionCreateCliClient() {
+        return new DescriptorSessionCreateCliClient();
     }
 
     static PackageJarJob buildJarJob() {

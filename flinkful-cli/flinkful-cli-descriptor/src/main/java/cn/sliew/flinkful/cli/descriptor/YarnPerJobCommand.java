@@ -40,7 +40,7 @@ public class YarnPerJobCommand implements Command {
     public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
         YarnClusterDescriptor clusterDescriptor = (YarnClusterDescriptor) Util.createClusterDescriptor(configuration);
         Util.addJarFiles(clusterDescriptor, configuration);
-        ClusterSpecification clusterSpecification = Util.createClusterSpecification();
+        ClusterSpecification clusterSpecification = Util.createClusterSpecification(configuration);
 
         PackagedProgram program = FlinkUtil.buildProgram(configuration, job);
         JobGraph jobGraph = PackagedProgramUtils.createJobGraph(program, configuration, 1, false);

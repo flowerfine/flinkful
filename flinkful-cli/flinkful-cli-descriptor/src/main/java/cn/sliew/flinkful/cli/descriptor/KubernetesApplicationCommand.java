@@ -24,7 +24,7 @@ public class KubernetesApplicationCommand implements Command {
     @Override
     public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
         KubernetesClusterDescriptor clusterDescriptor = (KubernetesClusterDescriptor) Util.createClusterDescriptor(configuration);
-        ClusterSpecification clusterSpecification = Util.createClusterSpecification();
+        ClusterSpecification clusterSpecification = Util.createClusterSpecification(configuration);
 
         ApplicationConfiguration applicationConfiguration = new ApplicationConfiguration(job.getProgramArgs(), job.getEntryPointClass());
         ClusterClient<String> clusterClient = createClusterClient(clusterDescriptor, clusterSpecification, applicationConfiguration);

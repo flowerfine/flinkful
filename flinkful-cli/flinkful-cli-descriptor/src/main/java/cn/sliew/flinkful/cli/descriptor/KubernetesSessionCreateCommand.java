@@ -23,7 +23,7 @@ public class KubernetesSessionCreateCommand implements Command {
     @Override
     public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
         KubernetesClusterDescriptor clusterDescriptor = (KubernetesClusterDescriptor) Util.createClusterDescriptor(configuration);
-        ClusterSpecification clusterSpecification = Util.createClusterSpecification();
+        ClusterSpecification clusterSpecification = Util.createClusterSpecification(configuration);
         ClusterClient<String> clusterClient = createClusterClient(clusterDescriptor, clusterSpecification);
 
         PackagedProgram program = FlinkUtil.buildProgram(configuration, job);

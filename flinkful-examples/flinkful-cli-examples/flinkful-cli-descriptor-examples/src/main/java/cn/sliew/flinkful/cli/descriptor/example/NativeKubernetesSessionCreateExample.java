@@ -13,7 +13,7 @@ import java.util.Collections;
 public class NativeKubernetesSessionCreateExample {
 
     public static void main(String[] args) throws Exception {
-        CliClient client = Util.buildCliClient();
+        CliClient client = Util.buildSessionCreateCliClient();
         client.submit(DeploymentTarget.NATIVE_KUBERNETES_SESSION, buildConfiguration(), Util.buildJarJob());
     }
 
@@ -24,6 +24,7 @@ public class NativeKubernetesSessionCreateExample {
         Configuration configuration = FlinkExamples.loadConfiguration();
         configuration.setLong(JobManagerOptions.TOTAL_PROCESS_MEMORY.key(), MemorySize.ofMebiBytes(2048).getBytes());
         configuration.setLong(TaskManagerOptions.TOTAL_PROCESS_MEMORY.key(), MemorySize.ofMebiBytes(2048).getBytes());
+        configuration.set(TaskManagerOptions.NUM_TASK_SLOTS, 2);
         URL exampleUrl = new File(FlinkExamples.EXAMPLE_JAR).toURL();
         ConfigUtils.encodeCollectionToConfig(configuration, PipelineOptions.JARS, Collections.singletonList(exampleUrl), Object::toString);
         return configuration;

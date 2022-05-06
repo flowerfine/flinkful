@@ -23,7 +23,7 @@ public class YarnApplicationCommand implements Command {
     public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
         YarnClusterDescriptor clusterDescriptor = (YarnClusterDescriptor) Util.createClusterDescriptor(configuration);
         Util.addJarFiles(clusterDescriptor, configuration);
-        ClusterSpecification clusterSpecification = Util.createClusterSpecification();
+        ClusterSpecification clusterSpecification = Util.createClusterSpecification(configuration);
 
         ApplicationConfiguration applicationConfiguration = new ApplicationConfiguration(job.getProgramArgs(), job.getEntryPointClass());
         ClusterClient<ApplicationId> clusterClient = createClusterClient(clusterDescriptor, clusterSpecification, applicationConfiguration);

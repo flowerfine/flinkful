@@ -6,6 +6,9 @@ import org.apache.flink.client.deployment.ClusterDescriptor;
 import org.apache.flink.client.deployment.ClusterSpecification;
 import org.apache.flink.client.deployment.DefaultClusterClientServiceLoader;
 import org.apache.flink.configuration.Configuration;
+import org.apache.flink.configuration.JobManagerOptions;
+import org.apache.flink.configuration.MemorySize;
+import org.apache.flink.configuration.TaskManagerOptions;
 import org.apache.flink.util.CollectionUtil;
 import org.apache.flink.yarn.YarnClusterDescriptor;
 import org.apache.flink.yarn.configuration.YarnConfigOptions;
@@ -34,11 +37,14 @@ public enum Util {
         return serviceLoader.getClusterClientFactory(config);
     }
 
-    public static ClusterSpecification createClusterSpecification() {
+    public static ClusterSpecification createClusterSpecification(Configuration configuration) {
+        MemorySize jobManagerMem = configuration.get(JobManagerOptions.TOTAL_PROCESS_MEMORY);
+        MemorySize taskManagerMem = configuration.get(TaskManagerOptions.TOTAL_PROCESS_MEMORY);
+        Integer slots = configuration.get(TaskManagerOptions.NUM_TASK_SLOTS);
         return new ClusterSpecification.ClusterSpecificationBuilder()
-                .setMasterMemoryMB(2048)
-                .setTaskManagerMemoryMB(2048)
-                .setSlotsPerTaskManager(2)
+                .setMasterMemoryMB(jobManagerMem.getMebiBytes() * 2)
+                .setTaskManagerMemoryMB(taskManagerMem.getMebiBytes() * 2)
+                .setSlotsPerTaskManager(slots)
                 .createClusterSpecification();
     }
 
