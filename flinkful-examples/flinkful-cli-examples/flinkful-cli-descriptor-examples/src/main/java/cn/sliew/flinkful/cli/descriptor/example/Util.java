@@ -22,7 +22,7 @@ public enum Util {
 
     static PackageJarJob buildJarJob() {
         PackageJarJob job = new PackageJarJob();
-        job.setJarFilePath(FlinkExamples.EXAMPLE_JAR);
+        job.setJarFilePath(FlinkExamples.EXAMPLE_JAR_URL);
         job.setEntryPointClass(FlinkExamples.EXAMPLE_ENTRY_CLASS);
         job.setProgramArgs(new String[]{});
         job.setClasspaths(Collections.emptyList());

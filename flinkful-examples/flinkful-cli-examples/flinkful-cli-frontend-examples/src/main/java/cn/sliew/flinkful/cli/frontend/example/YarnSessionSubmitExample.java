@@ -21,7 +21,7 @@ public class YarnSessionSubmitExample {
 
     private static Configuration buildConfiguration() throws MalformedURLException {
         Configuration configuration = FlinkExamples.loadConfiguration();
-        configuration.setString(YarnConfigOptions.APPLICATION_ID, "application_1646981816129_0003");
+        configuration.setString(YarnConfigOptions.APPLICATION_ID, "application_1651836467749_0017");
 
         configuration.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://hadoop:9000/flink/1.13.6"}));
         configuration.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://hadoop:9000/flink/1.13.6/flink-dist_2.11-1.13.6.jar");

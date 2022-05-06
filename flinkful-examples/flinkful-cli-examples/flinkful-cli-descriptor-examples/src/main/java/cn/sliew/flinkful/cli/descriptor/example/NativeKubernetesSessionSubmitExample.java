@@ -24,11 +24,11 @@ public class NativeKubernetesSessionSubmitExample {
      * 在已经创建好的 flink-kubernetes-session 集群中提交任务，只需要设置 clusterId 即可。
      * 获取 clusterId 的方式有很多：
      *     1. 创建 flink-kubernetes-session 集群时可以获取 clusterId。
-     *     2. clusterId 即为 flink-kubernetes-session 集群所在 pod 的 pod id。可以从 kubernetes 中获取。
+     *     2. clusterId 即为 flink-kubernetes-session 集群所在 pod 的 deployment id。可以从 kubernetes 中获取。
      */
     private static Configuration buildConfiguration() throws MalformedURLException {
         Configuration configuration = FlinkExamples.loadConfiguration();
-        configuration.setString(KubernetesConfigOptions.CLUSTER_ID, "flink-cluster-3530ff5b50949764011576f3b05245a");
+        configuration.setString(KubernetesConfigOptions.CLUSTER_ID, "flink-cluster-e40a0927cfe98fb3bf5c428a9583e60");
         URL exampleUrl = new File(FlinkExamples.EXAMPLE_JAR).toURL();
         ConfigUtils.encodeCollectionToConfig(configuration, PipelineOptions.JARS, Collections.singletonList(exampleUrl), Object::toString);
         return configuration;
