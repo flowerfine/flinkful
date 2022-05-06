@@ -30,7 +30,6 @@ public class YarnSessionCreateCommand implements Command {
     @Override
     public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
         YarnClusterDescriptor clusterDescriptor = (YarnClusterDescriptor) Util.createClusterDescriptor(configuration);
-        Util.addJarFiles(clusterDescriptor, configuration);
         ClusterSpecification clusterSpecification = Util.createClusterSpecification(configuration);
 
         ClusterClient<ApplicationId> clusterClient = createClusterClient(clusterDescriptor, clusterSpecification);

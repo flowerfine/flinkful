@@ -3,9 +3,7 @@ package cn.sliew.flinkful.cli.descriptor.example;
 import cn.sliew.flinkful.cli.base.CliClient;
 import cn.sliew.flinkful.common.enums.DeploymentTarget;
 import cn.sliew.flinkful.common.examples.FlinkExamples;
-import org.apache.flink.configuration.ConfigUtils;
-import org.apache.flink.configuration.Configuration;
-import org.apache.flink.configuration.PipelineOptions;
+import org.apache.flink.configuration.*;
 import org.apache.flink.yarn.configuration.YarnConfigOptions;
 
 import java.io.File;
@@ -17,7 +15,7 @@ import java.util.Collections;
 public class YarnSessionCreateExample {
 
     public static void main(String[] args) throws Exception {
-        CliClient client = Util.buildCliClient();
+        CliClient client = Util.buildSessionCreateCliClient();
         client.submit(DeploymentTarget.YARN_SESSION, buildConfiguration(), Util.buildJarJob());
     }
 
@@ -27,7 +25,9 @@ public class YarnSessionCreateExample {
      */
     private static Configuration buildConfiguration() throws MalformedURLException {
         Configuration configuration = FlinkExamples.loadConfiguration();
-        configuration.setString(YarnConfigOptions.APPLICATION_ID, "application_1646981816129_0003");
+        configuration.setLong(JobManagerOptions.TOTAL_PROCESS_MEMORY.key(), MemorySize.ofMebiBytes(2048).getBytes());
+        configuration.setLong(TaskManagerOptions.TOTAL_PROCESS_MEMORY.key(), MemorySize.ofMebiBytes(2048).getBytes());
+        configuration.set(TaskManagerOptions.NUM_TASK_SLOTS, 2);
 
         configuration.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://hadoop:9000/flink/1.13.6"}));
         configuration.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://hadoop:9000/flink/1.13.6/flink-dist_2.11-1.13.6.jar");

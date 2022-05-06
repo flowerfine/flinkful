@@ -38,12 +38,12 @@ public enum Util {
     }
 
     public static ClusterSpecification createClusterSpecification(Configuration configuration) {
-        MemorySize jobManagerMem = configuration.get(JobManagerOptions.TOTAL_PROCESS_MEMORY);
-        MemorySize taskManagerMem = configuration.get(TaskManagerOptions.TOTAL_PROCESS_MEMORY);
+        MemorySize jobManagerMem = configuration.getOptional(JobManagerOptions.TOTAL_PROCESS_MEMORY).orElse(MemorySize.ofMebiBytes(1024));
+        MemorySize taskManagerMem = configuration.getOptional(TaskManagerOptions.TOTAL_PROCESS_MEMORY).orElse(MemorySize.ofMebiBytes(1024));
         Integer slots = configuration.get(TaskManagerOptions.NUM_TASK_SLOTS);
         return new ClusterSpecification.ClusterSpecificationBuilder()
-                .setMasterMemoryMB(jobManagerMem.getMebiBytes() * 2)
-                .setTaskManagerMemoryMB(taskManagerMem.getMebiBytes() * 2)
+                .setMasterMemoryMB(jobManagerMem.getMebiBytes())
+                .setTaskManagerMemoryMB(taskManagerMem.getMebiBytes())
                 .setSlotsPerTaskManager(slots)
                 .createClusterSpecification();
     }
