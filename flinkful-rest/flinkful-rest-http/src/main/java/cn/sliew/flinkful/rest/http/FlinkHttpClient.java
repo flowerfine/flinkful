@@ -51,6 +51,11 @@ public class FlinkHttpClient implements RestClient {
     }
 
     @Override
+    public JobVerticeClient jobVertice() {
+        return (JobVerticeClient) cache.computeIfAbsent("jobVertice", key -> new JobVerticeHttpClient(client, webInterfaceURL));
+    }
+
+    @Override
     public JobManagerClient jobManager() {
         return (JobManagerClient) cache.computeIfAbsent("jobManager", key -> new JobManagerHttpClient(client, webInterfaceURL));
     }

@@ -56,6 +56,11 @@ public class FlinkRestClient implements cn.sliew.flinkful.rest.base.RestClient {
     }
 
     @Override
+    public JobVerticeClient jobVertice() {
+        return (JobVerticeClient) cache.computeIfAbsent("jobVertice", key -> new JobVerticeRestClient(address, port, client));
+    }
+
+    @Override
     public JobManagerClient jobManager() {
         return (JobManagerClient) cache.computeIfAbsent("jobManager", key -> new JobManagerRestClient(address, port, client));
     }

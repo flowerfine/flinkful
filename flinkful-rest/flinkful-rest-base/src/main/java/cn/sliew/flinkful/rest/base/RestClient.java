@@ -10,6 +10,8 @@ public interface RestClient {
 
     JobClient job();
 
+    JobVerticeClient jobVertice();
+
     JobManagerClient jobManager();
 
     TaskManagerClient taskManager();
