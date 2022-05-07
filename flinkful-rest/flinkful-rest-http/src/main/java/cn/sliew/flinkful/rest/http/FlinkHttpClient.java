@@ -5,8 +5,10 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import org.apache.flink.runtime.rest.util.RestConstants;
 import org.apache.flink.runtime.rest.versioning.RestAPIVersion;
+import org.jboss.netty.util.internal.ConcurrentHashMap;
 
 import java.time.Duration;
+import java.util.concurrent.ConcurrentMap;
 
 public class FlinkHttpClient implements RestClient {
 
@@ -14,6 +16,8 @@ public class FlinkHttpClient implements RestClient {
 
     private final String webInterfaceURL;
     private final OkHttpClient client;
+
+    private ConcurrentMap<String, Object> cache = new ConcurrentHashMap<>(8);
 
     public FlinkHttpClient(String webInterfaceURL) {
         this.webInterfaceURL = webInterfaceURL + "/" + RestAPIVersion.V1.getURLVersionPrefix();
@@ -28,41 +32,41 @@ public class FlinkHttpClient implements RestClient {
 
     @Override
     public ClusterClient cluster() {
-        return new ClusterHttpClient(client, webInterfaceURL);
+        return (ClusterClient) cache.computeIfAbsent("cluster", key -> new ClusterHttpClient(client, webInterfaceURL));
     }
 
     @Override
     public DataSetClient dataSet() {
-        return new DataSetHttpClient(client, webInterfaceURL);
+        return (DataSetClient) cache.computeIfAbsent("dataSet", key -> new DataSetHttpClient(client, webInterfaceURL));
     }
 
     @Override
     public JarClient jar() {
-        return new JarHttpClient(client, webInterfaceURL);
+        return (JarClient) cache.computeIfAbsent("jar", key -> new JarHttpClient(client, webInterfaceURL));
     }
 
     @Override
     public JobClient job() {
-        return new JobHttpClient(client, webInterfaceURL);
+        return (JobClient) cache.computeIfAbsent("job", key -> new JobHttpClient(client, webInterfaceURL));
     }
 
     @Override
     public JobManagerClient jobManager() {
-        return new JobManagerHttpClient(client, webInterfaceURL);
+        return (JobManagerClient) cache.computeIfAbsent("jobManager", key -> new JobManagerHttpClient(client, webInterfaceURL));
     }
 
     @Override
     public TaskManagerClient taskManager() {
-        return new TaskManagerHttpClient(client, webInterfaceURL);
+        return (TaskManagerClient) cache.computeIfAbsent("taskManager", key -> new TaskManagerHttpClient(client, webInterfaceURL));
     }
 
     @Override
     public SavepointClient savepoint() {
-        return new SavepointHttpClient(client, webInterfaceURL);
+        return (SavepointClient) cache.computeIfAbsent("savepoint", key -> new SavepointHttpClient(client, webInterfaceURL));
     }
 
     @Override
     public DashboardClient dashboard() {
-        return new DashboardHttpClient(client, webInterfaceURL);
+        return (DashboardClient) cache.computeIfAbsent("dashboard", key -> new DashboardHttpClient(client, webInterfaceURL));
     }
 }
