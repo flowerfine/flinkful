@@ -14,6 +14,7 @@ import org.apache.flink.runtime.webmonitor.threadinfo.JobVertexFlameGraph;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -57,10 +58,10 @@ public class JobVerticeHttpClient extends AsyncClient implements JobVerticeClien
     }
 
     @Override
-    public CompletableFuture<JobVertexFlameGraph> jobVertexFlameGraph(String jobId, String vertexId, String type) throws IOException {
+    public CompletableFuture<JobVertexFlameGraph> jobVertexFlameGraph(String jobId, String vertexId, Optional<String> type) throws IOException {
         String url = webInterfaceURL + "/jobs/" + jobId + "/vertices/" + vertexId + "/flamegraph";
-        if (StringUtils.isNotBlank(type)) {
-            url = url + "?type=" + type;
+        if (type.isPresent()) {
+            url = url + "?type=" + type.get();
         }
         Request request = new Request.Builder()
                 .get()
@@ -70,87 +71,10 @@ public class JobVerticeHttpClient extends AsyncClient implements JobVerticeClien
     }
 
     @Override
-    public CompletableFuture<MetricCollectionResponseBody> jobVertexMetrics(String jobId, String vertexId, String get) throws IOException {
+    public CompletableFuture<MetricCollectionResponseBody> jobVertexMetrics(String jobId, String vertexId, Optional<String> get) throws IOException {
         String url = webInterfaceURL + "/jobs/" + jobId + "/vertices/" + vertexId + "/metrics";
-        if (StringUtils.isNotBlank(get)) {
-            url = url + "?get=" + get;
-        }
-        Request request = new Request.Builder()
-                .get()
-                .url(url)
-                .build();
-        return remoteCall(request, MetricCollectionResponseBody.class);
-    }
-
-    @Override
-    public CompletableFuture<SubtasksAllAccumulatorsInfo> jobVertexSubtaskAccumulators(String jobId, String vertexId) throws IOException {
-        String url = webInterfaceURL + "/jobs/" + jobId + "/vertices/" + vertexId + "/subtasks/accumulators";
-        Request request = new Request.Builder()
-                .get()
-                .url(url)
-                .build();
-        return remoteCall(request, SubtasksAllAccumulatorsInfo.class);
-    }
-
-    @Override
-    public CompletableFuture<MetricCollectionResponseBody> jobVertexSubtaskMetrics(String jobId, String vertexId, String get, String agg, String subtasks) throws IOException {
-        String url = webInterfaceURL + "/jobs/" + jobId + "/vertices/" + vertexId + "/subtasks/metrics";
-        List<String> queryParams = new LinkedList<>();
-        if (StringUtils.isNotBlank(get)) {
-            queryParams.add("get=" + get);
-        }
-        if (StringUtils.isNotBlank(agg)) {
-            queryParams.add("agg=" + agg);
-        }
-        if (StringUtils.isNotBlank(subtasks)) {
-            queryParams.add("subtasks=" + subtasks);
-        }
-        if (queryParams.isEmpty() == false) {
-            String params = queryParams.stream().collect(Collectors.joining("&"));
-            url = url + "?" + params;
-        }
-        Request request = new Request.Builder()
-                .get()
-                .url(url)
-                .build();
-        return remoteCall(request, MetricCollectionResponseBody.class);
-    }
-
-    @Override
-    public CompletableFuture<SubtaskExecutionAttemptDetailsInfo> jobVertexSubtaskDetail(String jobId, String vertexId, Integer subtaskindex) throws IOException {
-        String url = webInterfaceURL + "/jobs/" + jobId + "/vertices/" + vertexId + "/subtasks/" + subtaskindex;
-        Request request = new Request.Builder()
-                .get()
-                .url(url)
-                .build();
-        return remoteCall(request, SubtaskExecutionAttemptDetailsInfo.class);
-    }
-
-    @Override
-    public CompletableFuture<SubtaskExecutionAttemptDetailsInfo> jobVertexSubtaskAttemptDetail(String jobId, String vertexId, Integer subtaskindex, Integer attempt) throws IOException {
-        String url = webInterfaceURL + "/jobs/" + jobId + "/vertices/" + vertexId + "/subtasks/" + subtaskindex + "/attempts/" + attempt;
-        Request request = new Request.Builder()
-                .get()
-                .url(url)
-                .build();
-        return remoteCall(request, SubtaskExecutionAttemptDetailsInfo.class);
-    }
-
-    @Override
-    public CompletableFuture<SubtaskExecutionAttemptAccumulatorsInfo> jobVertexSubtaskAttemptAccumulators(String jobId, String vertexId, Integer subtaskindex, Integer attempt) throws IOException {
-        String url = webInterfaceURL + "/jobs/" + jobId + "/vertices/" + vertexId + "/subtasks/" + subtaskindex + "/attempts/" + attempt + "/accumulators";
-        Request request = new Request.Builder()
-                .get()
-                .url(url)
-                .build();
-        return remoteCall(request, SubtaskExecutionAttemptAccumulatorsInfo.class);
-    }
-
-    @Override
-    public CompletableFuture<MetricCollectionResponseBody> jobVertexSubtaskMetrics(String jobId, String vertexId, Integer subtaskindex, String get) throws IOException {
-        String url = webInterfaceURL + "/jobs/" + jobId + "/vertices/" + vertexId + "/subtasks/" + subtaskindex + "/metrics";
-        if (StringUtils.isNotBlank(get)) {
-            url = url + "?get=" + get;
+        if (get.isPresent()) {
+            url = url + "?get=" + get.get();
         }
         Request request = new Request.Builder()
                 .get()
@@ -188,4 +112,82 @@ public class JobVerticeHttpClient extends AsyncClient implements JobVerticeClien
                 .build();
         return remoteCall(request, MetricCollectionResponseBody.class);
     }
+
+    @Override
+    public CompletableFuture<SubtasksAllAccumulatorsInfo> jobVertexSubtaskAccumulators(String jobId, String vertexId) throws IOException {
+        String url = webInterfaceURL + "/jobs/" + jobId + "/vertices/" + vertexId + "/subtasks/accumulators";
+        Request request = new Request.Builder()
+                .get()
+                .url(url)
+                .build();
+        return remoteCall(request, SubtasksAllAccumulatorsInfo.class);
+    }
+
+    @Override
+    public CompletableFuture<MetricCollectionResponseBody> jobVertexSubtaskMetrics(String jobId, String vertexId, Optional<String> get, Optional<String> agg, Optional<String> subtasks) throws IOException {
+        String url = webInterfaceURL + "/jobs/" + jobId + "/vertices/" + vertexId + "/subtasks/metrics";
+        List<String> queryParams = new LinkedList<>();
+        if (get.isPresent()) {
+            queryParams.add("get=" + get.get());
+        }
+        if (agg.isPresent()) {
+            queryParams.add("agg=" + agg.get());
+        }
+        if (subtasks.isPresent()) {
+            queryParams.add("subtasks=" + subtasks.get());
+        }
+        if (queryParams.isEmpty() == false) {
+            String params = queryParams.stream().collect(Collectors.joining("&"));
+            url = url + "?" + params;
+        }
+        Request request = new Request.Builder()
+                .get()
+                .url(url)
+                .build();
+        return remoteCall(request, MetricCollectionResponseBody.class);
+    }
+
+    @Override
+    public CompletableFuture<SubtaskExecutionAttemptDetailsInfo> jobVertexSubtaskDetail(String jobId, String vertexId, Integer subtaskindex) throws IOException {
+        String url = webInterfaceURL + "/jobs/" + jobId + "/vertices/" + vertexId + "/subtasks/" + subtaskindex;
+        Request request = new Request.Builder()
+                .get()
+                .url(url)
+                .build();
+        return remoteCall(request, SubtaskExecutionAttemptDetailsInfo.class);
+    }
+
+    @Override
+    public CompletableFuture<MetricCollectionResponseBody> jobVertexSubtaskMetrics(String jobId, String vertexId, Integer subtaskindex, String get) throws IOException {
+        String url = webInterfaceURL + "/jobs/" + jobId + "/vertices/" + vertexId + "/subtasks/" + subtaskindex + "/metrics";
+        if (StringUtils.isNotBlank(get)) {
+            url = url + "?get=" + get;
+        }
+        Request request = new Request.Builder()
+                .get()
+                .url(url)
+                .build();
+        return remoteCall(request, MetricCollectionResponseBody.class);
+    }
+
+    @Override
+    public CompletableFuture<SubtaskExecutionAttemptDetailsInfo> jobVertexSubtaskAttemptDetail(String jobId, String vertexId, Integer subtaskindex, Integer attempt) throws IOException {
+        String url = webInterfaceURL + "/jobs/" + jobId + "/vertices/" + vertexId + "/subtasks/" + subtaskindex + "/attempts/" + attempt;
+        Request request = new Request.Builder()
+                .get()
+                .url(url)
+                .build();
+        return remoteCall(request, SubtaskExecutionAttemptDetailsInfo.class);
+    }
+
+    @Override
+    public CompletableFuture<SubtaskExecutionAttemptAccumulatorsInfo> jobVertexSubtaskAttemptAccumulators(String jobId, String vertexId, Integer subtaskindex, Integer attempt) throws IOException {
+        String url = webInterfaceURL + "/jobs/" + jobId + "/vertices/" + vertexId + "/subtasks/" + subtaskindex + "/attempts/" + attempt + "/accumulators";
+        Request request = new Request.Builder()
+                .get()
+                .url(url)
+                .build();
+        return remoteCall(request, SubtaskExecutionAttemptAccumulatorsInfo.class);
+    }
+
 }

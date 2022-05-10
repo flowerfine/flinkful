@@ -8,6 +8,7 @@ import org.apache.flink.runtime.rest.messages.job.metrics.MetricCollectionRespon
 import org.apache.flink.runtime.webmonitor.threadinfo.JobVertexFlameGraph;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public interface JobVerticeClient {
@@ -43,7 +44,7 @@ public interface JobVerticeClient {
      * @param vertexId       32-character hexadecimal string value that identifies a job vertex.
      * @param type(optional) String value that specifies the Flame Graph type. Supported options are: "[FULL, ON_CPU, OFF_CPU]".
      */
-    CompletableFuture<JobVertexFlameGraph> jobVertexFlameGraph(String jobId, String vertexId, String type) throws IOException;
+    CompletableFuture<JobVertexFlameGraph> jobVertexFlameGraph(String jobId, String vertexId, Optional<String> type) throws IOException;
 
     /**
      * Provides access to task metrics.
@@ -52,67 +53,7 @@ public interface JobVerticeClient {
      * @param vertexId      32-character hexadecimal string value that identifies a job vertex.
      * @param get(optional) Comma-separated list of string values to select specific metrics.
      */
-    CompletableFuture<MetricCollectionResponseBody> jobVertexMetrics(String jobId, String vertexId, String get) throws IOException;
-
-    /**
-     * Returns all user-defined accumulators for all subtasks of a task.
-     *
-     * @param jobId    32-character hexadecimal string value that identifies a job.
-     * @param vertexId 32-character hexadecimal string value that identifies a job vertex.
-     */
-    CompletableFuture<SubtasksAllAccumulatorsInfo> jobVertexSubtaskAccumulators(String jobId, String vertexId) throws IOException;
-
-    /**
-     * Provides access to aggregated subtask metrics.
-     *
-     * @param jobId              32-character hexadecimal string value that identifies a job.
-     * @param vertexId           32-character hexadecimal string value that identifies a job vertex.
-     * @param get(optional)      Comma-separated list of string values to select specific metrics.
-     * @param agg(optional)      Comma-separated list of aggregation modes which should be calculated. Available aggregations are: "min, max, sum, avg".
-     * @param subtasks(optional) Comma-separated list of integer ranges (e.g. "1,3,5-9") to select specific subtasks.
-     */
-    CompletableFuture<MetricCollectionResponseBody> jobVertexSubtaskMetrics(String jobId, String vertexId, String get, String agg, String subtasks) throws IOException;
-
-    /**
-     * Returns details of the current or latest execution attempt of a subtask.
-     *
-     * @param jobId        32-character hexadecimal string value that identifies a job.
-     * @param vertexId     32-character hexadecimal string value that identifies a job vertex.
-     * @param subtaskindex Positive integer value that identifies a subtask.
-     */
-    CompletableFuture<SubtaskExecutionAttemptDetailsInfo> jobVertexSubtaskDetail(String jobId, String vertexId, Integer subtaskindex) throws IOException;
-
-    /**
-     * Returns details of an execution attempt of a subtask.
-     * Multiple execution attempts happen in case of failure/recovery.
-     *
-     * @param jobId        32-character hexadecimal string value that identifies a job.
-     * @param vertexId     32-character hexadecimal string value that identifies a job vertex.
-     * @param subtaskindex Positive integer value that identifies a subtask.
-     * @param attempt      Positive integer value that identifies an execution attempt.
-     */
-    CompletableFuture<SubtaskExecutionAttemptDetailsInfo> jobVertexSubtaskAttemptDetail(String jobId, String vertexId, Integer subtaskindex, Integer attempt) throws IOException;
-
-    /**
-     * Returns the accumulators of an execution attempt of a subtask.
-     * Multiple execution attempts happen in case of failure/recovery.
-     *
-     * @param jobId        32-character hexadecimal string value that identifies a job.
-     * @param vertexId     32-character hexadecimal string value that identifies a job vertex.
-     * @param subtaskindex Positive integer value that identifies a subtask.
-     * @param attempt      Positive integer value that identifies an execution attempt.
-     */
-    CompletableFuture<SubtaskExecutionAttemptAccumulatorsInfo> jobVertexSubtaskAttemptAccumulators(String jobId, String vertexId, Integer subtaskindex, Integer attempt) throws IOException;
-
-    /**
-     * Provides access to subtask metrics.
-     *
-     * @param jobId         32-character hexadecimal string value that identifies a job.
-     * @param vertexId      32-character hexadecimal string value that identifies a job vertex.
-     * @param subtaskindex  Positive integer value that identifies a subtask.
-     * @param get(optional) Comma-separated list of string values to select specific metrics.
-     */
-    CompletableFuture<MetricCollectionResponseBody> jobVertexSubtaskMetrics(String jobId, String vertexId, Integer subtaskindex, String get) throws IOException;
+    CompletableFuture<MetricCollectionResponseBody> jobVertexMetrics(String jobId, String vertexId, Optional<String> get) throws IOException;
 
     /**
      * Returns time-related information for all subtasks of a task.
@@ -137,4 +78,67 @@ public interface JobVerticeClient {
      * @param vertexId 32-character hexadecimal string value that identifies a job vertex.
      */
     CompletableFuture<MetricCollectionResponseBody> jobVertexWatermarks(String jobId, String vertexId) throws IOException;
+
+    /**
+     * Returns all user-defined accumulators for all subtasks of a task.
+     *
+     * @param jobId    32-character hexadecimal string value that identifies a job.
+     * @param vertexId 32-character hexadecimal string value that identifies a job vertex.
+     */
+    CompletableFuture<SubtasksAllAccumulatorsInfo> jobVertexSubtaskAccumulators(String jobId, String vertexId) throws IOException;
+
+    /**
+     * Provides access to aggregated subtask metrics.
+     *
+     * @param jobId              32-character hexadecimal string value that identifies a job.
+     * @param vertexId           32-character hexadecimal string value that identifies a job vertex.
+     * @param get(optional)      Comma-separated list of string values to select specific metrics.
+     * @param agg(optional)      Comma-separated list of aggregation modes which should be calculated. Available aggregations are: "min, max, sum, avg".
+     * @param subtasks(optional) Comma-separated list of integer ranges (e.g. "1,3,5-9") to select specific subtasks.
+     */
+    CompletableFuture<MetricCollectionResponseBody> jobVertexSubtaskMetrics(String jobId, String vertexId, Optional<String> get, Optional<String> agg, Optional<String> subtasks) throws IOException;
+
+    /**
+     * Returns details of the current or latest execution attempt of a subtask.
+     *
+     * @param jobId        32-character hexadecimal string value that identifies a job.
+     * @param vertexId     32-character hexadecimal string value that identifies a job vertex.
+     * @param subtaskindex Positive integer value that identifies a subtask.
+     */
+    CompletableFuture<SubtaskExecutionAttemptDetailsInfo> jobVertexSubtaskDetail(String jobId, String vertexId, Integer subtaskindex) throws IOException;
+
+    /**
+     * Provides access to subtask metrics.
+     *
+     * @param jobId         32-character hexadecimal string value that identifies a job.
+     * @param vertexId      32-character hexadecimal string value that identifies a job vertex.
+     * @param subtaskindex  Positive integer value that identifies a subtask.
+     * @param get(optional) Comma-separated list of string values to select specific metrics.
+     */
+    CompletableFuture<MetricCollectionResponseBody> jobVertexSubtaskMetrics(String jobId, String vertexId, Integer subtaskindex, String get) throws IOException;
+
+    /**
+     * Returns details of an execution attempt of a subtask.
+     * Multiple execution attempts happen in case of failure/recovery.
+     *
+     * @param jobId        32-character hexadecimal string value that identifies a job.
+     * @param vertexId     32-character hexadecimal string value that identifies a job vertex.
+     * @param subtaskindex Positive integer value that identifies a subtask.
+     * @param attempt      Positive integer value that identifies an execution attempt.
+     */
+    CompletableFuture<SubtaskExecutionAttemptDetailsInfo> jobVertexSubtaskAttemptDetail(String jobId, String vertexId, Integer subtaskindex, Integer attempt) throws IOException;
+
+    /**
+     * Returns the accumulators of an execution attempt of a subtask.
+     * Multiple execution attempts happen in case of failure/recovery.
+     *
+     * @param jobId        32-character hexadecimal string value that identifies a job.
+     * @param vertexId     32-character hexadecimal string value that identifies a job vertex.
+     * @param subtaskindex Positive integer value that identifies a subtask.
+     * @param attempt      Positive integer value that identifies an execution attempt.
+     */
+    CompletableFuture<SubtaskExecutionAttemptAccumulatorsInfo> jobVertexSubtaskAttemptAccumulators(String jobId, String vertexId, Integer subtaskindex, Integer attempt) throws IOException;
+
+
+
 }

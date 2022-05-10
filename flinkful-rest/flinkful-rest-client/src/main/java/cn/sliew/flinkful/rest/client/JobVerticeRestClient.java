@@ -8,6 +8,7 @@ import org.apache.flink.runtime.rest.messages.job.metrics.*;
 import org.apache.flink.runtime.webmonitor.threadinfo.JobVertexFlameGraph;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import static cn.sliew.milky.common.exception.Rethrower.toIllegalArgument;
@@ -49,78 +50,21 @@ public class JobVerticeRestClient implements JobVerticeClient {
     }
 
     @Override
-    public CompletableFuture<JobVertexFlameGraph> jobVertexFlameGraph(String jobId, String vertexId, String type) throws IOException {
+    public CompletableFuture<JobVertexFlameGraph> jobVertexFlameGraph(String jobId, String vertexId, Optional<String> type) throws IOException {
         JobVertexFlameGraphParameters parameters = new JobVertexFlameGraphParameters();
         toIllegalArgument(() -> parameters.jobPathParameter.resolveFromString(jobId));
         toIllegalArgument(() -> parameters.jobVertexIdPathParameter.resolveFromString(vertexId));
-        toIllegalArgument(() -> parameters.flameGraphTypeQueryParameter.resolveFromString(type));
+        type.ifPresent(typeStr -> toIllegalArgument(() -> parameters.flameGraphTypeQueryParameter.resolveFromString(typeStr)));
         return client.sendRequest(address, port, JobVertexFlameGraphHeaders.getInstance(), parameters, EmptyRequestBody.getInstance());
     }
 
     @Override
-    public CompletableFuture<MetricCollectionResponseBody> jobVertexMetrics(String jobId, String vertexId, String get) throws IOException {
+    public CompletableFuture<MetricCollectionResponseBody> jobVertexMetrics(String jobId, String vertexId, Optional<String> get) throws IOException {
         JobVertexMetricsMessageParameters parameters = new JobVertexMetricsMessageParameters();
         toIllegalArgument(() -> parameters.jobPathParameter.resolveFromString(jobId));
         toIllegalArgument(() -> parameters.jobVertexIdPathParameter.resolveFromString(vertexId));
-        toIllegalArgument(() -> parameters.metricsFilterParameter.resolveFromString(get));
+        get.ifPresent(metrics -> toIllegalArgument(() -> parameters.metricsFilterParameter.resolveFromString(metrics)));
         return client.sendRequest(address, port, JobVertexMetricsHeaders.getInstance(), parameters, EmptyRequestBody.getInstance());
-    }
-
-    @Override
-    public CompletableFuture<SubtasksAllAccumulatorsInfo> jobVertexSubtaskAccumulators(String jobId, String vertexId) throws IOException {
-        JobVertexMessageParameters parameters = new JobVertexMessageParameters();
-        toIllegalArgument(() -> parameters.jobPathParameter.resolveFromString(jobId));
-        toIllegalArgument(() -> parameters.jobVertexIdPathParameter.resolveFromString(vertexId));
-        return client.sendRequest(address, port, SubtasksAllAccumulatorsHeaders.getInstance(), parameters, EmptyRequestBody.getInstance());
-    }
-
-    @Override
-    public CompletableFuture<MetricCollectionResponseBody> jobVertexSubtaskMetrics(String jobId, String vertexId, String get, String agg, String subtasks) throws IOException {
-        SubtaskMetricsMessageParameters parameters = new SubtaskMetricsMessageParameters();
-        toIllegalArgument(() -> parameters.jobPathParameter.resolveFromString(jobId));
-        toIllegalArgument(() -> parameters.jobVertexIdPathParameter.resolveFromString(vertexId));
-        toIllegalArgument(() -> parameters.metricsFilterParameter.resolveFromString(get));
-        toIllegalArgument(() -> parameters.subtaskIndexPathParameter.resolveFromString(subtasks));
-        return client.sendRequest(address, port, SubtaskMetricsHeaders.getInstance(), parameters, EmptyRequestBody.getInstance());
-    }
-
-    @Override
-    public CompletableFuture<SubtaskExecutionAttemptDetailsInfo> jobVertexSubtaskDetail(String jobId, String vertexId, Integer subtaskindex) throws IOException {
-        SubtaskMessageParameters parameters = new SubtaskMessageParameters();
-        toIllegalArgument(() -> parameters.jobPathParameter.resolveFromString(jobId));
-        toIllegalArgument(() -> parameters.jobVertexIdPathParameter.resolveFromString(vertexId));
-        toIllegalArgument(() -> parameters.subtaskIndexPathParameter.resolveFromString(subtaskindex.toString()));
-        return client.sendRequest(address, port, SubtaskCurrentAttemptDetailsHeaders.getInstance(), parameters, EmptyRequestBody.getInstance());
-    }
-
-    @Override
-    public CompletableFuture<SubtaskExecutionAttemptDetailsInfo> jobVertexSubtaskAttemptDetail(String jobId, String vertexId, Integer subtaskindex, Integer attempt) throws IOException {
-        SubtaskAttemptMessageParameters parameters = new SubtaskAttemptMessageParameters();
-        toIllegalArgument(() -> parameters.jobPathParameter.resolveFromString(jobId));
-        toIllegalArgument(() -> parameters.jobVertexIdPathParameter.resolveFromString(vertexId));
-        toIllegalArgument(() -> parameters.subtaskIndexPathParameter.resolveFromString(subtaskindex.toString()));
-        toIllegalArgument(() -> parameters.subtaskAttemptPathParameter.resolveFromString(attempt.toString()));
-        return client.sendRequest(address, port, SubtaskExecutionAttemptDetailsHeaders.getInstance(), parameters, EmptyRequestBody.getInstance());
-    }
-
-    @Override
-    public CompletableFuture<SubtaskExecutionAttemptAccumulatorsInfo> jobVertexSubtaskAttemptAccumulators(String jobId, String vertexId, Integer subtaskindex, Integer attempt) throws IOException {
-        SubtaskAttemptMessageParameters parameters = new SubtaskAttemptMessageParameters();
-        toIllegalArgument(() -> parameters.jobPathParameter.resolveFromString(jobId));
-        toIllegalArgument(() -> parameters.jobVertexIdPathParameter.resolveFromString(vertexId));
-        toIllegalArgument(() -> parameters.subtaskIndexPathParameter.resolveFromString(subtaskindex.toString()));
-        toIllegalArgument(() -> parameters.subtaskAttemptPathParameter.resolveFromString(attempt.toString()));
-        return client.sendRequest(address, port, SubtaskExecutionAttemptAccumulatorsHeaders.getInstance(), parameters, EmptyRequestBody.getInstance());
-    }
-
-    @Override
-    public CompletableFuture<MetricCollectionResponseBody> jobVertexSubtaskMetrics(String jobId, String vertexId, Integer subtaskindex, String get) throws IOException {
-        SubtaskMetricsMessageParameters parameters = new SubtaskMetricsMessageParameters();
-        toIllegalArgument(() -> parameters.jobPathParameter.resolveFromString(jobId));
-        toIllegalArgument(() -> parameters.jobVertexIdPathParameter.resolveFromString(vertexId));
-        toIllegalArgument(() -> parameters.subtaskIndexPathParameter.resolveFromString(subtaskindex.toString()));
-        toIllegalArgument(() -> parameters.metricsFilterParameter.resolveFromString(get));
-        return client.sendRequest(address, port, SubtaskMetricsHeaders.getInstance(), parameters, EmptyRequestBody.getInstance());
     }
 
     @Override
@@ -146,4 +90,65 @@ public class JobVerticeRestClient implements JobVerticeClient {
         toIllegalArgument(() -> parameters.jobVertexIdPathParameter.resolveFromString(vertexId));
         return client.sendRequest(address, port, JobVertexWatermarksHeaders.INSTANCE, parameters, EmptyRequestBody.getInstance());
     }
+
+    @Override
+    public CompletableFuture<SubtasksAllAccumulatorsInfo> jobVertexSubtaskAccumulators(String jobId, String vertexId) throws IOException {
+        JobVertexMessageParameters parameters = new JobVertexMessageParameters();
+        toIllegalArgument(() -> parameters.jobPathParameter.resolveFromString(jobId));
+        toIllegalArgument(() -> parameters.jobVertexIdPathParameter.resolveFromString(vertexId));
+        return client.sendRequest(address, port, SubtasksAllAccumulatorsHeaders.getInstance(), parameters, EmptyRequestBody.getInstance());
+    }
+
+    /**
+     * fixme wrong headers
+     */
+    @Override
+    public CompletableFuture<MetricCollectionResponseBody> jobVertexSubtaskMetrics(String jobId, String vertexId, Optional<String> get, Optional<String> agg, Optional<String> subtasks) throws IOException {
+        SubtaskMetricsMessageParameters parameters = new SubtaskMetricsMessageParameters();
+        toIllegalArgument(() -> parameters.jobPathParameter.resolveFromString(jobId));
+        toIllegalArgument(() -> parameters.jobVertexIdPathParameter.resolveFromString(vertexId));
+        get.ifPresent(metrics -> toIllegalArgument(() -> parameters.metricsFilterParameter.resolveFromString(metrics)));
+        subtasks.ifPresent(subtask -> toIllegalArgument(() -> parameters.subtaskIndexPathParameter.resolveFromString(subtask)));
+        return client.sendRequest(address, port, SubtaskMetricsHeaders.getInstance(), parameters, EmptyRequestBody.getInstance());
+    }
+
+    @Override
+    public CompletableFuture<SubtaskExecutionAttemptDetailsInfo> jobVertexSubtaskDetail(String jobId, String vertexId, Integer subtaskindex) throws IOException {
+        SubtaskMessageParameters parameters = new SubtaskMessageParameters();
+        toIllegalArgument(() -> parameters.jobPathParameter.resolveFromString(jobId));
+        toIllegalArgument(() -> parameters.jobVertexIdPathParameter.resolveFromString(vertexId));
+        toIllegalArgument(() -> parameters.subtaskIndexPathParameter.resolveFromString(subtaskindex.toString()));
+        return client.sendRequest(address, port, SubtaskCurrentAttemptDetailsHeaders.getInstance(), parameters, EmptyRequestBody.getInstance());
+    }
+
+    @Override
+    public CompletableFuture<MetricCollectionResponseBody> jobVertexSubtaskMetrics(String jobId, String vertexId, Integer subtaskindex, String get) throws IOException {
+        SubtaskMetricsMessageParameters parameters = new SubtaskMetricsMessageParameters();
+        toIllegalArgument(() -> parameters.jobPathParameter.resolveFromString(jobId));
+        toIllegalArgument(() -> parameters.jobVertexIdPathParameter.resolveFromString(vertexId));
+        toIllegalArgument(() -> parameters.subtaskIndexPathParameter.resolveFromString(subtaskindex.toString()));
+        toIllegalArgument(() -> parameters.metricsFilterParameter.resolveFromString(get));
+        return client.sendRequest(address, port, SubtaskMetricsHeaders.getInstance(), parameters, EmptyRequestBody.getInstance());
+    }
+
+    @Override
+    public CompletableFuture<SubtaskExecutionAttemptDetailsInfo> jobVertexSubtaskAttemptDetail(String jobId, String vertexId, Integer subtaskindex, Integer attempt) throws IOException {
+        SubtaskAttemptMessageParameters parameters = new SubtaskAttemptMessageParameters();
+        toIllegalArgument(() -> parameters.jobPathParameter.resolveFromString(jobId));
+        toIllegalArgument(() -> parameters.jobVertexIdPathParameter.resolveFromString(vertexId));
+        toIllegalArgument(() -> parameters.subtaskIndexPathParameter.resolveFromString(subtaskindex.toString()));
+        toIllegalArgument(() -> parameters.subtaskAttemptPathParameter.resolveFromString(attempt.toString()));
+        return client.sendRequest(address, port, SubtaskExecutionAttemptDetailsHeaders.getInstance(), parameters, EmptyRequestBody.getInstance());
+    }
+
+    @Override
+    public CompletableFuture<SubtaskExecutionAttemptAccumulatorsInfo> jobVertexSubtaskAttemptAccumulators(String jobId, String vertexId, Integer subtaskindex, Integer attempt) throws IOException {
+        SubtaskAttemptMessageParameters parameters = new SubtaskAttemptMessageParameters();
+        toIllegalArgument(() -> parameters.jobPathParameter.resolveFromString(jobId));
+        toIllegalArgument(() -> parameters.jobVertexIdPathParameter.resolveFromString(vertexId));
+        toIllegalArgument(() -> parameters.subtaskIndexPathParameter.resolveFromString(subtaskindex.toString()));
+        toIllegalArgument(() -> parameters.subtaskAttemptPathParameter.resolveFromString(attempt.toString()));
+        return client.sendRequest(address, port, SubtaskExecutionAttemptAccumulatorsHeaders.getInstance(), parameters, EmptyRequestBody.getInstance());
+    }
+
 }
