@@ -14,7 +14,11 @@ Hope user like and appreciate our work.
 
 ## Quick Start
 
+Flinkful helps people open the door to Flink management and provides `flinkful-examples` module which demonstrates creating session cluster, submitting job and access jobs and cluster status.
 
+* `flinkful-common-examples`. helper module contains flink environment and job utility. 
+* `flinkful-cli-examples`。modules contains how to create session cluster and submit job.
+* `flinkful-rest-examples`。modules contains how to access jobs and cluster status.
 
 ## How Flinkful?
 
@@ -111,7 +115,56 @@ User can explore Flinkful what to do on `flinkful-rest-client` module.
 
 ### Session Cluster
 
+```java
+public interface ClusterDescriptor<T> extends AutoCloseable {
 
+    /**
+     * Triggers deployment of a cluster.
+     *
+     * @param clusterSpecification Cluster specification defining the cluster to deploy
+     * @return Client for the cluster
+     * @throws ClusterDeploymentException if the cluster could not be deployed
+     */
+    ClusterClientProvider<T> deploySessionCluster(ClusterSpecification clusterSpecification) throws ClusterDeploymentException;
+}
+```
+
+`ClusterDescriptor` defines the method deploying session cluster and Flink implements YARN and Native Kubernetes ways, Flinkful's `SessionClient` supports all of them.
+
+```java
+public class SessionClient {
+
+    public static ClusterClient create(DeploymentTarget deploymentTarget, Configuration configuration) throws Exception {
+        switch (deploymentTarget) {
+            case NATIVE_KUBERNETES_SESSION:
+            case YARN_SESSION:
+            case STANDALONE_SESSION:
+                SessionCommand command = SessionFactory.buildSessionCommand(deploymentTarget);
+                deploymentTarget.apply(configuration);
+                return command.create(deploymentTarget, configuration);
+            default:
+                throw new UnsupportedOperationException();
+        }
+    }
+}
+
+public enum SessionFactory {
+    ;
+
+    public static SessionCommand buildSessionCommand(DeploymentTarget target) {
+        switch (target) {
+            case STANDALONE_SESSION:
+                throw new UnsupportedOperationException();
+            case YARN_SESSION:
+                return new YarnSessionCreateCommand();
+            case NATIVE_KUBERNETES_SESSION:
+                return new KubernetesSessionCreateCommand();
+            default:
+                throw new UnsupportedOperationException();
+        }
+    }
+}
+```
 
 ## Flink vs Flinkful
 
