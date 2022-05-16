@@ -17,8 +17,8 @@ Hope user like and appreciate our work.
 Flinkful helps people open the door to Flink management and provides `flinkful-examples` module which demonstrates creating session cluster, submitting job and access jobs and cluster status.
 
 * `flinkful-common-examples`. helper module contains flink environment and job utility. 
-* `flinkful-cli-examples`。modules contains how to create session cluster and submit job.
-* `flinkful-rest-examples`。modules contains how to access jobs and cluster status.
+* `flinkful-cli-examples`. modules contains how to create session cluster and submit job.
+* `flinkful-rest-examples`. modules contains how to access jobs and cluster status.
 
 ## How Flinkful?
 
