@@ -6,7 +6,7 @@
     <parent>
         <groupId>cn.sliew</groupId>
         <artifactId>flinkful</artifactId>
-        <version>1.13.6_1_8-SNAPSHOT</version>
+        <version>1.14.4_1_11-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>flinkful-rest</artifactId>
