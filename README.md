@@ -172,6 +172,7 @@ public enum SessionFactory {
 | ---- | ------ | -------------------- |
 | 1.8  | 1.13.6 | 1.13.6_1_8-SNAPSHOT  |
 | 11   | 1.14.4 | 1.14.2_1_11-SNAPSHOT |
+| 17   | 1.15.0 | comming soon...      |
 
 ## Next Flinkful
 
