@@ -12,14 +12,6 @@ Flinkful makes best effort for releasing Flink source code internal potentials a
 
 Hope user like and appreciate our work.
 
-## Quick Start
-
-Flinkful helps people open the door to Flink management and provides `flinkful-examples` module which demonstrates creating session cluster, submitting job and access jobs and cluster status.
-
-* `flinkful-common-examples`. helper module contains flink environment and job utility. 
-* `flinkful-cli-examples`。modules contains how to create session cluster and submit job.
-* `flinkful-rest-examples`。modules contains how to access jobs and cluster status.
-
 ## How Flinkful?
 
 As mentioned [here](https://nightlies.apache.org/flink/flink-docs-release-1.14/docs/deployment/overview/), Flink consists of `JobManager`, `TaskManager` and `client`. After `JobManager` bootstraped, people can access Flink cluster with runtime-webui by http, In fact, most Flink cluster and job status can be obtained by http.
@@ -97,6 +89,10 @@ public class FrontendCliClient implements CliClient {
 
 User can add `flinkful-cli-frontend` to their project to obtain this clean code.
 
+#### Flinkful submission examples
+
+comming soon.
+
 ### Access cluster and job status
 
 #### http client
@@ -113,66 +109,13 @@ Thankfully, Flink provides `RestClient` for runtime web-ui access internally and
 
 User can explore Flinkful what to do on `flinkful-rest-client` module.
 
-### Session Cluster
-
-```java
-public interface ClusterDescriptor<T> extends AutoCloseable {
-
-    /**
-     * Triggers deployment of a cluster.
-     *
-     * @param clusterSpecification Cluster specification defining the cluster to deploy
-     * @return Client for the cluster
-     * @throws ClusterDeploymentException if the cluster could not be deployed
-     */
-    ClusterClientProvider<T> deploySessionCluster(ClusterSpecification clusterSpecification) throws ClusterDeploymentException;
-}
-```
-
-`ClusterDescriptor` defines the method deploying session cluster and Flink implements YARN and Native Kubernetes ways, Flinkful's `SessionClient` supports all of them.
-
-```java
-public class SessionClient {
-
-    public static ClusterClient create(DeploymentTarget deploymentTarget, Configuration configuration) throws Exception {
-        switch (deploymentTarget) {
-            case NATIVE_KUBERNETES_SESSION:
-            case YARN_SESSION:
-            case STANDALONE_SESSION:
-                SessionCommand command = SessionFactory.buildSessionCommand(deploymentTarget);
-                deploymentTarget.apply(configuration);
-                return command.create(deploymentTarget, configuration);
-            default:
-                throw new UnsupportedOperationException();
-        }
-    }
-}
-
-public enum SessionFactory {
-    ;
-
-    public static SessionCommand buildSessionCommand(DeploymentTarget target) {
-        switch (target) {
-            case STANDALONE_SESSION:
-                throw new UnsupportedOperationException();
-            case YARN_SESSION:
-                return new YarnSessionCreateCommand();
-            case NATIVE_KUBERNETES_SESSION:
-                return new KubernetesSessionCreateCommand();
-            default:
-                throw new UnsupportedOperationException();
-        }
-    }
-}
-```
-
 ## Flink vs Flinkful
 
-| java | Flink  | Flinkful             |
-| ---- | ------ | -------------------- |
-| 1.8  | 1.13.6 | 1.13.6_1_8-SNAPSHOT  |
-| 11   | 1.14.4 | 1.14.2_1_11-SNAPSHOT |
-| 17   | 1.15.0 | comming soon...      |
+| java | Flink  | Flinkful             | branch          |
+| ---- | ------ | -------------------- | --------------- |
+| 1.8  | 1.13.6 | 1.13.6_1_8-SNAPSHOT  | 1.13/main       |
+| 11   | 1.14.4 | 1.14.2_1_11-SNAPSHOT | 1.14/main, main |
+| 17   | 1.15.0 | comming soon...      | comming soon... |
 
 ## Next Flinkful
 
