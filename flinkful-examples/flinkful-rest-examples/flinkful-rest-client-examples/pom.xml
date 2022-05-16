@@ -20,12 +20,7 @@
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>flinkful-rest-client</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-runtime</artifactId>
-            <version>${flink.version}</version>
-        </dependency>
+        
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-runtime-web_${scala.binary.version}</artifactId>
