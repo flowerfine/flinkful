@@ -11,10 +11,6 @@
     </parent>
     <artifactId>flinkful-cli-base</artifactId>
 
-    <properties>
-        <maven.deploy.skip>true</maven.deploy.skip>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
