@@ -238,8 +238,11 @@ public class PackagedProgram implements AutoCloseable {
 
         List<String> jars = configuration.get(PipelineOptions.JARS);
         try {
-            for (String jarUrl : jars) {
-                libs.add(new URL(jarUrl));
+            for (String jar : jars) {
+                final URL jarUrl = new URL(jar);
+                if (!libs.contains(jarUrl)) {
+                    libs.add(jarUrl);
+                }
             }
         } catch (MalformedURLException e) {
             throw new RuntimeException("URL is invalid. This should not happen.", e);
