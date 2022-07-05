@@ -5,6 +5,7 @@ import org.apache.flink.client.deployment.ClusterClientFactory;
 import org.apache.flink.client.deployment.ClusterDescriptor;
 import org.apache.flink.client.deployment.ClusterSpecification;
 import org.apache.flink.client.deployment.DefaultClusterClientServiceLoader;
+import org.apache.flink.client.program.ClusterClient;
 import org.apache.flink.client.program.PackagedProgram;
 import org.apache.flink.client.program.ProgramInvocationException;
 import org.apache.flink.configuration.*;
@@ -77,6 +78,14 @@ public enum FlinkUtil {
             throw new FileNotFoundException("JAR file is not a file: " + jarFile);
         }
         return jarFile;
+    }
+
+    public static ClusterClient retrieve(Configuration configuration) throws Exception {
+        ClusterClientFactory factory = FlinkUtil.createClientFactory(configuration);
+        ClusterDescriptor clusterDescriptor = FlinkUtil.createClusterDescriptor(factory, configuration);
+
+        Object clusterId = factory.getClusterId(configuration);
+        return clusterDescriptor.retrieve(clusterId).getClusterClient();
     }
 
     public static ClusterDescriptor createClusterDescriptor(Configuration config) {
