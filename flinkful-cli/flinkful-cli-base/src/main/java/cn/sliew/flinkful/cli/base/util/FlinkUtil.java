@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
 
 public enum FlinkUtil {
     ;
@@ -30,8 +31,8 @@ public enum FlinkUtil {
         return getFlinkHome() + File.separator + "conf";
     }
 
-    public static String getFlinkPluginsDir() {
-        return getFlinkHome() + File.separator + "plugins";
+    public static Path getFlinkPluginsDir(Path flinkHome) {
+        return flinkHome.resolve("plugins");
     }
 
     public static String getFlinkLibDir() {

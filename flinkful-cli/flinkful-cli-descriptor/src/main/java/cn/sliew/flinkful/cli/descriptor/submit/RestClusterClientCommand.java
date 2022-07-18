@@ -10,10 +10,12 @@ import org.apache.flink.client.program.rest.RestClusterClient;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.runtime.jobgraph.JobGraph;
 
+import java.nio.file.Path;
+
 public class RestClusterClientCommand implements SubmitCommand {
 
     @Override
-    public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
+    public JobID submit(Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
         RestClusterClient<StandaloneClusterId> client = createClusterClient(configuration);
         PackagedProgram program = FlinkUtil.buildProgram(configuration, job);
         JobGraph jobGraph = PackagedProgramUtils.createJobGraph(program, configuration, job.getParallelism(), false);

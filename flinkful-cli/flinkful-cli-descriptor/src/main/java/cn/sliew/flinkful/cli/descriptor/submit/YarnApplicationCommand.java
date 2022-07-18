@@ -15,6 +15,7 @@ import org.apache.flink.runtime.client.JobStatusMessage;
 import org.apache.flink.yarn.YarnClusterDescriptor;
 import org.apache.hadoop.yarn.api.records.ApplicationId;
 
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -22,9 +23,9 @@ import java.util.Optional;
 public class YarnApplicationCommand implements SubmitCommand {
 
     @Override
-    public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
+    public JobID submit(Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
         YarnClusterDescriptor clusterDescriptor = (YarnClusterDescriptor) FlinkUtil.createClusterDescriptor(configuration);
-        Util.addJarFiles(clusterDescriptor, configuration);
+        Util.addJarFiles(clusterDescriptor, configuration, flinkHome);
         ClusterSpecification clusterSpecification = FlinkUtil.createClusterSpecification(configuration);
 
         ApplicationConfiguration applicationConfiguration = new ApplicationConfiguration(job.getProgramArgs(), job.getEntryPointClass());

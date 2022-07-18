@@ -25,11 +25,11 @@ public enum Util {
         config.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://hadoop:9000/flink/1.13.6/flink-dist_2.11-1.13.6.jar");
     }
 
-    public static void addJarFiles(YarnClusterDescriptor clusterDescriptor, Configuration config) throws MalformedURLException {
+    public static void addJarFiles(YarnClusterDescriptor clusterDescriptor, Configuration config, java.nio.file.Path flinkHome) throws MalformedURLException {
         boolean isRemoteJarPath =
                 !CollectionUtil.isNullOrEmpty(config.get(YarnConfigOptions.PROVIDED_LIB_DIRS));
         List<File> shipFiles = new ArrayList<>();
-        File[] plugins = new File(FlinkUtil.getFlinkPluginsDir()).listFiles();
+        File[] plugins = FlinkUtil.getFlinkPluginsDir(flinkHome).toFile().listFiles();
         if (plugins != null) {
             for (File plugin : plugins) {
                 if (plugin.isDirectory() == false) {

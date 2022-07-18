@@ -11,10 +11,12 @@ import org.apache.flink.configuration.Configuration;
 import org.apache.flink.kubernetes.KubernetesClusterDescriptor;
 import org.apache.flink.runtime.jobgraph.JobGraph;
 
+import java.nio.file.Path;
+
 public class KubernetesSessionSubmitCommand implements SubmitCommand {
 
     @Override
-    public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
+    public JobID submit(Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
         ClusterClientFactory<String> factory = FlinkUtil.createClientFactory(configuration);
         KubernetesClusterDescriptor clusterDescriptor = (KubernetesClusterDescriptor) FlinkUtil.createClusterDescriptor(factory, configuration);
 
