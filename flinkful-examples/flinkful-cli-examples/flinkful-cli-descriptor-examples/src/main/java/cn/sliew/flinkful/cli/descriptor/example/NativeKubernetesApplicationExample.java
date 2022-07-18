@@ -9,13 +9,15 @@ import org.apache.flink.kubernetes.configuration.KubernetesConfigOptions;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Collections;
 
 public class NativeKubernetesApplicationExample {
 
     public static void main(String[] args) throws Exception {
         CliClient client = Util.buildCliClient();
-        client.submitApplication(DeploymentTarget.NATIVE_KUBERNETES_APPLICATION, buildConfiguration(), Util.buildJarJob());
+        final java.nio.file.Path flinkHome = Paths.get("/Users/wangqi/Documents/software/flink/flink-1.13.6");
+        client.submitApplication(DeploymentTarget.NATIVE_KUBERNETES_APPLICATION, flinkHome, buildConfiguration(), Util.buildJarJob());
     }
 
     private static Configuration buildConfiguration() throws MalformedURLException {

@@ -12,6 +12,7 @@ import org.apache.hadoop.fs.Path;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,7 +20,8 @@ public class YarnApplicationExample {
 
     public static void main(String[] args) throws Exception {
         CliClient client = cn.sliew.flinkful.cli.descriptor.example.Util.buildCliClient();
-        client.submitApplication(DeploymentTarget.YARN_APPLICATION, buildConfiguration(), cn.sliew.flinkful.cli.descriptor.example.Util.buildJarJob());
+        final java.nio.file.Path flinkHome = Paths.get("/Users/wangqi/Documents/software/flink/flink-1.13.6");
+        client.submitApplication(DeploymentTarget.YARN_APPLICATION, flinkHome, buildConfiguration(), cn.sliew.flinkful.cli.descriptor.example.Util.buildJarJob());
     }
 
     /**
@@ -34,6 +36,7 @@ public class YarnApplicationExample {
      */
     public static Configuration buildConfiguration() throws MalformedURLException {
         Configuration configuration = FlinkExamples.loadConfiguration();
+        configuration.setString(ConfigConstants.PATH_HADOOP_CONFIG, "/Users/wangqi/Documents/repository/sliew/scaleph/tools/docker/hadoop/etc");
         configuration.setLong(JobManagerOptions.TOTAL_PROCESS_MEMORY.key(), MemorySize.ofMebiBytes(2048).getBytes());
         configuration.setLong(TaskManagerOptions.TOTAL_PROCESS_MEMORY.key(), MemorySize.ofMebiBytes(2048).getBytes());
         configuration.setInteger(TaskManagerOptions.NUM_TASK_SLOTS, 2);

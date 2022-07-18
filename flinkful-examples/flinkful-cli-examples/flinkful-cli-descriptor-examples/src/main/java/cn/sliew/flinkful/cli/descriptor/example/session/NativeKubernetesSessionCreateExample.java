@@ -12,6 +12,7 @@ import org.apache.flink.kubernetes.configuration.KubernetesConfigOptions;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Collections;
 
 public class NativeKubernetesSessionCreateExample {
@@ -19,7 +20,8 @@ public class NativeKubernetesSessionCreateExample {
     public static void main(String[] args) throws Exception {
         ClusterClient<String> clusterClient = SessionClient.create(DeploymentTarget.NATIVE_KUBERNETES_SESSION, buildSessionConfiguration());
         CliClient client = Util.buildCliClient();
-        client.submit(DeploymentTarget.NATIVE_KUBERNETES_SESSION, buildConfiguration(clusterClient.getClusterId()), Util.buildJarJob());
+        final java.nio.file.Path flinkHome = Paths.get("/Users/wangqi/Documents/software/flink/flink-1.13.6");
+        client.submit(DeploymentTarget.NATIVE_KUBERNETES_SESSION, flinkHome, buildConfiguration(clusterClient.getClusterId()), Util.buildJarJob());
     }
 
     private static Configuration buildSessionConfiguration() {
