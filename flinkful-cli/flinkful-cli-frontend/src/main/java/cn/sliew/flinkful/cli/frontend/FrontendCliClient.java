@@ -17,6 +17,8 @@ import org.apache.flink.configuration.Configuration;
 import org.apache.flink.core.execution.DefaultExecutorServiceLoader;
 import org.apache.flink.core.execution.PipelineExecutorServiceLoader;
 
+import java.nio.file.Path;
+
 public class FrontendCliClient implements CliClient {
 
     private final ClusterClientServiceLoader clusterClientServiceLoader = new DefaultClusterClientServiceLoader();
@@ -28,7 +30,7 @@ public class FrontendCliClient implements CliClient {
      * @see CliFrontend#run(String[])
      */
     @Override
-    public JobID submit(DeploymentTarget deploymentTarget, Configuration configuration, PackageJarJob job) throws Exception {
+    public JobID submit(DeploymentTarget deploymentTarget, Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
         deploymentTarget.apply(configuration);
         try (PackagedProgram program = FlinkUtil.buildProgram(configuration, job)) {
             ClientUtils.executeProgram(pipelineExecutorServiceLoader, configuration, program, false, false);
@@ -40,7 +42,7 @@ public class FrontendCliClient implements CliClient {
      * @see CliFrontend#runApplication(String[])
      */
     @Override
-    public JobID submitApplication(DeploymentTarget deploymentTarget, Configuration configuration, PackageJarJob job) throws Exception {
+    public JobID submitApplication(DeploymentTarget deploymentTarget, Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
         deploymentTarget.apply(configuration);
         ApplicationConfiguration applicationConfiguration = new ApplicationConfiguration(job.getProgramArgs(), job.getEntryPointClass());
         deployer.run(configuration, applicationConfiguration);
