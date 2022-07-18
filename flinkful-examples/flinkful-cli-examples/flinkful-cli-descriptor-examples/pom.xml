@@ -30,6 +30,12 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-planner_${scala.binary.version}</artifactId>
         </dependency>
+
+        <dependency>
+            <artifactId>log4j</artifactId>
+            <groupId>log4j</groupId>
+            <version>1.2.17</version>
+        </dependency>
     </dependencies>
 
 </project>

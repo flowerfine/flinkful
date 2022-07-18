@@ -41,7 +41,7 @@ public class YarnApplicationExample {
         configuration.setLong(TaskManagerOptions.TOTAL_PROCESS_MEMORY.key(), MemorySize.ofMebiBytes(2048).getBytes());
         configuration.setInteger(TaskManagerOptions.NUM_TASK_SLOTS, 2);
 
-        Util.addJarFiles(configuration);
+//        Util.addJarFiles(configuration);
         URL exampleUrl = new File(FlinkExamples.EXAMPLE_JAR).toURL();
         ConfigUtils.encodeCollectionToConfig(configuration, PipelineOptions.JARS, Collections.singletonList(exampleUrl), Object::toString);
         return configuration;

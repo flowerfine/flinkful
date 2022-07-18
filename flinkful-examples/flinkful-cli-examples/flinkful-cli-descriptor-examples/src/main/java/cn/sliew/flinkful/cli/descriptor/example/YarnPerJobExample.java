@@ -26,12 +26,13 @@ public class YarnPerJobExample {
      */
     private static Configuration buildConfiguration() throws MalformedURLException {
         Configuration configuration = FlinkExamples.loadConfiguration();
+        configuration.setString(ConfigConstants.PATH_HADOOP_CONFIG, "/var/folders/q4/lbzr8_ds6cl7ml690ldq00zc0000gn/T/8929050144804066824/local_docker_kubernetes");
         configuration.setLong(JobManagerOptions.TOTAL_PROCESS_MEMORY.key(), MemorySize.ofMebiBytes(4096).getBytes());
         configuration.setLong(TaskManagerOptions.TOTAL_PROCESS_MEMORY.key(), MemorySize.ofMebiBytes(4096).getBytes());
         configuration.setInteger(TaskManagerOptions.NUM_TASK_SLOTS, 2);
 
-        configuration.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://hadoop:9000/flink/1.13.6"}));
-        configuration.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://hadoop:9000/flink/1.13.6/flink-dist_2.11-1.13.6.jar");
+        configuration.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://namenode:9002/flink/1.13.6"}));
+        configuration.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://namenode:9002/flink/1.13.6/flink-dist_2.11-1.13.6.jar");
 
         URL exampleUrl = new File(FlinkExamples.EXAMPLE_JAR).toURL();
         ConfigUtils.encodeCollectionToConfig(configuration, PipelineOptions.JARS, Collections.singletonList(exampleUrl), Object::toString);

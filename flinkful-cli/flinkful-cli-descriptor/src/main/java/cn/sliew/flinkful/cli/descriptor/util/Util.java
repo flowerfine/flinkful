@@ -21,8 +21,8 @@ public enum Util {
      * {@link YarnConfigOptions#SHIP_FILES} 配置 ship jars.
      */
     public static void addJarFiles(Configuration config) {
-        config.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://hadoop:9000/flink/1.13.6"}));
-        config.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://hadoop:9000/flink/1.13.6/flink-dist_2.11-1.13.6.jar");
+        config.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://namenode:9002/flink/1.13.6"}));
+        config.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://namenode:9002/flink/1.13.6/flink-dist_2.11-1.13.6.jar");
     }
 
     public static void addJarFiles(YarnClusterDescriptor clusterDescriptor, Configuration config, java.nio.file.Path flinkHome) throws MalformedURLException {
@@ -40,7 +40,7 @@ public enum Util {
                 }
             }
         }
-        File[] jars = new File(FlinkUtil.getFlinkLibDir()).listFiles();
+        File[] jars = FlinkUtil.getFlinkLibDir(flinkHome).toFile().listFiles();
         if (jars != null) {
             for (File jar : jars) {
                 if (jar.toURI().toURL().toString().contains("flink-dist")) {

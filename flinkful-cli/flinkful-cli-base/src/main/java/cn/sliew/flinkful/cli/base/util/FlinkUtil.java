@@ -35,16 +35,16 @@ public enum FlinkUtil {
         return flinkHome.resolve("plugins");
     }
 
-    public static String getFlinkLibDir() {
-        return getFlinkHome() + File.separator + "lib";
+    public static Path getFlinkLibDir(Path flinkHome) {
+        return flinkHome.resolve("lib");
     }
 
     public static String getFlinkExamplesDir() {
         return getFlinkHome() + File.separator + "examples";
     }
 
-    public static String getFlinkDistJar() {
-        return getFlinkLibDir() + File.separator + "flink-dist_2.11-1.13.6.jar";
+    public static Path getFlinkDistJar(Path flinkHome) {
+        return getFlinkLibDir(flinkHome).resolve("flink-dist_2.11-1.13.6.jar");
     }
 
     public static Configuration loadConfiguration() {
