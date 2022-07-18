@@ -1,7 +1,6 @@
 package cn.sliew.flinkful.cli.descriptor.example;
 
 import cn.sliew.flinkful.cli.base.CliClient;
-import cn.sliew.flinkful.cli.descriptor.util.Util;
 import cn.sliew.flinkful.common.enums.DeploymentTarget;
 import cn.sliew.flinkful.common.examples.FlinkExamples;
 import org.apache.flink.configuration.*;

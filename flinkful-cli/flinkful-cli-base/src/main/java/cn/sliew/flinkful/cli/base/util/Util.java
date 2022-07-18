@@ -1,6 +1,5 @@
-package cn.sliew.flinkful.cli.descriptor.util;
+package cn.sliew.flinkful.cli.base.util;
 
-import cn.sliew.flinkful.cli.base.util.FlinkUtil;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.util.CollectionUtil;
 import org.apache.flink.yarn.YarnClusterDescriptor;

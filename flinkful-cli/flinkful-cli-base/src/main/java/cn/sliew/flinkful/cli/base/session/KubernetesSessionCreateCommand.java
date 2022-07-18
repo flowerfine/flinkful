@@ -10,6 +10,8 @@ import org.apache.flink.client.program.ClusterClientProvider;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.kubernetes.KubernetesClusterDescriptor;
 
+import java.nio.file.Path;
+
 /**
  * Native Kubernetes 部署需要利用 ${user.home}/.kube/config 信息获取 Kubernetes 信息
  */
@@ -17,7 +19,7 @@ import org.apache.flink.kubernetes.KubernetesClusterDescriptor;
 public class KubernetesSessionCreateCommand implements SessionCommand {
 
     @Override
-    public ClusterClient create(DeploymentTarget deploymentTarget, Configuration configuration) throws Exception {
+    public ClusterClient create(DeploymentTarget deploymentTarget, Path flinkHome, Configuration configuration) throws Exception {
         KubernetesClusterDescriptor clusterDescriptor = (KubernetesClusterDescriptor) FlinkUtil.createClusterDescriptor(configuration);
         ClusterSpecification clusterSpecification = FlinkUtil.createClusterSpecification(configuration);
         return createClusterClient(clusterDescriptor, clusterSpecification);
