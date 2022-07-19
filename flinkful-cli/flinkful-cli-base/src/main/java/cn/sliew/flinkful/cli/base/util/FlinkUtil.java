@@ -9,26 +9,52 @@ import org.apache.flink.client.program.ClusterClient;
 import org.apache.flink.client.program.PackagedProgram;
 import org.apache.flink.client.program.ProgramInvocationException;
 import org.apache.flink.configuration.*;
+import org.apache.flink.util.StringUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public enum FlinkUtil {
     ;
 
-    public static String getHadoopHome() {
-        return System.getenv("HADOOP_HOME");
+    public static Path getHadoopHome() {
+        final String hadoopHome = System.getenv("HADOOP_HOME");
+        if (StringUtils.isNullOrWhitespaceOnly(hadoopHome)) {
+            return null;
+        }
+        return Paths.get(hadoopHome);
     }
 
-    public static String getFlinkHome() {
-        return System.getenv("FLINK_HOME");
+    public static Path getFlinkHomeEnv() {
+        final String flinkHome = System.getenv("FLINK_HOME");
+        if (StringUtils.isNullOrWhitespaceOnly(flinkHome)) {
+            return null;
+        }
+        return Paths.get(flinkHome);
     }
 
-    public static String getFlinkConfDir() {
-        return getFlinkHome() + File.separator + "conf";
+    public static Path getFlinkConfDirEnv() {
+        final String flinkConfDir = System.getenv("FLINK_CONF_DIR");
+        if (StringUtils.isNullOrWhitespaceOnly(flinkConfDir)) {
+            return null;
+        }
+        return Paths.get(flinkConfDir);
+    }
+
+    public static Path getFlinkConfDir() {
+        final Path flinkConfDirEnv = getFlinkConfDirEnv();
+        if (flinkConfDirEnv == null || Files.notExists(flinkConfDirEnv)) {
+            final Path flinkHomeEnv = getFlinkHomeEnv();
+            if (flinkHomeEnv != null && Files.exists(flinkHomeEnv)) {
+                return flinkHomeEnv.resolve("conf");
+            }
+        }
+        return null;
     }
 
     public static Path getFlinkPluginsDir(Path flinkHome) {
@@ -39,8 +65,8 @@ public enum FlinkUtil {
         return flinkHome.resolve("lib");
     }
 
-    public static String getFlinkExamplesDir() {
-        return getFlinkHome() + File.separator + "examples";
+    public static Path getFlinkExamplesDir(Path flinkHome) {
+        return flinkHome.resolve("examples");
     }
 
     public static Path getFlinkDistJar(Path flinkHome) {
@@ -48,7 +74,12 @@ public enum FlinkUtil {
     }
 
     public static Configuration loadConfiguration() {
-        return GlobalConfiguration.loadConfiguration(getFlinkConfDir(), new Configuration());
+        final Path flinkConfDir = getFlinkConfDir();
+        if (flinkConfDir != null && Files.exists(flinkConfDir)) {
+            return GlobalConfiguration.loadConfiguration(flinkConfDir.toAbsolutePath().toString());
+        }
+        return GlobalConfiguration.loadConfiguration();
+
     }
 
     public static PackagedProgram buildProgram(Configuration configuration, PackageJarJob job) throws FileNotFoundException, ProgramInvocationException, URISyntaxException {

@@ -41,7 +41,7 @@ public class YarnPerJobCommand implements SubmitCommand {
     @Override
     public JobID submit(Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
         YarnClusterDescriptor clusterDescriptor = (YarnClusterDescriptor) FlinkUtil.createClusterDescriptor(configuration);
-        Util.addJarFiles(clusterDescriptor, configuration, flinkHome);
+        Util.addJarFiles(clusterDescriptor, flinkHome, configuration);
         ClusterSpecification clusterSpecification = FlinkUtil.createClusterSpecification(configuration);
 
         PackagedProgram program = FlinkUtil.buildProgram(configuration, job);

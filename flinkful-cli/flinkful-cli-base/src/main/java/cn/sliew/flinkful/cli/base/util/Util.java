@@ -8,6 +8,7 @@ import org.apache.hadoop.fs.Path;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,15 +19,22 @@ public enum Util {
     /**
      * 也可以通过 {@link YarnConfigOptions#FLINK_DIST_JAR} 配置 flink-dist-xxx.jar
      * {@link YarnConfigOptions#SHIP_FILES} 配置 ship jars.
+     * for test
      */
     public static void addJarFiles(Configuration config) {
         config.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://namenode:9002/flink/1.13.6"}));
         config.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://namenode:9002/flink/1.13.6/flink-dist_2.11-1.13.6.jar");
     }
 
-    public static void addJarFiles(YarnClusterDescriptor clusterDescriptor, Configuration config, java.nio.file.Path flinkHome) throws MalformedURLException {
+    public static void addJarFiles(YarnClusterDescriptor clusterDescriptor, java.nio.file.Path flinkHome, Configuration configuration) throws MalformedURLException {
+        if (Files.notExists(flinkHome)) {
+            flinkHome = FlinkUtil.getFlinkHomeEnv();
+        }
+        if (flinkHome == null || Files.notExists(flinkHome)) {
+            throw new IllegalStateException("flinkHome and FLINK_HOME must exist one of two");
+        }
         boolean isRemoteJarPath =
-                !CollectionUtil.isNullOrEmpty(config.get(YarnConfigOptions.PROVIDED_LIB_DIRS));
+                !CollectionUtil.isNullOrEmpty(configuration.get(YarnConfigOptions.PROVIDED_LIB_DIRS));
         List<File> shipFiles = new ArrayList<>();
         File[] plugins = FlinkUtil.getFlinkPluginsDir(flinkHome).toFile().listFiles();
         if (plugins != null) {

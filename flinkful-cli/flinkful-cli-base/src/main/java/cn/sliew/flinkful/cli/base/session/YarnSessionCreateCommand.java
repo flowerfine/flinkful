@@ -20,7 +20,7 @@ public class YarnSessionCreateCommand implements SessionCommand {
     @Override
     public ClusterClient create(DeploymentTarget deploymentTarget, Path flinkHome, Configuration configuration) throws Exception {
         YarnClusterDescriptor clusterDescriptor = (YarnClusterDescriptor) FlinkUtil.createClusterDescriptor(configuration);
-        Util.addJarFiles(clusterDescriptor, configuration, flinkHome);
+        Util.addJarFiles(clusterDescriptor, flinkHome, configuration);
         ClusterSpecification clusterSpecification = FlinkUtil.createClusterSpecification(configuration);
         return createClusterClient(clusterDescriptor, clusterSpecification);
     }
