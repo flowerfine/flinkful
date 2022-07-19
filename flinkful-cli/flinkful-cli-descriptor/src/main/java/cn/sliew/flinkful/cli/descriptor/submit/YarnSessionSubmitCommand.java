@@ -13,11 +13,13 @@ import org.apache.flink.runtime.jobgraph.JobGraph;
 import org.apache.flink.yarn.YarnClusterDescriptor;
 import org.apache.hadoop.yarn.api.records.ApplicationId;
 
+import java.nio.file.Path;
+
 @Slf4j
 public class YarnSessionSubmitCommand implements SubmitCommand {
 
     @Override
-    public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
+    public JobID submit(Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
         ClusterClientFactory<ApplicationId> factory = FlinkUtil.createClientFactory(configuration);
         YarnClusterDescriptor clusterDescriptor = (YarnClusterDescriptor) FlinkUtil.createClusterDescriptor(factory, configuration);
 

@@ -2,7 +2,7 @@ package cn.sliew.flinkful.cli.descriptor.submit;
 
 import cn.sliew.flinkful.cli.base.util.FlinkUtil;
 import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
-import cn.sliew.flinkful.cli.descriptor.util.Util;
+import cn.sliew.flinkful.cli.base.util.Util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.common.JobID;
 import org.apache.flink.client.deployment.ClusterDeploymentException;
@@ -20,6 +20,7 @@ import org.apache.flink.runtime.util.HadoopUtils;
 import org.apache.flink.yarn.YarnClusterDescriptor;
 import org.apache.hadoop.yarn.api.records.ApplicationId;
 
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -38,9 +39,9 @@ public class YarnPerJobCommand implements SubmitCommand {
      * @see HadoopUtils#getHadoopConfiguration(Configuration)
      */
     @Override
-    public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
+    public JobID submit(Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
         YarnClusterDescriptor clusterDescriptor = (YarnClusterDescriptor) FlinkUtil.createClusterDescriptor(configuration);
-        Util.addJarFiles(clusterDescriptor, configuration);
+        Util.addJarFiles(clusterDescriptor, flinkHome, configuration);
         ClusterSpecification clusterSpecification = FlinkUtil.createClusterSpecification(configuration);
 
         PackagedProgram program = FlinkUtil.buildProgram(configuration, job);

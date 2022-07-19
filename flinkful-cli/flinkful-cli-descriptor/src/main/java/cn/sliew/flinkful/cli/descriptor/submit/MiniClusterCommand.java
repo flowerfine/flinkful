@@ -13,12 +13,13 @@ import org.apache.flink.runtime.minicluster.MiniCluster;
 import org.apache.flink.runtime.minicluster.MiniClusterConfiguration;
 
 import java.net.URI;
+import java.nio.file.Path;
 import java.util.concurrent.ExecutionException;
 
 public class MiniClusterCommand implements SubmitCommand {
 
     @Override
-    public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
+    public JobID submit(Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
         MiniCluster cluster = createCluster(configuration);
         MiniClusterClient client = createClusterClient(cluster, configuration);
         PackagedProgram program = FlinkUtil.buildProgram(configuration, job);

@@ -13,6 +13,7 @@ import org.apache.flink.configuration.Configuration;
 import org.apache.flink.kubernetes.KubernetesClusterDescriptor;
 import org.apache.flink.runtime.client.JobStatusMessage;
 
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ import java.util.Optional;
 public class KubernetesApplicationCommand implements SubmitCommand {
 
     @Override
-    public JobID submit(Configuration configuration, PackageJarJob job) throws Exception {
+    public JobID submit(Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
         KubernetesClusterDescriptor clusterDescriptor = (KubernetesClusterDescriptor) FlinkUtil.createClusterDescriptor(configuration);
         ClusterSpecification clusterSpecification = FlinkUtil.createClusterSpecification(configuration);
 

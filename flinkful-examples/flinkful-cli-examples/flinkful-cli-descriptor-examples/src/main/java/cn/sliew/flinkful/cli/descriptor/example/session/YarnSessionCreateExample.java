@@ -14,19 +14,22 @@ import org.apache.hadoop.yarn.api.records.ApplicationId;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 
 public class YarnSessionCreateExample {
 
     public static void main(String[] args) throws Exception {
-        ClusterClient<ApplicationId> clusterClient = SessionClient.create(DeploymentTarget.YARN_SESSION, buildSessionConfiguration());
+        final java.nio.file.Path flinkHome = Paths.get("/Users/wangqi/Documents/software/flink/flink-1.13.6");
+        ClusterClient<ApplicationId> clusterClient = SessionClient.create(DeploymentTarget.YARN_SESSION, flinkHome, buildSessionConfiguration());
         CliClient client = Util.buildCliClient();
-        client.submit(DeploymentTarget.YARN_SESSION, buildConfiguration(clusterClient.getClusterId()), Util.buildJarJob());
+        client.submit(DeploymentTarget.YARN_SESSION, flinkHome, buildConfiguration(clusterClient.getClusterId()), Util.buildJarJob());
     }
 
     private static Configuration buildSessionConfiguration() {
         Configuration configuration = FlinkExamples.loadConfiguration();
+        configuration.setString(ConfigConstants.PATH_HADOOP_CONFIG, "/var/folders/q4/lbzr8_ds6cl7ml690ldq00zc0000gn/T/8929050144804066824/local_docker_kubernetes");
         configuration.setLong(JobManagerOptions.TOTAL_PROCESS_MEMORY.key(), MemorySize.ofMebiBytes(2048).getBytes());
         configuration.setLong(TaskManagerOptions.TOTAL_PROCESS_MEMORY.key(), MemorySize.ofMebiBytes(2048).getBytes());
         configuration.set(TaskManagerOptions.NUM_TASK_SLOTS, 2);
@@ -41,8 +44,9 @@ public class YarnSessionCreateExample {
         Configuration configuration = FlinkExamples.loadConfiguration();
         configuration.setString(YarnConfigOptions.APPLICATION_ID, clusterId.toString());
 
-        configuration.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://hadoop:9000/flink/1.13.6"}));
-        configuration.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://hadoop:9000/flink/1.13.6/flink-dist_2.11-1.13.6.jar");
+        // 使用
+        configuration.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://namenode:9002/flink/1.13.6"}));
+        configuration.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://namenode:9002/flink/1.13.6/flink-dist_2.11-1.13.6.jar");
 
         URL exampleUrl = new File(FlinkExamples.EXAMPLE_JAR).toURL();
         ConfigUtils.encodeCollectionToConfig(configuration, PipelineOptions.JARS, Collections.singletonList(exampleUrl), Object::toString);

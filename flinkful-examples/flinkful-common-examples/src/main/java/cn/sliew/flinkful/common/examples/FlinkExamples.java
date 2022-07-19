@@ -8,15 +8,18 @@ public enum FlinkExamples {
 
     private static final String FLINK_HOME = System.getenv("FLINK_HOME");
 
-    private static final String EXAMPLES_DIR = FLINK_HOME + "/examples";
-    private static final String LIB_DIR = FLINK_HOME + "/lib";
+    private static final String FLINK_CONF_DIR = FLINK_HOME + "/conf";
+    private static final String FLINK_PLUGINS_DIR = FLINK_HOME + "/plugins";
+    private static final String FLINK_LIB_DIR = FLINK_HOME + "/lib";
+    private static final String FLINK_EXAMPLES_DIR = FLINK_HOME + "/examples";
+    public static final String FLINK_DIST_JAR = FLINK_HOME + "/lib/flink-dist_2.11-1.13.6.jar";
 
-    public static final String EXAMPLE_JAR = EXAMPLES_DIR + "/streaming/TopSpeedWindowing.jar";
-    public static final String EXAMPLE_JAR_URL = "file://" + EXAMPLES_DIR + "/streaming/TopSpeedWindowing.jar";
+    public static final String EXAMPLE_JAR = FLINK_EXAMPLES_DIR + "/streaming/TopSpeedWindowing.jar";
+    public static final String EXAMPLE_JAR_URL = "file://" + FLINK_EXAMPLES_DIR + "/streaming/TopSpeedWindowing.jar";
     public static final String EXAMPLE_ENTRY_CLASS = "org.apache.flink.streaming.examples.windowing.TopSpeedWindowing";
 
     public static Configuration loadConfiguration() {
-        return GlobalConfiguration.loadConfiguration();
+        return GlobalConfiguration.loadConfiguration(FLINK_CONF_DIR, new Configuration());
     }
 
 }

@@ -10,7 +10,7 @@
 
     <groupId>cn.sliew</groupId>
     <artifactId>flinkful</artifactId>
-    <version>1.13.6_1_8-SNAPSHOT</version>
+    <version>1.14.4_1_11-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>flinkful</name>
     <url>https://github.com/flowerfine/flinkful</url>
@@ -81,13 +81,13 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <scala.binary.version>2.11</scala.binary.version>
         <scala.version>2.11.12</scala.version>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <disruptor.version>3.4.4</disruptor.version>
         <docker.java.version>3.2.13</docker.java.version>
-        <flink.version>1.13.6</flink.version>
+        <flink.version>1.14.4</flink.version>
         <knife4j.version>3.0.2</knife4j.version>
         <milky.version>1.0.6_8</milky.version>
         <mybatis.plus.version>3.5.1</mybatis.plus.version>
