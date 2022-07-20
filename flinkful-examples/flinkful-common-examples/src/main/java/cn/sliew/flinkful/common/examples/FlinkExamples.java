@@ -12,7 +12,7 @@ public enum FlinkExamples {
     private static final String FLINK_PLUGINS_DIR = FLINK_HOME + "/plugins";
     private static final String FLINK_LIB_DIR = FLINK_HOME + "/lib";
     private static final String FLINK_EXAMPLES_DIR = FLINK_HOME + "/examples";
-    public static final String FLINK_DIST_JAR = FLINK_HOME + "/lib/flink-dist_2.11-1.13.6.jar";
+    public static final String FLINK_DIST_JAR = FLINK_HOME + "/lib/flink-dist_2.11-1.14.3.jar";
 
     public static final String EXAMPLE_JAR = FLINK_EXAMPLES_DIR + "/streaming/TopSpeedWindowing.jar";
     public static final String EXAMPLE_JAR_URL = "file://" + FLINK_EXAMPLES_DIR + "/streaming/TopSpeedWindowing.jar";
