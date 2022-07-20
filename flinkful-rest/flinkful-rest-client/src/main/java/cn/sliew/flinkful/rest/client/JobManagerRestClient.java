@@ -2,11 +2,9 @@ package cn.sliew.flinkful.rest.client;
 
 import cn.sliew.flinkful.rest.base.JobManagerClient;
 import org.apache.flink.runtime.rest.RestClient;
-import org.apache.flink.runtime.rest.messages.ClusterConfigurationInfo;
-import org.apache.flink.runtime.rest.messages.ClusterConfigurationInfoHeaders;
-import org.apache.flink.runtime.rest.messages.EmptyRequestBody;
-import org.apache.flink.runtime.rest.messages.LogListInfo;
+import org.apache.flink.runtime.rest.messages.*;
 import org.apache.flink.runtime.rest.messages.cluster.JobManagerLogListHeaders;
+import org.apache.flink.runtime.rest.messages.cluster.JobManagerThreadDumpHeaders;
 import org.apache.flink.runtime.rest.messages.job.metrics.JobManagerMetricsHeaders;
 import org.apache.flink.runtime.rest.messages.job.metrics.JobManagerMetricsMessageParameters;
 import org.apache.flink.runtime.rest.messages.job.metrics.MetricCollectionResponseBody;
@@ -44,5 +42,10 @@ public class JobManagerRestClient implements JobManagerClient {
         JobManagerMetricsMessageParameters parameters = new JobManagerMetricsMessageParameters();
         get.ifPresent(metrics -> toIllegalArgument(() -> parameters.metricsFilterParameter.resolveFromString(metrics)));
         return client.sendRequest(address, port, JobManagerMetricsHeaders.getInstance(), parameters, EmptyRequestBody.getInstance());
+    }
+
+    @Override
+    public CompletableFuture<ThreadDumpInfo> jobmanagerThreadDump() throws IOException {
+        return client.sendRequest(address, port, JobManagerThreadDumpHeaders.getInstance(), EmptyMessageParameters.getInstance(), EmptyRequestBody.getInstance());
     }
 }

@@ -1,11 +1,11 @@
 package cn.sliew.flinkful.rest.base;
 
 import org.apache.flink.runtime.rest.messages.LogListInfo;
+import org.apache.flink.runtime.rest.messages.ThreadDumpInfo;
 import org.apache.flink.runtime.rest.messages.job.metrics.AggregatedMetricsResponseBody;
 import org.apache.flink.runtime.rest.messages.job.metrics.MetricCollectionResponseBody;
 import org.apache.flink.runtime.rest.messages.taskmanager.TaskManagerDetailsInfo;
 import org.apache.flink.runtime.rest.messages.taskmanager.TaskManagersInfo;
-import org.apache.flink.runtime.rest.messages.taskmanager.ThreadDumpInfo;
 
 import java.io.IOException;
 import java.util.Optional;

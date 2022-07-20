@@ -2,6 +2,7 @@ package cn.sliew.flinkful.rest.base;
 
 import org.apache.flink.runtime.rest.messages.ClusterConfigurationInfo;
 import org.apache.flink.runtime.rest.messages.LogListInfo;
+import org.apache.flink.runtime.rest.messages.ThreadDumpInfo;
 import org.apache.flink.runtime.rest.messages.job.metrics.MetricCollectionResponseBody;
 
 import java.io.IOException;
@@ -26,5 +27,10 @@ public interface JobManagerClient {
      * @param get(optional) Comma-separated list of string values to select specific metrics.
      */
     CompletableFuture<MetricCollectionResponseBody> jobmanagerMetrics(Optional<String> get) throws IOException;
+
+    /**
+     * Returns the thread dump of the JobManager.
+     */
+    CompletableFuture<ThreadDumpInfo> jobmanagerThreadDump() throws IOException;
 
 }
