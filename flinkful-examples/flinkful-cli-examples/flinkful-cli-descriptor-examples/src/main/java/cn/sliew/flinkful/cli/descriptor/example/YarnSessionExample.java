@@ -19,16 +19,16 @@ public class YarnSessionExample {
 
     public static void main(String[] args) throws Exception {
         CliClient client = Util.buildCliClient();
-        final java.nio.file.Path flinkHome = Paths.get("/Users/wangqi/Documents/software/flink/flink-1.13.6");
+        final java.nio.file.Path flinkHome = Paths.get("/Users/wangqi/Documents/software/flink/flink-1.14.3");
         client.submit(DeploymentTarget.YARN_SESSION, flinkHome, buildConfiguration(), Util.buildJarJob());
     }
 
     private static Configuration buildConfiguration() throws MalformedURLException {
         Configuration configuration = FlinkExamples.loadConfiguration();
-        configuration.setString(YarnConfigOptions.APPLICATION_ID, "application_1651836467749_0017");
+        configuration.setString(YarnConfigOptions.APPLICATION_ID, "application_1658297197357_0009");
 
-        configuration.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://hadoop:9000/flink/1.13.6"}));
-        configuration.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://hadoop:9000/flink/1.13.6/flink-dist_2.11-1.13.6.jar");
+        configuration.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://hadoop:9000/flink/1.14.3"}));
+        configuration.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://hadoop:9000/flink/1.14.3/flink-dist_2.11-1.14.3.jar");
 
         URL exampleUrl = new File(FlinkExamples.EXAMPLE_JAR).toURL();
         ConfigUtils.encodeCollectionToConfig(configuration, PipelineOptions.JARS, Collections.singletonList(exampleUrl), Object::toString);
