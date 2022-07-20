@@ -134,6 +134,12 @@ public enum FlinkUtil {
         return serviceLoader.getClusterClientFactory(config);
     }
 
+    /**
+     * todo replace
+     * @param configuration
+     * @see ClusterClientFactory#getClusterSpecification(Configuration)
+     * @return
+     */
     public static ClusterSpecification createClusterSpecification(Configuration configuration) {
         MemorySize jobManagerMem = configuration.getOptional(JobManagerOptions.TOTAL_PROCESS_MEMORY).orElse(MemorySize.ofMebiBytes(1024));
         MemorySize taskManagerMem = configuration.getOptional(TaskManagerOptions.TOTAL_PROCESS_MEMORY).orElse(MemorySize.ofMebiBytes(1024));
