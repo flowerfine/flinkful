@@ -15,7 +15,7 @@ public class StandaloneSessionExample {
 
     public static void main(String[] args) throws Exception {
         CliClient client = Util.buildCliClient();
-        client.submit(DeploymentTarget.STANDALONE_SESSION, buildConfiguration(), Util.buildJarJob());
+        client.submit(DeploymentTarget.STANDALONE_SESSION, null, buildConfiguration(), Util.buildJarJob());
     }
 
     /**

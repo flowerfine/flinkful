@@ -11,6 +11,7 @@ import org.apache.hadoop.fs.Path;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +20,8 @@ public class YarnApplicationExample {
 
     public static void main(String[] args) throws Exception {
         CliClient client = Util.buildCliClient();
-        client.submitApplication(DeploymentTarget.YARN_APPLICATION, buildConfiguration(), Util.buildJarJob());
+        final java.nio.file.Path flinkHome = Paths.get("/Users/wangqi/Documents/software/flink/flink-1.15.1");
+        client.submitApplication(DeploymentTarget.YARN_APPLICATION, flinkHome, buildConfiguration(), Util.buildJarJob());
     }
 
     /**
@@ -40,8 +42,8 @@ public class YarnApplicationExample {
         configuration.setLong(TaskManagerOptions.TOTAL_PROCESS_MEMORY.key(), MemorySize.ofMebiBytes(2048).getBytes());
         configuration.setInteger(TaskManagerOptions.NUM_TASK_SLOTS, 2);
 
-        configuration.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://hadoop:9000/flink/1.13.6"}));
-        configuration.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://hadoop:9000/flink/1.13.6/flink-dist_2.11-1.13.6.jar");
+        configuration.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://hadoop:9000/flink/1.15.1"}));
+        configuration.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://hadoop:9000/flink/1.15.1/flink-dist-1.15.1.jar");
 
         URL exampleUrl = new File(FlinkExamples.EXAMPLE_JAR).toURL();
         ConfigUtils.encodeCollectionToConfig(configuration, PipelineOptions.JARS, Collections.singletonList(exampleUrl), Object::toString);
