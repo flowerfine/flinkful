@@ -2,6 +2,7 @@ package cn.sliew.flinkful.cli.base.util;
 
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.util.CollectionUtil;
+import org.apache.flink.util.StringUtils;
 import org.apache.flink.yarn.YarnClusterDescriptor;
 import org.apache.flink.yarn.configuration.YarnConfigOptions;
 import org.apache.hadoop.fs.Path;
@@ -22,12 +23,12 @@ public enum Util {
      * for test
      */
     public static void addJarFiles(Configuration config) {
-        config.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://namenode:9002/flink/1.13.6"}));
-        config.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://namenode:9002/flink/1.13.6/flink-dist_2.11-1.13.6.jar");
+        config.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://hadoop:9000/flink/1.14.3"}));
+        config.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://hadoop:9000/flink/1.14.3/flink-dist_2.11-1.14.3.jar");
     }
 
     public static void addJarFiles(YarnClusterDescriptor clusterDescriptor, java.nio.file.Path flinkHome, Configuration configuration) throws MalformedURLException {
-        if (Files.notExists(flinkHome)) {
+        if (flinkHome == null || Files.notExists(flinkHome)) {
             flinkHome = FlinkUtil.getFlinkHomeEnv();
         }
         if (flinkHome == null || Files.notExists(flinkHome)) {
@@ -35,6 +36,7 @@ public enum Util {
         }
         boolean isRemoteJarPath =
                 !CollectionUtil.isNullOrEmpty(configuration.get(YarnConfigOptions.PROVIDED_LIB_DIRS));
+        boolean isRemoteDistJarPath = !StringUtils.isNullOrWhitespaceOnly(configuration.get(YarnConfigOptions.FLINK_DIST_JAR));
         List<File> shipFiles = new ArrayList<>();
         File[] plugins = FlinkUtil.getFlinkPluginsDir(flinkHome).toFile().listFiles();
         if (plugins != null) {
@@ -51,7 +53,9 @@ public enum Util {
         if (jars != null) {
             for (File jar : jars) {
                 if (jar.toURI().toURL().toString().contains("flink-dist")) {
-                    clusterDescriptor.setLocalJarPath(new Path(jar.toURI().toURL().toString()));
+                    if (!isRemoteDistJarPath) {
+                        clusterDescriptor.setLocalJarPath(new Path(jar.toURI().toURL().toString()));
+                    }
                 } else if (!isRemoteJarPath) {
                     shipFiles.add(jar);
                 }
