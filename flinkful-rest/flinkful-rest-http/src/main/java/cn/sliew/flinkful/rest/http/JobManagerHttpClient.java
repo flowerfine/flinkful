@@ -5,6 +5,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.apache.flink.runtime.rest.messages.ClusterConfigurationInfo;
 import org.apache.flink.runtime.rest.messages.LogListInfo;
+import org.apache.flink.runtime.rest.messages.ThreadDumpInfo;
 import org.apache.flink.runtime.rest.messages.job.metrics.MetricCollectionResponseBody;
 
 import java.io.IOException;
@@ -51,5 +52,15 @@ public class JobManagerHttpClient extends AsyncClient implements JobManagerClien
                 .url(url)
                 .build();
         return remoteCall(request, MetricCollectionResponseBody.class);
+    }
+
+    @Override
+    public CompletableFuture<ThreadDumpInfo> jobmanagerThreadDump() throws IOException {
+        String url = webInterfaceURL + "/jobmanager/thread-dump";
+        Request request = new Request.Builder()
+                .get()
+                .url(url)
+                .build();
+        return remoteCall(request, ThreadDumpInfo.class);
     }
 }
