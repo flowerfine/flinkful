@@ -70,7 +70,7 @@ public enum FlinkUtil {
     }
 
     public static Path getFlinkDistJar(Path flinkHome) {
-        return getFlinkLibDir(flinkHome).resolve("flink-dist_2.11-1.14.3.jar");
+        return getFlinkLibDir(flinkHome).resolve("flink-dist-1.15.1.jar");
     }
 
     public static Configuration loadConfiguration() {
