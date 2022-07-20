@@ -20,6 +20,44 @@ Flinkful helps people open the door to Flink management and provides `flinkful-e
 * `flinkful-cli-examples`. modules contains how to create session cluster and submit job.
 * `flinkful-rest-examples`. modules contains how to access jobs and cluster status.
 
+Get started with Flinkful firstly, add Flinkful as a dependency in your Java project. 
+
+If you're using Maven, that looks like this:
+
+```xml
+<repositories>
+    <repository>
+        <id>sonatype-nexus</id>
+        <name>Sonatype Nexus Snapshots</name>
+        <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+    </repository>
+</repositories>
+
+<dependencies>
+    <dependency>
+        <groupId>cn.sliew</groupId>
+        <artifactId>flinkful-cli-base</artifactId>
+        <version>${flinkful.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>cn.sliew</groupId>
+        <artifactId>flinkful-cli-descriptor</artifactId>
+        <version>${flinkful.version}</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>cn.sliew</groupId>
+        <artifactId>flinkful-rest-base</artifactId>
+        <version>${flinkful.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>cn.sliew</groupId>
+        <artifactId>flinkful-rest-client</artifactId>
+        <version>${flinkful.version}</version>
+    </dependency>
+</dependencies>
+```
+
 ## How Flinkful?
 
 As mentioned [here](https://nightlies.apache.org/flink/flink-docs-release-1.14/docs/deployment/overview/), Flink consists of `JobManager`, `TaskManager` and `client`. After `JobManager` bootstraped, people can access Flink cluster with runtime-webui by http, In fact, most Flink cluster and job status can be obtained by http.
@@ -171,8 +209,8 @@ public enum SessionFactory {
 | java | Flink  | Flinkful             | branch          |
 | ---- | ------ | -------------------- | --------------- |
 | 1.8  | 1.13.6 | 1.13.6_1_8-SNAPSHOT  | 1.13/main       |
-| 11   | 1.14.4 | 1.14.2_1_11-SNAPSHOT | 1.14/main, main |
-| 17   | 1.15.0 | comming soon...      | comming soon... |
+| 11   | 1.14.4 | 1.14.2_1_11-SNAPSHOT | 1.14/main       |
+| 17   | 1.15.1 | 1.15.1_1_17-SNAPSHOT | 1.15/main, main |
 
 ## Next Flinkful
 
