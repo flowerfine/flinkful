@@ -35,7 +35,6 @@ public class YarnApplicationExample {
      */
     public static Configuration buildConfiguration() throws MalformedURLException {
         Configuration configuration = FlinkExamples.loadConfiguration();
-        configuration.setString(ConfigConstants.PATH_HADOOP_CONFIG, "/Users/wangqi/Documents/repository/sliew/scaleph/tools/docker/hadoop/etc");
         configuration.setLong(JobManagerOptions.TOTAL_PROCESS_MEMORY.key(), MemorySize.ofMebiBytes(2048).getBytes());
         configuration.setLong(TaskManagerOptions.TOTAL_PROCESS_MEMORY.key(), MemorySize.ofMebiBytes(2048).getBytes());
         configuration.setInteger(TaskManagerOptions.NUM_TASK_SLOTS, 2);

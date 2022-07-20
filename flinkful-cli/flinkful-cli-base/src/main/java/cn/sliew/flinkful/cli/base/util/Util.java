@@ -23,8 +23,8 @@ public enum Util {
      * for test
      */
     public static void addJarFiles(Configuration config) {
-        config.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://namenode:9002/flink/1.13.6"}));
-        config.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://namenode:9002/flink/1.13.6/flink-dist_2.11-1.13.6.jar");
+        config.set(YarnConfigOptions.PROVIDED_LIB_DIRS, Arrays.asList(new String[]{"hdfs://localhost:9000/flink/1.13.6"}));
+        config.set(YarnConfigOptions.FLINK_DIST_JAR, "hdfs://localhost:9000/flink/1.13.6/flink-dist_2.11-1.13.6.jar");
     }
 
     public static void addJarFiles(YarnClusterDescriptor clusterDescriptor, java.nio.file.Path flinkHome, Configuration configuration) throws MalformedURLException {
