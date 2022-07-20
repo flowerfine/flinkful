@@ -79,15 +79,15 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <scala.binary.version>2.11</scala.binary.version>
-        <scala.version>2.11.12</scala.version>
-        <java.version>11</java.version>
+        <scala.binary.version>2.12</scala.binary.version>
+        <scala.version>2.12.7</scala.version>
+        <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <disruptor.version>3.4.4</disruptor.version>
         <docker.java.version>3.2.13</docker.java.version>
-        <flink.version>1.14.4</flink.version>
+        <flink.version>1.15.1</flink.version>
         <knife4j.version>3.0.2</knife4j.version>
         <milky.version>1.0.6_8</milky.version>
         <mybatis.plus.version>3.5.1</mybatis.plus.version>
@@ -146,7 +146,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.flink</groupId>
-                <artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
+                <artifactId>flink-streaming-java</artifactId>
                 <version>${flink.version}</version>
             </dependency>
             <dependency>
@@ -157,17 +157,17 @@
 
             <dependency>
                 <groupId>org.apache.flink</groupId>
-                <artifactId>flink-runtime-web_${scala.binary.version}</artifactId>
+                <artifactId>flink-runtime-web</artifactId>
                 <version>${flink.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.flink</groupId>
-                <artifactId>flink-clients_${scala.binary.version}</artifactId>
+                <artifactId>flink-clients</artifactId>
                 <version>${flink.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.flink</groupId>
-                <artifactId>flink-yarn_${scala.binary.version}</artifactId>
+                <artifactId>flink-yarn</artifactId>
                 <version>${flink.version}</version>
                 <exclusions>
                     <exclusion>
@@ -222,7 +222,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.flink</groupId>
-                <artifactId>flink-kubernetes_${scala.binary.version}</artifactId>
+                <artifactId>flink-kubernetes</artifactId>
                 <version>${flink.version}</version>
             </dependency>
 

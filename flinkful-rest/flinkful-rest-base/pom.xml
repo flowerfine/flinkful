@@ -19,15 +19,15 @@
 
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-runtime-web_${scala.binary.version}</artifactId>
+            <artifactId>flink-runtime-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-clients_${scala.binary.version}</artifactId>
+            <artifactId>flink-clients</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-yarn_${scala.binary.version}</artifactId>
+            <artifactId>flink-yarn</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.hadoop</groupId>
@@ -35,7 +35,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-kubernetes_${scala.binary.version}</artifactId>
+            <artifactId>flink-kubernetes</artifactId>
         </dependency>
     </dependencies>
 
