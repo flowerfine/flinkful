@@ -1,14 +1,13 @@
 package cn.sliew.flinkful.cli.base.util;
 
 import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
-import org.apache.flink.client.deployment.ClusterClientFactory;
-import org.apache.flink.client.deployment.ClusterDescriptor;
-import org.apache.flink.client.deployment.ClusterSpecification;
-import org.apache.flink.client.deployment.DefaultClusterClientServiceLoader;
+import org.apache.flink.client.deployment.*;
 import org.apache.flink.client.program.ClusterClient;
 import org.apache.flink.client.program.PackagedProgram;
 import org.apache.flink.client.program.ProgramInvocationException;
 import org.apache.flink.configuration.*;
+import org.apache.flink.runtime.clusterframework.TaskExecutorProcessUtils;
+import org.apache.flink.runtime.jobmanager.JobManagerProcessUtils;
 import org.apache.flink.util.StringUtils;
 
 import java.io.File;
@@ -135,20 +134,13 @@ public enum FlinkUtil {
     }
 
     /**
-     * todo replace
-     * @param configuration
-     * @see ClusterClientFactory#getClusterSpecification(Configuration)
-     * @return
+     * @see AbstractContainerizedClusterClientFactory#getClusterSpecification(Configuration)
      */
     public static ClusterSpecification createClusterSpecification(Configuration configuration) {
-        MemorySize jobManagerMem = configuration.getOptional(JobManagerOptions.TOTAL_PROCESS_MEMORY).orElse(MemorySize.ofMebiBytes(1024));
-        MemorySize taskManagerMem = configuration.getOptional(TaskManagerOptions.TOTAL_PROCESS_MEMORY).orElse(MemorySize.ofMebiBytes(1024));
-        Integer slots = configuration.get(TaskManagerOptions.NUM_TASK_SLOTS);
-        return new ClusterSpecification.ClusterSpecificationBuilder()
-                .setMasterMemoryMB(jobManagerMem.getMebiBytes())
-                .setTaskManagerMemoryMB(taskManagerMem.getMebiBytes())
-                .setSlotsPerTaskManager(slots)
-                .createClusterSpecification();
+        int jobManagerMemoryMB = JobManagerProcessUtils.processSpecFromConfigWithNewOptionToInterpretLegacyHeap(configuration, JobManagerOptions.TOTAL_PROCESS_MEMORY).getTotalProcessMemorySize().getMebiBytes();
+        int taskManagerMemoryMB = TaskExecutorProcessUtils.processSpecFromConfig(TaskExecutorProcessUtils.getConfigurationMapLegacyTaskManagerHeapSizeToConfigOption(configuration, TaskManagerOptions.TOTAL_PROCESS_MEMORY)).getTotalProcessMemorySize().getMebiBytes();
+        int slotsPerTaskManager = configuration.getInteger(TaskManagerOptions.NUM_TASK_SLOTS);
+        return (new ClusterSpecification.ClusterSpecificationBuilder()).setMasterMemoryMB(jobManagerMemoryMB).setTaskManagerMemoryMB(taskManagerMemoryMB).setSlotsPerTaskManager(slotsPerTaskManager).createClusterSpecification();
     }
 
 }
