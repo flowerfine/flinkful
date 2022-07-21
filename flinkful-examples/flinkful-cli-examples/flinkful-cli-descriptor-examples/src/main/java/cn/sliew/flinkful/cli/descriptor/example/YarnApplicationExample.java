@@ -31,7 +31,7 @@ public class YarnApplicationExample {
      * 1. {@link YarnConfigOptions#PROVIDED_LIB_DIRS}。提前将任务 jar 和依赖、包括 flink
      * 上传至 hdfs，YARN 运行 flink 任务时会自动从 hdfs 中加载。
      * 2. {@link YarnClusterDescriptor#setLocalJarPath(Path)} 和 {@link YarnClusterDescriptor#addShipFiles(List)}。
-     * 参考 {@link Util#addJarFiles(org.apache.flink.yarn.YarnClusterDescriptor, org.apache.flink.configuration.Configuration, java.nio.file.Path)}
+     * 参考 Util#addJarFiles(YarnClusterDescriptor, Path, Configuration)
      */
     public static Configuration buildConfiguration() throws MalformedURLException {
         Configuration configuration = FlinkExamples.loadConfiguration();
