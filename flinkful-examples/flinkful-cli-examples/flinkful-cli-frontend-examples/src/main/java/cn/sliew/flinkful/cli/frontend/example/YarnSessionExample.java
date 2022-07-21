@@ -17,7 +17,7 @@ public class YarnSessionExample {
 
     public static void main(String[] args) throws Exception {
         CliClient client = Util.buildCliClient();
-        client.submit(DeploymentTarget.YARN_SESSION, buildConfiguration(), Util.buildJarJob());
+        client.submit(DeploymentTarget.YARN_SESSION, null, buildConfiguration(), Util.buildJarJob());
     }
 
     private static Configuration buildConfiguration() throws MalformedURLException {

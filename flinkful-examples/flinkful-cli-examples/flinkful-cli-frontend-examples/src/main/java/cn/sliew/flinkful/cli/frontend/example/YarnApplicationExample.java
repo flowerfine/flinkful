@@ -19,7 +19,7 @@ public class YarnApplicationExample {
 
     public static void main(String[] args) throws Exception {
         CliClient client = Util.buildCliClient();
-        client.submitApplication(DeploymentTarget.YARN_APPLICATION, buildConfiguration(), Util.buildJarJob());
+        client.submitApplication(DeploymentTarget.YARN_APPLICATION, null, buildConfiguration(), Util.buildJarJob());
     }
 
     /**
