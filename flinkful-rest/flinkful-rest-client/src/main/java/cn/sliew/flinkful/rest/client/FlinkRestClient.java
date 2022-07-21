@@ -4,8 +4,9 @@ import cn.sliew.flinkful.rest.base.*;
 import cn.sliew.milky.common.exception.Rethrower;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.runtime.rest.RestClient;
+import org.apache.flink.runtime.rest.RestClientConfiguration;
+import org.apache.flink.runtime.util.ExecutorThreadFactory;
 import org.apache.flink.util.ConfigurationException;
-import org.apache.flink.util.concurrent.ExecutorThreadFactory;
 import org.jboss.netty.util.internal.ConcurrentHashMap;
 
 import java.util.concurrent.ConcurrentMap;
@@ -27,7 +28,7 @@ public class FlinkRestClient implements cn.sliew.flinkful.rest.base.RestClient {
 
         RestClient restClient = null;
         try {
-            restClient = new RestClient(configuration, executorService);
+            restClient = new RestClient(RestClientConfiguration.fromConfiguration(configuration), executorService);
         } catch (ConfigurationException e) {
             Rethrower.throwAs(e);
         }
