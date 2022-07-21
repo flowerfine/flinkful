@@ -30,7 +30,7 @@ public class NativeKubernetesSessionExample {
      */
     private static Configuration buildConfiguration() throws MalformedURLException {
         Configuration configuration = FlinkExamples.loadConfiguration();
-        configuration.setString(KubernetesConfigOptions.CLUSTER_ID, "flink-cluster-e40a0927cfe98fb3bf5c428a9583e60");
+        configuration.set(KubernetesConfigOptions.CLUSTER_ID, "flink-cluster-f6dc78274f11c17bd23f23d84e0748f");
         URL exampleUrl = new File(FlinkExamples.EXAMPLE_JAR).toURL();
         ConfigUtils.encodeCollectionToConfig(configuration, PipelineOptions.JARS, Collections.singletonList(exampleUrl), Object::toString);
         return configuration;
