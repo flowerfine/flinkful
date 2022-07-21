@@ -18,7 +18,7 @@ public class NativeKubernetesSessionExample {
 
     public static void main(String[] args) throws Exception {
         CliClient client = Util.buildCliClient();
-        final java.nio.file.Path flinkHome = Paths.get("/Users/wangqi/Documents/software/flink/flink-1.13.6");
+        final java.nio.file.Path flinkHome = Paths.get("/Users/wangqi/Documents/software/flink/flink-1.15.1");
         client.submit(DeploymentTarget.NATIVE_KUBERNETES_SESSION, flinkHome, buildConfiguration(), Util.buildJarJob());
     }
 

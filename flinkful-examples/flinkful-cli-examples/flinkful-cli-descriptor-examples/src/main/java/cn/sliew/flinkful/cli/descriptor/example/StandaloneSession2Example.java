@@ -26,7 +26,7 @@ public class StandaloneSession2Example {
 
     public static void main(String[] args) throws Exception {
         CliClient client = new DescriptorCliClient();
-        final java.nio.file.Path flinkHome = Paths.get("/Users/wangqi/Documents/software/flink/flink-1.13.6");
+        final java.nio.file.Path flinkHome = Paths.get("/Users/wangqi/Documents/software/flink/flink-1.15.1");
         client.submit(DeploymentTarget.STANDALONE_SESSION, flinkHome, buildConfiguration(), buildJarJob());
     }
 

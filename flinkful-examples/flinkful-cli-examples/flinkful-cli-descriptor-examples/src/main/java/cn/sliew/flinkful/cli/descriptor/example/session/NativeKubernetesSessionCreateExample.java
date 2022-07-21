@@ -18,7 +18,7 @@ import java.util.Collections;
 public class NativeKubernetesSessionCreateExample {
 
     public static void main(String[] args) throws Exception {
-        final java.nio.file.Path flinkHome = Paths.get("/Users/wangqi/Documents/software/flink/flink-1.13.6");
+        final java.nio.file.Path flinkHome = Paths.get("/Users/wangqi/Documents/software/flink/flink-1.15.1");
         ClusterClient<String> clusterClient = SessionClient.create(DeploymentTarget.NATIVE_KUBERNETES_SESSION, flinkHome, buildSessionConfiguration());
         CliClient client = Util.buildCliClient();
         client.submit(DeploymentTarget.NATIVE_KUBERNETES_SESSION, flinkHome, buildConfiguration(clusterClient.getClusterId()), Util.buildJarJob());
