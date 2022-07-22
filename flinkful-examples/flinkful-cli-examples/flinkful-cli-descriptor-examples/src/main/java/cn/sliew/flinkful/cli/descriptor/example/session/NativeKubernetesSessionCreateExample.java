@@ -26,8 +26,7 @@ public class NativeKubernetesSessionCreateExample {
 
     private static Configuration buildSessionConfiguration() {
         Configuration configuration = FlinkExamples.loadConfiguration();
-        configuration.set(KubernetesConfigOptions.REST_SERVICE_EXPOSED_TYPE, KubernetesConfigOptions.ServiceExposedType.NodePort);
-//        configuration.set(KubernetesConfigOptions.REST_SERVICE_EXPOSED_NODE_PORT_ADDRESS_TYPE, KubernetesConfigOptions.NodePortAddressType.ExternalIP);
+        configuration.set(KubernetesConfigOptions.REST_SERVICE_EXPOSED_TYPE, KubernetesConfigOptions.ServiceExposedType.LoadBalancer);
         configuration.setLong(JobManagerOptions.TOTAL_PROCESS_MEMORY.key(), MemorySize.ofMebiBytes(2048).getBytes());
         configuration.setLong(TaskManagerOptions.TOTAL_PROCESS_MEMORY.key(), MemorySize.ofMebiBytes(2048).getBytes());
         configuration.set(TaskManagerOptions.NUM_TASK_SLOTS, 2);
