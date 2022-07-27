@@ -216,6 +216,7 @@ public enum SessionFactory {
 
 * SQL client.
 * QueryableState client.
+* [Flink Kubernetes Operator](https://github.com/apache/flink-kubernetes-operator).
 
 ## License
 
