@@ -15,7 +15,7 @@ public class NativeKubernetesApplicationExample {
 
     public static void main(String[] args) throws Exception {
         CliClient client = Util.buildCliClient();
-        client.submitApplication(DeploymentTarget.NATIVE_KUBERNETES_APPLICATION, buildConfiguration(), Util.buildJarJob());
+        client.submitApplication(DeploymentTarget.NATIVE_KUBERNETES_APPLICATION, null, buildConfiguration(), Util.buildJarJob());
     }
 
     /**

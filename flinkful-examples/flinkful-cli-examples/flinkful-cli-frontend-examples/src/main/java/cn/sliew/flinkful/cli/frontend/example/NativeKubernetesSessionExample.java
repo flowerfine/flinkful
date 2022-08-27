@@ -15,7 +15,7 @@ public class NativeKubernetesSessionExample {
 
     public static void main(String[] args) throws Exception {
         CliClient client = Util.buildCliClient();
-        client.submit(DeploymentTarget.NATIVE_KUBERNETES_SESSION, buildConfiguration(), Util.buildJarJob());
+        client.submit(DeploymentTarget.NATIVE_KUBERNETES_SESSION, null, buildConfiguration(), Util.buildJarJob());
     }
 
     /**
