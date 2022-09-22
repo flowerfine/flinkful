@@ -4,6 +4,7 @@ import cn.sliew.flinkful.rest.base.TaskManagerClient;
 import org.apache.flink.runtime.rest.RestClient;
 import org.apache.flink.runtime.rest.messages.EmptyRequestBody;
 import org.apache.flink.runtime.rest.messages.LogListInfo;
+import org.apache.flink.runtime.rest.messages.ThreadDumpInfo;
 import org.apache.flink.runtime.rest.messages.job.metrics.*;
 import org.apache.flink.runtime.rest.messages.taskmanager.*;
 
