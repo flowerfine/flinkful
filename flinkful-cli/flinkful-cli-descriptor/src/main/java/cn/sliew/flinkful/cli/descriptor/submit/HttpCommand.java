@@ -6,6 +6,7 @@ import cn.sliew.flinkful.cli.descriptor.protocol.JarRunResponse;
 import cn.sliew.flinkful.cli.descriptor.protocol.JarUploadResponse;
 import cn.sliew.milky.common.util.JacksonUtil;
 import org.apache.flink.api.common.JobID;
+import org.apache.flink.client.program.ClusterClient;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.RestOptions;
 import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
@@ -24,11 +25,12 @@ import java.util.stream.Collectors;
 public class HttpCommand implements SubmitCommand {
 
     @Override
-    public JobID submit(Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
+    public ClusterClient submit(Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
         String webInterfaceURL = configuration.get(RestOptions.ADDRESS);
         JarUploadResponse jarUploadResponse = uploadJar(webInterfaceURL, new File(job.getJarFilePath()));
         String jarId = jarUploadResponse.getFilename().substring(jarUploadResponse.getFilename().lastIndexOf("/") + 1);
-        return run(webInterfaceURL, jarId, job);
+        run(webInterfaceURL, jarId, job);
+        return null;
     }
 
     private JarUploadResponse uploadJar(String webInterfaceURL, File jarFile) throws IOException {

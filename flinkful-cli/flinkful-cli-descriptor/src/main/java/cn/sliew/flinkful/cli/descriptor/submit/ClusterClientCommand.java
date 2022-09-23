@@ -2,7 +2,6 @@ package cn.sliew.flinkful.cli.descriptor.submit;
 
 import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
 import cn.sliew.flinkful.cli.base.util.FlinkUtil;
-import org.apache.flink.api.common.JobID;
 import org.apache.flink.client.deployment.ClusterClientFactory;
 import org.apache.flink.client.deployment.ClusterRetrieveException;
 import org.apache.flink.client.deployment.StandaloneClusterDescriptor;
@@ -24,12 +23,13 @@ public class ClusterClientCommand implements SubmitCommand {
      * todo jobmanager 地址 和 webInterfaceUrl 的优先级问题？
      */
     @Override
-    public JobID submit(Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
+    public ClusterClient submit(Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
         ClusterClientFactory<StandaloneClusterId> factory = FlinkUtil.createClientFactory(configuration);
         ClusterClient<StandaloneClusterId> client = createClusterClient(configuration, factory);
         PackagedProgram program = FlinkUtil.buildProgram(configuration, job);
         JobGraph jobGraph = PackagedProgramUtils.createJobGraph(program, configuration, 1, false);
-        return client.submitJob(jobGraph).get();
+        client.submitJob(jobGraph);
+        return client;
     }
 
     private ClusterClient<StandaloneClusterId> createClusterClient(Configuration configuration,
