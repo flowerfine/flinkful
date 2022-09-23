@@ -11,9 +11,9 @@ import org.apache.flink.configuration.JobManagerOptions;
 import org.apache.flink.configuration.TaskManagerOptions;
 import org.apache.flink.runtime.client.JobStatusMessage;
 import org.apache.flink.runtime.clusterframework.TaskExecutorProcessUtils;
-import org.apache.flink.runtime.concurrent.FutureUtils;
 import org.apache.flink.runtime.jobmanager.JobManagerProcessUtils;
 import org.apache.flink.util.StringUtils;
+import org.apache.flink.util.concurrent.FutureUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
