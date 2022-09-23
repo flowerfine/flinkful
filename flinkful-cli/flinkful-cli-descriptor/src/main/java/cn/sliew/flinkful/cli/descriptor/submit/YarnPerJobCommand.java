@@ -1,10 +1,9 @@
 package cn.sliew.flinkful.cli.descriptor.submit;
 
-import cn.sliew.flinkful.cli.base.util.FlinkUtil;
 import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
+import cn.sliew.flinkful.cli.base.util.FlinkUtil;
 import cn.sliew.flinkful.cli.base.util.Util;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.flink.api.common.JobID;
 import org.apache.flink.client.deployment.ClusterDeploymentException;
 import org.apache.flink.client.deployment.ClusterSpecification;
 import org.apache.flink.client.program.ClusterClient;
@@ -14,15 +13,12 @@ import org.apache.flink.client.program.PackagedProgramUtils;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.CoreOptions;
 import org.apache.flink.configuration.JobManagerOptions;
-import org.apache.flink.runtime.client.JobStatusMessage;
 import org.apache.flink.runtime.jobgraph.JobGraph;
 import org.apache.flink.runtime.util.HadoopUtils;
 import org.apache.flink.yarn.YarnClusterDescriptor;
 import org.apache.hadoop.yarn.api.records.ApplicationId;
 
 import java.nio.file.Path;
-import java.util.Collection;
-import java.util.Optional;
 
 @Slf4j
 public class YarnPerJobCommand implements SubmitCommand {
@@ -39,20 +35,14 @@ public class YarnPerJobCommand implements SubmitCommand {
      * @see HadoopUtils#getHadoopConfiguration(Configuration)
      */
     @Override
-    public JobID submit(Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
+    public ClusterClient submit(Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
         YarnClusterDescriptor clusterDescriptor = (YarnClusterDescriptor) FlinkUtil.createClusterDescriptor(configuration);
         Util.addJarFiles(clusterDescriptor, flinkHome, configuration);
         ClusterSpecification clusterSpecification = FlinkUtil.createClusterSpecification(configuration);
 
         PackagedProgram program = FlinkUtil.buildProgram(configuration, job);
         JobGraph jobGraph = PackagedProgramUtils.createJobGraph(program, configuration, 1, false);
-        ClusterClient<ApplicationId> clusterClient = createClusterClient(clusterDescriptor, clusterSpecification, jobGraph);
-        Collection<JobStatusMessage> jobStatusMessages = clusterClient.listJobs().get();
-        Optional<JobStatusMessage> optional = jobStatusMessages.stream().findFirst();
-        if (optional.isPresent() == false) {
-            throw new IllegalStateException("任务信息异常");
-        }
-        return optional.get().getJobId();
+        return createClusterClient(clusterDescriptor, clusterSpecification, jobGraph);
     }
 
     private ClusterClient<ApplicationId> createClusterClient(YarnClusterDescriptor clusterDescriptor,

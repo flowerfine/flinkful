@@ -3,7 +3,6 @@ package cn.sliew.flinkful.cli.descriptor.submit;
 import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
 import cn.sliew.flinkful.cli.base.util.FlinkUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.flink.api.common.JobID;
 import org.apache.flink.client.deployment.ClusterClientFactory;
 import org.apache.flink.client.program.ClusterClient;
 import org.apache.flink.client.program.PackagedProgram;
@@ -19,7 +18,7 @@ import java.nio.file.Path;
 public class YarnSessionSubmitCommand implements SubmitCommand {
 
     @Override
-    public JobID submit(Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
+    public ClusterClient submit(Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
         ClusterClientFactory<ApplicationId> factory = FlinkUtil.createClientFactory(configuration);
         YarnClusterDescriptor clusterDescriptor = (YarnClusterDescriptor) FlinkUtil.createClusterDescriptor(factory, configuration);
 
@@ -28,7 +27,8 @@ public class YarnSessionSubmitCommand implements SubmitCommand {
 
         PackagedProgram program = FlinkUtil.buildProgram(configuration, job);
         JobGraph jobGraph = PackagedProgramUtils.createJobGraph(program, configuration, 1, false);
-        return clusterClient.submitJob(jobGraph).get();
+        clusterClient.submitJob(jobGraph).get();
+        return clusterClient;
     }
 
 }
