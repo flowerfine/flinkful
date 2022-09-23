@@ -5,7 +5,7 @@ import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
 import cn.sliew.flinkful.cli.descriptor.submit.CommandFactory;
 import cn.sliew.flinkful.cli.descriptor.submit.SubmitCommand;
 import cn.sliew.flinkful.common.enums.DeploymentTarget;
-import org.apache.flink.api.common.JobID;
+import org.apache.flink.client.program.ClusterClient;
 import org.apache.flink.configuration.Configuration;
 
 import java.nio.file.Path;
@@ -13,7 +13,7 @@ import java.nio.file.Path;
 public class DescriptorCliClient implements CliClient {
 
     @Override
-    public JobID submit(DeploymentTarget deploymentTarget, Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
+    public ClusterClient submit(DeploymentTarget deploymentTarget, Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
         switch (deploymentTarget) {
             case NATIVE_KUBERNETES_SESSION:
             case YARN_SESSION:
@@ -28,7 +28,7 @@ public class DescriptorCliClient implements CliClient {
     }
 
     @Override
-    public JobID submitApplication(DeploymentTarget deploymentTarget, Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
+    public ClusterClient submitApplication(DeploymentTarget deploymentTarget, Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
         switch (deploymentTarget) {
             case NATIVE_KUBERNETES_APPLICATION:
             case YARN_APPLICATION:
