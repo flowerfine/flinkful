@@ -74,6 +74,7 @@
         <module>flinkful-cli</module>
         <module>flinkful-rest</module>
         <module>flinkful-examples</module>
+        <module>flinkful-shade</module>
     </modules>
 
     <properties>
