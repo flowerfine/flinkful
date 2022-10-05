@@ -9,14 +9,11 @@
         <version>1.13.6_2_8-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>flinkful-common</artifactId>
+    <artifactId>flinkful-shade</artifactId>
+    <packaging>pom</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>cn.sliew</groupId>
-            <artifactId>flinkful-flink-shade</artifactId>
-            <version>1.13.6_2_8-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
+    <modules>
+        <module>flinkful-flink-shade</module>
+    </modules>
 
 </project>
