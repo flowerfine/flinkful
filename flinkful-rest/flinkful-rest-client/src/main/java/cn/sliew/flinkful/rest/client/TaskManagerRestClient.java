@@ -1,11 +1,11 @@
 package cn.sliew.flinkful.rest.client;
 
 import cn.sliew.flinkful.rest.base.TaskManagerClient;
-import org.apache.flink.runtime.rest.RestClient;
-import org.apache.flink.runtime.rest.messages.EmptyRequestBody;
-import org.apache.flink.runtime.rest.messages.LogListInfo;
-import org.apache.flink.runtime.rest.messages.job.metrics.*;
-import org.apache.flink.runtime.rest.messages.taskmanager.*;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.RestClient;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.EmptyRequestBody;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.LogListInfo;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.job.metrics.*;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.taskmanager.*;
 
 import java.io.IOException;
 import java.util.Optional;

@@ -3,13 +3,13 @@ package cn.sliew.flinkful.cli.descriptor.submit;
 import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
 import cn.sliew.flinkful.cli.base.util.FlinkUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.flink.client.deployment.ClusterDeploymentException;
-import org.apache.flink.client.deployment.ClusterSpecification;
-import org.apache.flink.client.deployment.application.ApplicationConfiguration;
-import org.apache.flink.client.program.ClusterClient;
-import org.apache.flink.client.program.ClusterClientProvider;
-import org.apache.flink.configuration.Configuration;
-import org.apache.flink.kubernetes.KubernetesClusterDescriptor;
+import cn.sliew.flinkful.shade.org.apache.flink.client.deployment.ClusterDeploymentException;
+import cn.sliew.flinkful.shade.org.apache.flink.client.deployment.ClusterSpecification;
+import cn.sliew.flinkful.shade.org.apache.flink.client.deployment.application.ApplicationConfiguration;
+import cn.sliew.flinkful.shade.org.apache.flink.client.program.ClusterClient;
+import cn.sliew.flinkful.shade.org.apache.flink.client.program.ClusterClientProvider;
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.Configuration;
+import cn.sliew.flinkful.shade.org.apache.flink.kubernetes.KubernetesClusterDescriptor;
 
 import java.nio.file.Path;
 

@@ -1,14 +1,17 @@
-package org.apache.flink.client.program;
+package cn.sliew.flinkful.shade.org.apache.flink.client.program;
 
-import org.apache.flink.api.common.ProgramDescription;
-import org.apache.flink.client.ClientUtils;
-import org.apache.flink.configuration.Configuration;
-import org.apache.flink.configuration.PipelineOptions;
-import org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;
-import org.apache.flink.runtime.security.FlinkSecurityManager;
-import org.apache.flink.util.InstantiationUtil;
-import org.apache.flink.util.JarUtils;
+import cn.sliew.flinkful.shade.org.apache.flink.api.common.ProgramDescription;
+import cn.sliew.flinkful.shade.org.apache.flink.client.ClientUtils;
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.Configuration;
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.PipelineOptions;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.security.FlinkSecurityManager;
+import cn.sliew.flinkful.shade.org.apache.flink.util.InstantiationUtil;
+import cn.sliew.flinkful.shade.org.apache.flink.util.JarUtils;
 
+import org.apache.flink.client.program.PackagedProgramUtils;
+import org.apache.flink.client.program.ProgramInvocationException;
+import org.apache.flink.client.program.ProgramParametrizationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -97,7 +100,7 @@ public class PackagedProgram implements AutoCloseable {
      *     execution.
      * @param args Optional. The arguments used to create the pact plan, depend on implementation of
      *     the pact plan. See getDescription().
-     * @throws ProgramInvocationException This invocation is thrown if the Program can't be properly
+     * @throws org.apache.flink.client.program.ProgramInvocationException This invocation is thrown if the Program can't be properly
      *     loaded. Causes may be a missing / wrong class or manifest files.
      */
     private PackagedProgram(
@@ -107,7 +110,7 @@ public class PackagedProgram implements AutoCloseable {
             Configuration configuration,
             SavepointRestoreSettings savepointRestoreSettings,
             String... args)
-            throws ProgramInvocationException {
+            throws org.apache.flink.client.program.ProgramInvocationException {
         this.classpaths = checkNotNull(classpaths);
         this.savepointSettings = checkNotNull(savepointRestoreSettings);
         this.args = checkNotNull(args);
@@ -148,7 +151,7 @@ public class PackagedProgram implements AutoCloseable {
                         userCodeClassLoader);
 
         if (!hasMainMethod(mainClass)) {
-            throw new ProgramInvocationException(
+            throw new org.apache.flink.client.program.ProgramInvocationException(
                     "The given program class does not have a main(String[]) method.");
         }
     }
@@ -170,11 +173,11 @@ public class PackagedProgram implements AutoCloseable {
      * plan itself and its arguments.
      *
      * @return The description of the PactProgram's input parameters.
-     * @throws ProgramInvocationException This invocation is thrown if the Program can't be properly
+     * @throws org.apache.flink.client.program.ProgramInvocationException This invocation is thrown if the Program can't be properly
      *     loaded. Causes may be a missing / wrong class or manifest files.
      */
     @Nullable
-    public String getDescription() throws ProgramInvocationException {
+    public String getDescription() throws org.apache.flink.client.program.ProgramInvocationException {
         if (ProgramDescription.class.isAssignableFrom(this.mainClass)) {
 
             ProgramDescription descr;
@@ -190,7 +193,7 @@ public class PackagedProgram implements AutoCloseable {
             try {
                 return descr.getDescription();
             } catch (Throwable t) {
-                throw new ProgramInvocationException(
+                throw new org.apache.flink.client.program.ProgramInvocationException(
                         "Error while getting the program description"
                                 + (t.getMessage() == null ? "." : ": " + t.getMessage()),
                         t);
@@ -205,7 +208,7 @@ public class PackagedProgram implements AutoCloseable {
      * This method assumes that the context environment is prepared, or the execution will be a
      * local execution by default.
      */
-    public void invokeInteractiveModeForExecution() throws ProgramInvocationException {
+    public void invokeInteractiveModeForExecution() throws org.apache.flink.client.program.ProgramInvocationException {
         FlinkSecurityManager.monitorUserSystemExitForCurrentThread();
         try {
             callMainMethod(mainClass, args);
@@ -260,7 +263,7 @@ public class PackagedProgram implements AutoCloseable {
         }
 
         if (isPython) {
-            libs.add(PackagedProgramUtils.getPythonJar());
+            libs.add(org.apache.flink.client.program.PackagedProgramUtils.getPythonJar());
         }
 
         return libs;
@@ -268,7 +271,7 @@ public class PackagedProgram implements AutoCloseable {
 
     /** Returns all provided libraries needed to run the program. */
     public static List<URL> getJobJarAndDependencies(
-            File jarFile, @Nullable String entryPointClassName) throws ProgramInvocationException {
+            File jarFile, @Nullable String entryPointClassName) throws org.apache.flink.client.program.ProgramInvocationException {
         URL jarFileUrl = loadJarFile(jarFile);
 
         List<File> extractedTempLibraries =
@@ -322,20 +325,20 @@ public class PackagedProgram implements AutoCloseable {
     }
 
     private static void callMainMethod(Class<?> entryClass, String[] args)
-            throws ProgramInvocationException {
+            throws org.apache.flink.client.program.ProgramInvocationException {
         Method mainMethod;
         if (!Modifier.isPublic(entryClass.getModifiers())) {
-            throw new ProgramInvocationException(
+            throw new org.apache.flink.client.program.ProgramInvocationException(
                     "The class " + entryClass.getName() + " must be public.");
         }
 
         try {
             mainMethod = entryClass.getMethod("main", String[].class);
         } catch (NoSuchMethodException e) {
-            throw new ProgramInvocationException(
+            throw new org.apache.flink.client.program.ProgramInvocationException(
                     "The class " + entryClass.getName() + " has no main(String[]) method.");
         } catch (Throwable t) {
-            throw new ProgramInvocationException(
+            throw new org.apache.flink.client.program.ProgramInvocationException(
                     "Could not look up the main(String[]) method from the class "
                             + entryClass.getName()
                             + ": "
@@ -344,44 +347,44 @@ public class PackagedProgram implements AutoCloseable {
         }
 
         if (!Modifier.isStatic(mainMethod.getModifiers())) {
-            throw new ProgramInvocationException(
+            throw new org.apache.flink.client.program.ProgramInvocationException(
                     "The class " + entryClass.getName() + " declares a non-static main method.");
         }
         if (!Modifier.isPublic(mainMethod.getModifiers())) {
-            throw new ProgramInvocationException(
+            throw new org.apache.flink.client.program.ProgramInvocationException(
                     "The class " + entryClass.getName() + " declares a non-public main method.");
         }
 
         try {
             mainMethod.invoke(null, (Object) args);
         } catch (IllegalArgumentException e) {
-            throw new ProgramInvocationException(
+            throw new org.apache.flink.client.program.ProgramInvocationException(
                     "Could not invoke the main method, arguments are not matching.", e);
         } catch (IllegalAccessException e) {
-            throw new ProgramInvocationException(
+            throw new org.apache.flink.client.program.ProgramInvocationException(
                     "Access to the main method was denied: " + e.getMessage(), e);
         } catch (InvocationTargetException e) {
             Throwable exceptionInMethod = e.getTargetException();
             if (exceptionInMethod instanceof Error) {
                 throw (Error) exceptionInMethod;
-            } else if (exceptionInMethod instanceof ProgramParametrizationException) {
+            } else if (exceptionInMethod instanceof org.apache.flink.client.program.ProgramParametrizationException) {
                 throw (ProgramParametrizationException) exceptionInMethod;
-            } else if (exceptionInMethod instanceof ProgramInvocationException) {
-                throw (ProgramInvocationException) exceptionInMethod;
+            } else if (exceptionInMethod instanceof org.apache.flink.client.program.ProgramInvocationException) {
+                throw (org.apache.flink.client.program.ProgramInvocationException) exceptionInMethod;
             } else {
-                throw new ProgramInvocationException(
+                throw new org.apache.flink.client.program.ProgramInvocationException(
                         "The main method caused an error: " + exceptionInMethod.getMessage(),
                         exceptionInMethod);
             }
         } catch (Throwable t) {
-            throw new ProgramInvocationException(
+            throw new org.apache.flink.client.program.ProgramInvocationException(
                     "An error occurred while invoking the program's main method: " + t.getMessage(),
                     t);
         }
     }
 
     private static String getEntryPointClassNameFromJar(URL jarFile)
-            throws ProgramInvocationException {
+            throws org.apache.flink.client.program.ProgramInvocationException {
         JarFile jar;
         Manifest manifest;
         String className;
@@ -390,10 +393,10 @@ public class PackagedProgram implements AutoCloseable {
         try {
             jar = new JarFile(new File(jarFile.toURI()));
         } catch (URISyntaxException use) {
-            throw new ProgramInvocationException(
+            throw new org.apache.flink.client.program.ProgramInvocationException(
                     "Invalid file path '" + jarFile.getPath() + "'", use);
         } catch (IOException ioex) {
-            throw new ProgramInvocationException(
+            throw new org.apache.flink.client.program.ProgramInvocationException(
                     "Error while opening jar file '"
                             + jarFile.getPath()
                             + "'. "
@@ -407,7 +410,7 @@ public class PackagedProgram implements AutoCloseable {
             try {
                 manifest = jar.getManifest();
             } catch (IOException ioex) {
-                throw new ProgramInvocationException(
+                throw new org.apache.flink.client.program.ProgramInvocationException(
                         "The Manifest in the jar file could not be accessed '"
                                 + jarFile.getPath()
                                 + "'. "
@@ -416,7 +419,7 @@ public class PackagedProgram implements AutoCloseable {
             }
 
             if (manifest == null) {
-                throw new ProgramInvocationException(
+                throw new org.apache.flink.client.program.ProgramInvocationException(
                         "No manifest found in jar file '"
                                 + jarFile.getPath()
                                 + "'. The manifest is need to point to the program's main class.");
@@ -435,7 +438,7 @@ public class PackagedProgram implements AutoCloseable {
             if (className != null) {
                 return className;
             } else {
-                throw new ProgramInvocationException(
+                throw new org.apache.flink.client.program.ProgramInvocationException(
                         "Neither a '"
                                 + MANIFEST_ATTRIBUTE_MAIN_CLASS
                                 + "', nor a '"
@@ -446,14 +449,14 @@ public class PackagedProgram implements AutoCloseable {
             try {
                 jar.close();
             } catch (Throwable t) {
-                throw new ProgramInvocationException(
+                throw new org.apache.flink.client.program.ProgramInvocationException(
                         "Could not close the JAR file: " + t.getMessage(), t);
             }
         }
     }
 
     @Nullable
-    private static URL loadJarFile(File jar) throws ProgramInvocationException {
+    private static URL loadJarFile(File jar) throws org.apache.flink.client.program.ProgramInvocationException {
         if (jar != null) {
             URL jarFileUrl;
 
@@ -472,32 +475,32 @@ public class PackagedProgram implements AutoCloseable {
     }
 
     private static Class<?> loadMainClass(String className, ClassLoader cl)
-            throws ProgramInvocationException {
+            throws org.apache.flink.client.program.ProgramInvocationException {
         ClassLoader contextCl = null;
         try {
             contextCl = Thread.currentThread().getContextClassLoader();
             Thread.currentThread().setContextClassLoader(cl);
             return Class.forName(className, false, cl);
         } catch (ClassNotFoundException e) {
-            throw new ProgramInvocationException(
+            throw new org.apache.flink.client.program.ProgramInvocationException(
                     "The program's entry point class '"
                             + className
                             + "' was not found in the jar file.",
                     e);
         } catch (ExceptionInInitializerError e) {
-            throw new ProgramInvocationException(
+            throw new org.apache.flink.client.program.ProgramInvocationException(
                     "The program's entry point class '"
                             + className
                             + "' threw an error during initialization.",
                     e);
         } catch (LinkageError e) {
-            throw new ProgramInvocationException(
+            throw new org.apache.flink.client.program.ProgramInvocationException(
                     "The program's entry point class '"
                             + className
                             + "' could not be loaded due to a linkage failure.",
                     e);
         } catch (Throwable t) {
-            throw new ProgramInvocationException(
+            throw new org.apache.flink.client.program.ProgramInvocationException(
                     "The program's entry point class '"
                             + className
                             + "' caused an exception during initialization: "
@@ -515,10 +518,10 @@ public class PackagedProgram implements AutoCloseable {
      * system's temp directory.
      *
      * @return The file names of the extracted temporary files.
-     * @throws ProgramInvocationException Thrown, if the extraction process failed.
+     * @throws org.apache.flink.client.program.ProgramInvocationException Thrown, if the extraction process failed.
      */
     public static List<File> extractContainedLibraries(URL jarFile)
-            throws ProgramInvocationException {
+            throws org.apache.flink.client.program.ProgramInvocationException {
         try (final JarFile jar = new JarFile(new File(jarFile.toURI()))) {
 
             final List<JarEntry> containedJarFileEntries = getContainedJarEntries(jar);
@@ -552,14 +555,14 @@ public class PackagedProgram implements AutoCloseable {
 
             return extractedTempLibraries;
         } catch (Throwable t) {
-            throw new ProgramInvocationException(
+            throw new org.apache.flink.client.program.ProgramInvocationException(
                     "Unknown I/O error while extracting contained jar files.", t);
         }
     }
 
     private static File copyLibToTempFile(
             String name, Random rnd, JarFile jar, JarEntry input, byte[] buffer)
-            throws ProgramInvocationException {
+            throws org.apache.flink.client.program.ProgramInvocationException {
         final File output = createTempFile(rnd, input, name);
         try (final OutputStream out = new FileOutputStream(output);
                 final InputStream in = new BufferedInputStream(jar.getInputStream(input))) {
@@ -569,7 +572,7 @@ public class PackagedProgram implements AutoCloseable {
             }
             return output;
         } catch (IOException e) {
-            throw new ProgramInvocationException(
+            throw new org.apache.flink.client.program.ProgramInvocationException(
                     "An I/O error occurred while extracting nested library '"
                             + input.getName()
                             + "' to temporary file '"
@@ -579,13 +582,13 @@ public class PackagedProgram implements AutoCloseable {
     }
 
     private static File createTempFile(Random rnd, JarEntry entry, String name)
-            throws ProgramInvocationException {
+            throws org.apache.flink.client.program.ProgramInvocationException {
         try {
             final File tempFile = File.createTempFile(rnd.nextInt(Integer.MAX_VALUE) + "_", name);
             tempFile.deleteOnExit();
             return tempFile;
         } catch (IOException e) {
-            throw new ProgramInvocationException(
+            throw new org.apache.flink.client.program.ProgramInvocationException(
                     "An I/O error occurred while creating temporary file to extract nested library '"
                             + entry.getName()
                             + "'.",
@@ -611,13 +614,13 @@ public class PackagedProgram implements AutoCloseable {
         }
     }
 
-    private static void checkJarFile(URL jarfile) throws ProgramInvocationException {
+    private static void checkJarFile(URL jarfile) throws org.apache.flink.client.program.ProgramInvocationException {
         try {
             JarUtils.checkJarFile(jarfile);
         } catch (IOException e) {
-            throw new ProgramInvocationException(e.getMessage(), e);
+            throw new org.apache.flink.client.program.ProgramInvocationException(e.getMessage(), e);
         } catch (Throwable t) {
-            throw new ProgramInvocationException(
+            throw new org.apache.flink.client.program.ProgramInvocationException(
                     "Cannot access jar file"
                             + (t.getMessage() == null ? "." : ": " + t.getMessage()),
                     t);

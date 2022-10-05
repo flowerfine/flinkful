@@ -5,10 +5,10 @@ import cn.sliew.flinkful.rest.http.util.FlinkShadedJacksonUtil;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import org.apache.flink.runtime.rest.handler.async.AsynchronousOperationInfo;
-import org.apache.flink.runtime.rest.handler.async.AsynchronousOperationResult;
-import org.apache.flink.runtime.rest.handler.async.TriggerResponse;
-import org.apache.flink.runtime.rest.messages.job.savepoints.SavepointDisposalRequest;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.handler.async.AsynchronousOperationInfo;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.handler.async.AsynchronousOperationResult;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.handler.async.TriggerResponse;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.job.savepoints.SavepointDisposalRequest;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;

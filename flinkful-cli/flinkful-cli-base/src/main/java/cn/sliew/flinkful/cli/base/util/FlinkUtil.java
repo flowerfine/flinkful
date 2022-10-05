@@ -1,19 +1,19 @@
 package cn.sliew.flinkful.cli.base.util;
 
 import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
-import org.apache.flink.client.deployment.*;
-import org.apache.flink.client.program.ClusterClient;
-import org.apache.flink.client.program.PackagedProgram;
-import org.apache.flink.client.program.ProgramInvocationException;
-import org.apache.flink.configuration.Configuration;
-import org.apache.flink.configuration.GlobalConfiguration;
-import org.apache.flink.configuration.JobManagerOptions;
-import org.apache.flink.configuration.TaskManagerOptions;
-import org.apache.flink.runtime.client.JobStatusMessage;
-import org.apache.flink.runtime.clusterframework.TaskExecutorProcessUtils;
-import org.apache.flink.runtime.concurrent.FutureUtils;
-import org.apache.flink.runtime.jobmanager.JobManagerProcessUtils;
-import org.apache.flink.util.StringUtils;
+import cn.sliew.flinkful.shade.org.apache.flink.client.deployment.*;
+import cn.sliew.flinkful.shade.org.apache.flink.client.program.ClusterClient;
+import cn.sliew.flinkful.shade.org.apache.flink.client.program.PackagedProgram;
+import cn.sliew.flinkful.shade.org.apache.flink.client.program.ProgramInvocationException;
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.Configuration;
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.GlobalConfiguration;
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.JobManagerOptions;
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.TaskManagerOptions;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.client.JobStatusMessage;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.clusterframework.TaskExecutorProcessUtils;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.concurrent.FutureUtils;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.jobmanager.JobManagerProcessUtils;
+import cn.sliew.flinkful.shade.org.apache.flink.util.StringUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;

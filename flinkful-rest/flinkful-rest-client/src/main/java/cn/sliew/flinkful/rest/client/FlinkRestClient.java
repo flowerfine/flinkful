@@ -1,12 +1,12 @@
 package cn.sliew.flinkful.rest.client;
 
 import cn.sliew.flinkful.rest.base.*;
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.Configuration;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.RestClient;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.RestClientConfiguration;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.util.ExecutorThreadFactory;
+import cn.sliew.flinkful.shade.org.apache.flink.util.ConfigurationException;
 import cn.sliew.milky.common.exception.Rethrower;
-import org.apache.flink.configuration.Configuration;
-import org.apache.flink.runtime.rest.RestClient;
-import org.apache.flink.runtime.rest.RestClientConfiguration;
-import org.apache.flink.runtime.util.ExecutorThreadFactory;
-import org.apache.flink.util.ConfigurationException;
 import org.jboss.netty.util.internal.ConcurrentHashMap;
 
 import java.util.concurrent.ConcurrentMap;

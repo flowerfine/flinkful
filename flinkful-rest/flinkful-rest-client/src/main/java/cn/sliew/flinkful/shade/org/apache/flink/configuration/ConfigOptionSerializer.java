@@ -1,8 +1,8 @@
-package org.apache.flink.configuration;
+package cn.sliew.flinkful.shade.org.apache.flink.configuration;
 
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.description.Formatter;
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.description.HtmlFormatter;
 import cn.sliew.milky.common.exception.Rethrower;
-import org.apache.flink.configuration.description.Formatter;
-import org.apache.flink.configuration.description.HtmlFormatter;
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.core.JsonGenerator;
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.SerializerProvider;
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.ser.std.StdSerializer;

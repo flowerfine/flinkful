@@ -1,7 +1,7 @@
-package org.apache.flink.runtime.rest.messages.checkpoints;
+package cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.checkpoints;
 
-import org.apache.flink.runtime.rest.messages.JobVertexIdPathParameter;
-import org.apache.flink.runtime.rest.messages.MessagePathParameter;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.JobVertexIdPathParameter;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.MessagePathParameter;
 
 import java.util.Arrays;
 import java.util.Collection;

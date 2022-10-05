@@ -1,8 +1,8 @@
 package cn.sliew.flinkful.cli.descriptor.submit;
 
 import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
-import org.apache.flink.client.program.ClusterClient;
-import org.apache.flink.configuration.Configuration;
+import cn.sliew.flinkful.shade.org.apache.flink.client.program.ClusterClient;
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.Configuration;
 
 import java.nio.file.Path;
 

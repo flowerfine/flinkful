@@ -1,9 +1,9 @@
-package org.apache.flink.runtime.rest.messages.job.metrics;
+package cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.job.metrics;
 
-import org.apache.flink.runtime.rest.handler.job.metrics.JobVertexMetricsHandler;
-import org.apache.flink.runtime.rest.messages.JobVertexMessageParameters;
-import org.apache.flink.runtime.rest.messages.MessageParameters;
-import org.apache.flink.runtime.rest.messages.MessageQueryParameter;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.handler.job.metrics.JobVertexMetricsHandler;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.JobVertexMessageParameters;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.MessageParameters;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.MessageQueryParameter;
 
 import java.util.Collection;
 import java.util.Collections;

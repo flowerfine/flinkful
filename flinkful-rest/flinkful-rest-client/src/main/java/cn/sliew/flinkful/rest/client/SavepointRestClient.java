@@ -1,16 +1,16 @@
 package cn.sliew.flinkful.rest.client;
 
 import cn.sliew.flinkful.rest.base.SavepointClient;
-import org.apache.flink.runtime.rest.RestClient;
-import org.apache.flink.runtime.rest.handler.async.AsynchronousOperationInfo;
-import org.apache.flink.runtime.rest.handler.async.AsynchronousOperationResult;
-import org.apache.flink.runtime.rest.handler.async.TriggerResponse;
-import org.apache.flink.runtime.rest.messages.EmptyMessageParameters;
-import org.apache.flink.runtime.rest.messages.EmptyRequestBody;
-import org.apache.flink.runtime.rest.messages.job.savepoints.SavepointDisposalRequest;
-import org.apache.flink.runtime.rest.messages.job.savepoints.SavepointDisposalStatusHeaders;
-import org.apache.flink.runtime.rest.messages.job.savepoints.SavepointDisposalStatusMessageParameters;
-import org.apache.flink.runtime.rest.messages.job.savepoints.SavepointDisposalTriggerHeaders;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.RestClient;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.handler.async.AsynchronousOperationInfo;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.handler.async.AsynchronousOperationResult;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.handler.async.TriggerResponse;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.EmptyMessageParameters;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.EmptyRequestBody;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.job.savepoints.SavepointDisposalRequest;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.job.savepoints.SavepointDisposalStatusHeaders;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.job.savepoints.SavepointDisposalStatusMessageParameters;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.job.savepoints.SavepointDisposalTriggerHeaders;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;

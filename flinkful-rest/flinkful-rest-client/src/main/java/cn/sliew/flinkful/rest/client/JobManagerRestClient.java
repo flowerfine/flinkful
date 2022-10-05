@@ -1,15 +1,15 @@
 package cn.sliew.flinkful.rest.client;
 
 import cn.sliew.flinkful.rest.base.JobManagerClient;
-import org.apache.flink.runtime.rest.RestClient;
-import org.apache.flink.runtime.rest.messages.ClusterConfigurationInfo;
-import org.apache.flink.runtime.rest.messages.ClusterConfigurationInfoHeaders;
-import org.apache.flink.runtime.rest.messages.EmptyRequestBody;
-import org.apache.flink.runtime.rest.messages.LogListInfo;
-import org.apache.flink.runtime.rest.messages.cluster.JobManagerLogListHeaders;
-import org.apache.flink.runtime.rest.messages.job.metrics.JobManagerMetricsHeaders;
-import org.apache.flink.runtime.rest.messages.job.metrics.JobManagerMetricsMessageParameters;
-import org.apache.flink.runtime.rest.messages.job.metrics.MetricCollectionResponseBody;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.RestClient;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.ClusterConfigurationInfo;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.ClusterConfigurationInfoHeaders;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.EmptyRequestBody;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.LogListInfo;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.cluster.JobManagerLogListHeaders;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.job.metrics.JobManagerMetricsHeaders;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.job.metrics.JobManagerMetricsMessageParameters;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.job.metrics.MetricCollectionResponseBody;
 
 import java.io.IOException;
 import java.util.Optional;

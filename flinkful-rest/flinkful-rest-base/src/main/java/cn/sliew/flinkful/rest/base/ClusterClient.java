@@ -1,7 +1,7 @@
 package cn.sliew.flinkful.rest.base;
 
-import org.apache.flink.runtime.rest.handler.legacy.messages.ClusterOverviewWithVersion;
-import org.apache.flink.runtime.rest.messages.EmptyResponseBody;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.handler.legacy.messages.ClusterOverviewWithVersion;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.EmptyResponseBody;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;

@@ -1,14 +1,14 @@
 package cn.sliew.flinkful.rest.client;
 
 import cn.sliew.flinkful.rest.base.JarClient;
-import org.apache.flink.runtime.rest.FileUpload;
-import org.apache.flink.runtime.rest.RestClient;
-import org.apache.flink.runtime.rest.messages.EmptyMessageParameters;
-import org.apache.flink.runtime.rest.messages.EmptyRequestBody;
-import org.apache.flink.runtime.rest.messages.EmptyResponseBody;
-import org.apache.flink.runtime.rest.messages.JobPlanInfo;
-import org.apache.flink.runtime.rest.util.RestConstants;
-import org.apache.flink.runtime.webmonitor.handlers.*;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.FileUpload;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.RestClient;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.EmptyMessageParameters;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.EmptyRequestBody;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.EmptyResponseBody;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.JobPlanInfo;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.util.RestConstants;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.webmonitor.handlers.*;
 
 import java.io.IOException;
 import java.nio.file.Paths;

@@ -3,10 +3,10 @@ package cn.sliew.flinkful.cli.base.submit;
 import cn.sliew.milky.common.primitives.Strings;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.flink.client.cli.CliFrontendParser;
-import org.apache.flink.client.cli.ProgramOptions;
-import org.apache.flink.runtime.jobgraph.SavepointConfigOptions;
-import org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;
+import cn.sliew.flinkful.shade.org.apache.flink.client.cli.CliFrontendParser;
+import cn.sliew.flinkful.shade.org.apache.flink.client.cli.ProgramOptions;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.jobgraph.SavepointConfigOptions;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;
 
 import java.net.URL;
 import java.util.Collections;

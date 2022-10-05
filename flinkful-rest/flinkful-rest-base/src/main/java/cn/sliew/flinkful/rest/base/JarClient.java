@@ -1,8 +1,8 @@
 package cn.sliew.flinkful.rest.base;
 
-import org.apache.flink.runtime.rest.messages.EmptyResponseBody;
-import org.apache.flink.runtime.rest.messages.JobPlanInfo;
-import org.apache.flink.runtime.webmonitor.handlers.*;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.EmptyResponseBody;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.JobPlanInfo;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.webmonitor.handlers.*;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;

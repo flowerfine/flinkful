@@ -1,6 +1,7 @@
-package org.apache.flink.runtime.rest.messages.job;
+package cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.job;
 
-import org.apache.flink.runtime.rest.messages.MessagePathParameter;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.MessagePathParameter;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.job.SubtaskAttemptPathParameter;
 
 import java.util.Arrays;
 import java.util.Collection;

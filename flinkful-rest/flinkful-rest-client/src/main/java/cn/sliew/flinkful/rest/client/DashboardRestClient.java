@@ -1,9 +1,9 @@
 package cn.sliew.flinkful.rest.client;
 
 import cn.sliew.flinkful.rest.base.DashboardClient;
-import org.apache.flink.runtime.rest.RestClient;
-import org.apache.flink.runtime.rest.messages.DashboardConfiguration;
-import org.apache.flink.runtime.rest.messages.DashboardConfigurationHeaders;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.RestClient;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.DashboardConfiguration;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.DashboardConfigurationHeaders;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;

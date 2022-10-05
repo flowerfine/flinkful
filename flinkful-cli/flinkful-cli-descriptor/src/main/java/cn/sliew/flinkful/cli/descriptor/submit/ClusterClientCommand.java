@@ -2,15 +2,15 @@ package cn.sliew.flinkful.cli.descriptor.submit;
 
 import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
 import cn.sliew.flinkful.cli.base.util.FlinkUtil;
-import org.apache.flink.client.deployment.ClusterClientFactory;
-import org.apache.flink.client.deployment.ClusterRetrieveException;
-import org.apache.flink.client.deployment.StandaloneClusterDescriptor;
-import org.apache.flink.client.deployment.StandaloneClusterId;
-import org.apache.flink.client.program.ClusterClient;
-import org.apache.flink.client.program.PackagedProgram;
-import org.apache.flink.client.program.PackagedProgramUtils;
-import org.apache.flink.configuration.Configuration;
-import org.apache.flink.runtime.jobgraph.JobGraph;
+import cn.sliew.flinkful.shade.org.apache.flink.client.deployment.ClusterClientFactory;
+import cn.sliew.flinkful.shade.org.apache.flink.client.deployment.ClusterRetrieveException;
+import cn.sliew.flinkful.shade.org.apache.flink.client.deployment.StandaloneClusterDescriptor;
+import cn.sliew.flinkful.shade.org.apache.flink.client.deployment.StandaloneClusterId;
+import cn.sliew.flinkful.shade.org.apache.flink.client.program.ClusterClient;
+import cn.sliew.flinkful.shade.org.apache.flink.client.program.PackagedProgram;
+import cn.sliew.flinkful.shade.org.apache.flink.client.program.PackagedProgramUtils;
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.Configuration;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.jobgraph.JobGraph;
 
 import java.nio.file.Path;
 

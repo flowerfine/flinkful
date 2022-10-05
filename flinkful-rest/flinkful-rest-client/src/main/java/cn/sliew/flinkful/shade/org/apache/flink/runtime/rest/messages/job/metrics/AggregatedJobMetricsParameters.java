@@ -1,6 +1,6 @@
-package org.apache.flink.runtime.rest.messages.job.metrics;
+package cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.job.metrics;
 
-import org.apache.flink.runtime.rest.messages.MessagePathParameter;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.MessagePathParameter;
 
 import java.util.Collection;
 import java.util.Collections;

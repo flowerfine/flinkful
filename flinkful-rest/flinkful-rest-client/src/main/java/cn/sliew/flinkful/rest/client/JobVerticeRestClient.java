@@ -1,11 +1,11 @@
 package cn.sliew.flinkful.rest.client;
 
 import cn.sliew.flinkful.rest.base.JobVerticeClient;
-import org.apache.flink.runtime.rest.RestClient;
-import org.apache.flink.runtime.rest.messages.*;
-import org.apache.flink.runtime.rest.messages.job.*;
-import org.apache.flink.runtime.rest.messages.job.metrics.*;
-import org.apache.flink.runtime.webmonitor.threadinfo.JobVertexFlameGraph;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.RestClient;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.*;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.job.*;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.job.metrics.*;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.webmonitor.threadinfo.JobVertexFlameGraph;
 
 import java.io.IOException;
 import java.util.Optional;

@@ -2,7 +2,7 @@ package cn.sliew.flinkful.cli.descriptor.protocol;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.flink.api.common.JobID;
+import cn.sliew.flinkful.shade.org.apache.flink.api.common.JobID;
 
 import java.util.List;
 

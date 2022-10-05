@@ -1,10 +1,10 @@
 package cn.sliew.flinkful.cli.base.util;
 
-import org.apache.flink.configuration.Configuration;
-import org.apache.flink.util.CollectionUtil;
-import org.apache.flink.util.StringUtils;
-import org.apache.flink.yarn.YarnClusterDescriptor;
-import org.apache.flink.yarn.configuration.YarnConfigOptions;
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.Configuration;
+import cn.sliew.flinkful.shade.org.apache.flink.util.CollectionUtil;
+import cn.sliew.flinkful.shade.org.apache.flink.util.StringUtils;
+import cn.sliew.flinkful.shade.org.apache.flink.yarn.YarnClusterDescriptor;
+import cn.sliew.flinkful.shade.org.apache.flink.yarn.configuration.YarnConfigOptions;
 import org.apache.hadoop.fs.Path;
 
 import java.io.File;

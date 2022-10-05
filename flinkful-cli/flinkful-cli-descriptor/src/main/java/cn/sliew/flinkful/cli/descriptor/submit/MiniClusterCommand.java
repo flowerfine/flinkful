@@ -2,15 +2,15 @@ package cn.sliew.flinkful.cli.descriptor.submit;
 
 import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
 import cn.sliew.flinkful.cli.base.util.FlinkUtil;
-import org.apache.flink.client.deployment.executors.LocalExecutor;
-import org.apache.flink.client.program.ClusterClient;
-import org.apache.flink.client.program.MiniClusterClient;
-import org.apache.flink.client.program.PackagedProgram;
-import org.apache.flink.client.program.PackagedProgramUtils;
-import org.apache.flink.configuration.*;
-import org.apache.flink.runtime.jobgraph.JobGraph;
-import org.apache.flink.runtime.minicluster.MiniCluster;
-import org.apache.flink.runtime.minicluster.MiniClusterConfiguration;
+import cn.sliew.flinkful.shade.org.apache.flink.client.deployment.executors.LocalExecutor;
+import cn.sliew.flinkful.shade.org.apache.flink.client.program.ClusterClient;
+import cn.sliew.flinkful.shade.org.apache.flink.client.program.MiniClusterClient;
+import cn.sliew.flinkful.shade.org.apache.flink.client.program.PackagedProgram;
+import cn.sliew.flinkful.shade.org.apache.flink.client.program.PackagedProgramUtils;
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.*;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.jobgraph.JobGraph;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.minicluster.MiniCluster;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.minicluster.MiniClusterConfiguration;
 
 import java.net.URI;
 import java.nio.file.Path;

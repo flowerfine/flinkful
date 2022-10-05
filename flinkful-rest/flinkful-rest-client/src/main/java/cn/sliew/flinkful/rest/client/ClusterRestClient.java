@@ -1,11 +1,11 @@
 package cn.sliew.flinkful.rest.client;
 
 import cn.sliew.flinkful.rest.base.ClusterClient;
-import org.apache.flink.runtime.rest.RestClient;
-import org.apache.flink.runtime.rest.handler.legacy.messages.ClusterOverviewWithVersion;
-import org.apache.flink.runtime.rest.messages.ClusterOverviewHeaders;
-import org.apache.flink.runtime.rest.messages.EmptyResponseBody;
-import org.apache.flink.runtime.rest.messages.cluster.ShutdownHeaders;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.RestClient;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.handler.legacy.messages.ClusterOverviewWithVersion;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.ClusterOverviewHeaders;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.EmptyResponseBody;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.cluster.ShutdownHeaders;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;

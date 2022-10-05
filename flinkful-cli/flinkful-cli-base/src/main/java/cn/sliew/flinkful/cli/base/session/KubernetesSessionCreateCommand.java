@@ -3,12 +3,12 @@ package cn.sliew.flinkful.cli.base.session;
 import cn.sliew.flinkful.cli.base.util.FlinkUtil;
 import cn.sliew.flinkful.common.enums.DeploymentTarget;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.flink.client.deployment.ClusterDeploymentException;
-import org.apache.flink.client.deployment.ClusterSpecification;
-import org.apache.flink.client.program.ClusterClient;
-import org.apache.flink.client.program.ClusterClientProvider;
-import org.apache.flink.configuration.Configuration;
-import org.apache.flink.kubernetes.KubernetesClusterDescriptor;
+import cn.sliew.flinkful.shade.org.apache.flink.client.deployment.ClusterDeploymentException;
+import cn.sliew.flinkful.shade.org.apache.flink.client.deployment.ClusterSpecification;
+import cn.sliew.flinkful.shade.org.apache.flink.client.program.ClusterClient;
+import cn.sliew.flinkful.shade.org.apache.flink.client.program.ClusterClientProvider;
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.Configuration;
+import cn.sliew.flinkful.shade.org.apache.flink.kubernetes.KubernetesClusterDescriptor;
 
 import java.nio.file.Path;
 

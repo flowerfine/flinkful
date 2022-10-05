@@ -1,7 +1,7 @@
-package org.apache.flink.runtime.rest.messages.job.metrics;
+package cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.job.metrics;
 
-import org.apache.flink.runtime.rest.messages.MessageParameters;
-import org.apache.flink.runtime.rest.messages.MessageQueryParameter;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.MessageParameters;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.MessageQueryParameter;
 
 import java.util.Arrays;
 import java.util.Collection;

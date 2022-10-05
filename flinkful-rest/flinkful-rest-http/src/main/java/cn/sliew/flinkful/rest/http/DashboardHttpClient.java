@@ -3,7 +3,7 @@ package cn.sliew.flinkful.rest.http;
 import cn.sliew.flinkful.rest.base.DashboardClient;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import org.apache.flink.runtime.rest.messages.DashboardConfiguration;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.DashboardConfiguration;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;

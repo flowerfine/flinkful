@@ -1,8 +1,8 @@
 package cn.sliew.flinkful.rest.base;
 
-import org.apache.flink.runtime.rest.messages.ClusterConfigurationInfo;
-import org.apache.flink.runtime.rest.messages.LogListInfo;
-import org.apache.flink.runtime.rest.messages.job.metrics.MetricCollectionResponseBody;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.ClusterConfigurationInfo;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.LogListInfo;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.rest.messages.job.metrics.MetricCollectionResponseBody;
 
 import java.io.IOException;
 import java.util.Optional;
