@@ -58,18 +58,11 @@
                 <configuration>
                     <createSourcesJar>true</createSourcesJar>
                     <shadeSourcesContent>true</shadeSourcesContent>
+                    <createDependencyReducedPom>true</createDependencyReducedPom>
+                    <dependencyReducedPomLocation>${project.basedir}/target/dependency-reduced-pom.xml</dependencyReducedPomLocation>
                     <filters>
                         <filter>
-                            <artifact>org.apache.flink:*</artifact>
-                            <excludes>
-                                <exclude>META-INF/maven/**</exclude>
-                            </excludes>
-                        </filter>
-                        <filter>
-                            <artifact>cn.sliew:*</artifact>
-                            <excludes>
-                                <exclude>META-INF/maven/**</exclude>
-                            </excludes>
+                            <artifact>*:*</artifact>
                         </filter>
                     </filters>
                     <relocations>
