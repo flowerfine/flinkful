@@ -6,9 +6,9 @@ import cn.sliew.flinkful.cli.descriptor.example.Util;
 import cn.sliew.flinkful.cli.descriptor.example.YarnApplicationExample;
 import cn.sliew.flinkful.common.enums.DeploymentTarget;
 import cn.sliew.flinkful.common.examples.FlinkExamples;
-import org.apache.flink.client.program.ClusterClient;
-import org.apache.flink.configuration.*;
-import org.apache.flink.yarn.configuration.YarnConfigOptions;
+import cn.sliew.flinkful.shade.org.apache.flink.client.program.ClusterClient;
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.*;
+import cn.sliew.flinkful.shade.org.apache.flink.yarn.configuration.YarnConfigOptions;
 import org.apache.hadoop.yarn.api.records.ApplicationId;
 
 import java.io.File;

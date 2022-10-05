@@ -140,5 +140,4 @@ public interface JobVerticeClient {
     CompletableFuture<SubtaskExecutionAttemptAccumulatorsInfo> jobVertexSubtaskAttemptAccumulators(String jobId, String vertexId, Integer subtaskindex, Integer attempt) throws IOException;
 
 
-
 }

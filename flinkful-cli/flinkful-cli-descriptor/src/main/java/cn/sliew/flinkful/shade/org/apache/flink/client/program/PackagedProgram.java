@@ -8,7 +8,6 @@ import cn.sliew.flinkful.shade.org.apache.flink.runtime.jobgraph.SavepointRestor
 import cn.sliew.flinkful.shade.org.apache.flink.runtime.security.FlinkSecurityManager;
 import cn.sliew.flinkful.shade.org.apache.flink.util.InstantiationUtil;
 import cn.sliew.flinkful.shade.org.apache.flink.util.JarUtils;
-
 import org.apache.flink.client.program.PackagedProgramUtils;
 import org.apache.flink.client.program.ProgramInvocationException;
 import org.apache.flink.client.program.ProgramParametrizationException;
@@ -16,13 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
-
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -47,7 +40,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 /**
  * This class encapsulates represents a program, packaged in a jar file. It supplies functionality
  * to extract nested libraries, search for the program entry point, and extract a program plan.
- *
+ * <p>
  * Add {@link PipelineOptions#JARS} user dependencies to {@link org.apache.flink.util.UserCodeClassLoader} for
  * submitting packaged jar jobs.
  */
@@ -85,23 +78,25 @@ public class PackagedProgram implements AutoCloseable {
 
     private final Configuration configuration;
 
-    /** Flag indicating whether the job is a Python job. */
+    /**
+     * Flag indicating whether the job is a Python job.
+     */
     private final boolean isPython;
 
     /**
      * Creates an instance that wraps the plan defined in the jar file using the given arguments.
      * For generating the plan the class defined in the className parameter is used.
      *
-     * @param jarFile The jar file which contains the plan.
-     * @param classpaths Additional classpath URLs needed by the Program.
+     * @param jarFile             The jar file which contains the plan.
+     * @param classpaths          Additional classpath URLs needed by the Program.
      * @param entryPointClassName Name of the class which generates the plan. Overrides the class
-     *     defined in the jar file manifest.
-     * @param configuration Flink configuration which affects the classloading policy of the Program
-     *     execution.
-     * @param args Optional. The arguments used to create the pact plan, depend on implementation of
-     *     the pact plan. See getDescription().
+     *                            defined in the jar file manifest.
+     * @param configuration       Flink configuration which affects the classloading policy of the Program
+     *                            execution.
+     * @param args                Optional. The arguments used to create the pact plan, depend on implementation of
+     *                            the pact plan. See getDescription().
      * @throws org.apache.flink.client.program.ProgramInvocationException This invocation is thrown if the Program can't be properly
-     *     loaded. Causes may be a missing / wrong class or manifest files.
+     *                                                                    loaded. Causes may be a missing / wrong class or manifest files.
      */
     private PackagedProgram(
             @Nullable File jarFile,
@@ -174,7 +169,7 @@ public class PackagedProgram implements AutoCloseable {
      *
      * @return The description of the PactProgram's input parameters.
      * @throws org.apache.flink.client.program.ProgramInvocationException This invocation is thrown if the Program can't be properly
-     *     loaded. Causes may be a missing / wrong class or manifest files.
+     *                                                                    loaded. Causes may be a missing / wrong class or manifest files.
      */
     @Nullable
     public String getDescription() throws org.apache.flink.client.program.ProgramInvocationException {
@@ -235,7 +230,9 @@ public class PackagedProgram implements AutoCloseable {
         return this.userCodeClassLoader;
     }
 
-    /** Returns all provided libraries needed to run the program. */
+    /**
+     * Returns all provided libraries needed to run the program.
+     */
     public List<URL> getJobJarAndDependencies() {
         List<URL> libs = new ArrayList<URL>(extractedTempLibraries.size() + 1);
 
@@ -269,7 +266,9 @@ public class PackagedProgram implements AutoCloseable {
         return libs;
     }
 
-    /** Returns all provided libraries needed to run the program. */
+    /**
+     * Returns all provided libraries needed to run the program.
+     */
     public static List<URL> getJobJarAndDependencies(
             File jarFile, @Nullable String entryPointClassName) throws org.apache.flink.client.program.ProgramInvocationException {
         URL jarFileUrl = loadJarFile(jarFile);
@@ -299,7 +298,9 @@ public class PackagedProgram implements AutoCloseable {
         return libs;
     }
 
-    /** Deletes all temporary files created for contained packaged libraries. */
+    /**
+     * Deletes all temporary files created for contained packaged libraries.
+     */
     private void deleteExtractedLibraries() {
         deleteExtractedLibraries(this.extractedTempLibraries);
         this.extractedTempLibraries.clear();
@@ -565,7 +566,7 @@ public class PackagedProgram implements AutoCloseable {
             throws org.apache.flink.client.program.ProgramInvocationException {
         final File output = createTempFile(rnd, input, name);
         try (final OutputStream out = new FileOutputStream(output);
-                final InputStream in = new BufferedInputStream(jar.getInputStream(input))) {
+             final InputStream in = new BufferedInputStream(jar.getInputStream(input))) {
             int numRead = 0;
             while ((numRead = in.read(buffer)) != -1) {
                 out.write(buffer, 0, numRead);
@@ -641,12 +642,16 @@ public class PackagedProgram implements AutoCloseable {
         }
     }
 
-    /** A Builder For {@link PackagedProgram}. */
+    /**
+     * A Builder For {@link PackagedProgram}.
+     */
     public static class Builder {
 
-        @Nullable private File jarFile;
+        @Nullable
+        private File jarFile;
 
-        @Nullable private String entryPointClassName;
+        @Nullable
+        private String entryPointClassName;
 
         private String[] args = new String[0];
 
@@ -701,7 +706,8 @@ public class PackagedProgram implements AutoCloseable {
                     args);
         }
 
-        private Builder() {}
+        private Builder() {
+        }
     }
 
     public static Builder newBuilder() {

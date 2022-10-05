@@ -1,12 +1,12 @@
 package cn.sliew.flinkful.common.enums;
 
-import lombok.Getter;
 import cn.sliew.flinkful.shade.org.apache.flink.client.deployment.executors.RemoteExecutor;
 import cn.sliew.flinkful.shade.org.apache.flink.configuration.Configuration;
 import cn.sliew.flinkful.shade.org.apache.flink.configuration.DeploymentOptions;
 import cn.sliew.flinkful.shade.org.apache.flink.core.execution.PipelineExecutorFactory;
 import cn.sliew.flinkful.shade.org.apache.flink.kubernetes.configuration.KubernetesDeploymentTarget;
 import cn.sliew.flinkful.shade.org.apache.flink.yarn.configuration.YarnDeploymentTarget;
+import lombok.Getter;
 
 @Getter
 public enum DeploymentTarget {

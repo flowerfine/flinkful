@@ -5,8 +5,8 @@ import cn.sliew.flinkful.cli.base.submit.PackageJarJob;
 import cn.sliew.flinkful.cli.descriptor.DescriptorCliClient;
 import cn.sliew.flinkful.common.enums.DeploymentTarget;
 import cn.sliew.flinkful.common.examples.FlinkExamples;
-import org.apache.flink.configuration.*;
-import org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.*;
+import cn.sliew.flinkful.shade.org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;
 
 import java.io.File;
 import java.net.MalformedURLException;

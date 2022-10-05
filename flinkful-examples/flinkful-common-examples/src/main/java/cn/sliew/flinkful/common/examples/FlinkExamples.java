@@ -1,7 +1,7 @@
 package cn.sliew.flinkful.common.examples;
 
-import org.apache.flink.configuration.Configuration;
-import org.apache.flink.configuration.GlobalConfiguration;
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.Configuration;
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.GlobalConfiguration;
 
 public enum FlinkExamples {
     ;

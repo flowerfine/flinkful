@@ -1,12 +1,12 @@
 package cn.sliew.flinkful.cli.base.submit;
 
-import cn.sliew.milky.common.primitives.Strings;
-import lombok.Getter;
-import lombok.Setter;
 import cn.sliew.flinkful.shade.org.apache.flink.client.cli.CliFrontendParser;
 import cn.sliew.flinkful.shade.org.apache.flink.client.cli.ProgramOptions;
 import cn.sliew.flinkful.shade.org.apache.flink.runtime.jobgraph.SavepointConfigOptions;
 import cn.sliew.flinkful.shade.org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;
+import cn.sliew.milky.common.primitives.Strings;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.net.URL;
 import java.util.Collections;
@@ -27,6 +27,7 @@ public class PackageJarJob {
     /**
      * Class with the program entry point ("main()" method).
      * Only needed if the JAR file does not specify the class in its manifest.
+     *
      * @see JarManifestParser#findEntryClass
      */
     private String entryPointClass;

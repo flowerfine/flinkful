@@ -20,6 +20,7 @@ public enum FlinkShadedJacksonUtil {
     ;
 
     public static final ObjectMapper OBJECT_MAPPER = RestMapperUtils.getStrictObjectMapper();
+
     static {
         OBJECT_MAPPER.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         OBJECT_MAPPER.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
