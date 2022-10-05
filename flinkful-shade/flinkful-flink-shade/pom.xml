@@ -60,11 +60,12 @@
                     <shadeSourcesContent>true</shadeSourcesContent>
                     <createDependencyReducedPom>true</createDependencyReducedPom>
                     <dependencyReducedPomLocation>${project.basedir}/target/dependency-reduced-pom.xml</dependencyReducedPomLocation>
-                    <filters>
-                        <filter>
-                            <artifact>*:*</artifact>
-                        </filter>
-                    </filters>
+                    <artifactSet>
+                        <includes>
+                            <include>cn.sliew:*</include>
+                            <include>org.apache.flink:*</include>
+                        </includes>
+                    </artifactSet>
                     <relocations>
                         <relocation>
                             <pattern>org.apache.flink</pattern>
