@@ -60,7 +60,6 @@
                     <shadeSourcesContent>true</shadeSourcesContent>
                     <artifactSet>
                         <includes>
-                            <include>cn.sliew:*</include>
                             <include>org.apache.flink:*</include>
                         </includes>
                     </artifactSet>
@@ -73,10 +72,6 @@
                         </filter>
                     </filters>
                     <relocations>
-                        <relocation>
-                            <pattern>cn.sliew</pattern>
-                            <shadedPattern>${flinkful.shade.package}.cn.sliew</shadedPattern>
-                        </relocation>
                         <relocation>
                             <pattern>org.apache.flink</pattern>
                             <shadedPattern>${flinkful.shade.package}.org.apache.flink</shadedPattern>
