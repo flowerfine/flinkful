@@ -3,8 +3,8 @@ package cn.sliew.flinkful.cli.frontend.example;
 import cn.sliew.flinkful.cli.base.CliClient;
 import cn.sliew.flinkful.common.enums.DeploymentTarget;
 import cn.sliew.flinkful.common.examples.FlinkExamples;
-import org.apache.flink.client.program.PackagedProgram;
-import org.apache.flink.configuration.*;
+import cn.sliew.flinkful.shade.org.apache.flink.client.program.PackagedProgram;
+import cn.sliew.flinkful.shade.org.apache.flink.configuration.*;
 
 import java.io.File;
 import java.net.MalformedURLException;
