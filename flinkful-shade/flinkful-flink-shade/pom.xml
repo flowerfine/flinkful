@@ -58,14 +58,15 @@
                 <configuration>
                     <createSourcesJar>true</createSourcesJar>
                     <shadeSourcesContent>true</shadeSourcesContent>
-                    <artifactSet>
-                        <includes>
-                            <include>org.apache.flink:*</include>
-                        </includes>
-                    </artifactSet>
                     <filters>
                         <filter>
-                            <artifact>*</artifact>
+                            <artifact>org.apache.flink:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/maven/**</exclude>
+                            </excludes>
+                        </filter>
+                        <filter>
+                            <artifact>cn.sliew:*</artifact>
                             <excludes>
                                 <exclude>META-INF/maven/**</exclude>
                             </excludes>
@@ -75,6 +76,10 @@
                         <relocation>
                             <pattern>org.apache.flink</pattern>
                             <shadedPattern>${flinkful.shade.package}.org.apache.flink</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>cn.sliew</pattern>
+                            <shadedPattern>${flinkful.shade.package}.cn.sliew</shadedPattern>
                         </relocation>
                     </relocations>
                     <transformers>
