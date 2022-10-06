@@ -1,5 +1,6 @@
 package cn.sliew.flinkful.cli.base.submit;
 
+import cn.sliew.milky.common.primitives.Strings;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.flink.client.cli.CliFrontendParser;
@@ -8,6 +9,7 @@ import org.apache.flink.runtime.jobgraph.SavepointConfigOptions;
 import org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -34,12 +36,12 @@ public class PackageJarJob {
      * The paths must specify a protocol (e.g. file://) and be accessible on all nodes (e.g. by means of a NFS share).
      * The protocol must be supported by the {@link java.net.URLClassLoader}.
      */
-    private List<URL> classpaths;
+    private List<URL> classpaths = Collections.emptyList();
 
     /**
      * Program arguments.
      */
-    private String[] programArgs;
+    private String[] programArgs = Strings.EMPTY_ARRAY;
 
     /**
      * The parallelism with which to run the program.
@@ -58,5 +60,5 @@ public class PackageJarJob {
      * @see CliFrontendParser#SAVEPOINT_RESTORE_MODE
      * @see SavepointConfigOptions#RESTORE_MODE
      */
-    private SavepointRestoreSettings savepointSettings;
+    private SavepointRestoreSettings savepointSettings = SavepointRestoreSettings.none();
 }
