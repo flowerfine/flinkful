@@ -206,17 +206,17 @@ public enum SessionFactory {
 
 ## Flink vs Flinkful
 
-| java | Flink  | Flinkful             | branch          |
-| ---- | ------ | -------------------- | --------------- |
-| 1.8  | 1.13.6 | 1.13.6_1_8-SNAPSHOT  | 1.13/main       |
-| 11   | 1.14.4 | 1.14.2_1_11-SNAPSHOT | 1.14/main       |
-| 11   | 1.15.1 | 1.15.1_1_17-SNAPSHOT | 1.15/main, main |
+| java | Flink  | Flinkful             | branch          | service    |
+| ---- | ------ | -------------------- | --------------- | ---------- |
+| 1.8  | 1.13.6 | 1.13.6_1_8-SNAPSHOT  | 1.13/main       | deprecated |
+| 11   | 1.14.4 | 1.14.2_1_11-SNAPSHOT | 1.14/main       | deprecated |
+| 11   | 1.15.1 | 1.15.1_1_17-SNAPSHOT | 1.15/main, main | latest     |
 
 ## Next Flinkful
 
 * SQL client.
 * QueryableState client.
-* [Flink Kubernetes Operator](https://github.com/apache/flink-kubernetes-operator).
+* [Flink Kubernetes Operator](https://github.com/apache/flink-kubernetes-operator). done
 
 ## License
 
