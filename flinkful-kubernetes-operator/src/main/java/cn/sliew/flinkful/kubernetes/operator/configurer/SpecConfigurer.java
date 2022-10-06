@@ -32,11 +32,11 @@ import static cn.sliew.milky.common.check.Ensures.notBlank;
 public class SpecConfigurer
         extends AbstractFlinkDeploymentConfigurer<SpecConfigurer, FlinkDeploymentBuilder> {
 
-    private final IngressSpecConfig ingressSpec = new IngressSpecConfig();
-    private final JobManagerSpecConfig jobManagerSpec = new JobManagerSpecConfig();
-    private final TaskManagerSpecConfig taskManagerSpec = new TaskManagerSpecConfig();
-    private final PodTemplateSpecConfig podTemplateSpec = new PodTemplateSpecConfig();
-    private final JobSpecConfig jobSpec = new JobSpecConfig();
+    private IngressSpecConfig ingressSpec;
+    private JobManagerSpecConfig jobManagerSpec = new JobManagerSpecConfig();
+    private TaskManagerSpecConfig taskManagerSpec = new TaskManagerSpecConfig();
+    private PodTemplateSpecConfig podTemplateSpec;
+    private JobSpecConfig jobSpec;
 
     private String image = "flink:1.15";
     //  KubernetesConfigOptions.ImagePullPolicy.IfNotPresent;
@@ -81,12 +81,20 @@ public class SpecConfigurer
     }
 
     public IngressSpecConfig ingress() {
+        tryInitializeIngress();
         return ingressSpec;
     }
 
     public SpecConfigurer ingress(Customizer<IngressSpecConfig> ingressSpecConfigCustomizer) {
+        tryInitializeIngress();
         ingressSpecConfigCustomizer.customize(ingressSpec);
         return this;
+    }
+
+    private void tryInitializeIngress() {
+        if (ingressSpec == null) {
+            ingressSpec = new IngressSpecConfig();
+        }
     }
 
     public JobManagerSpecConfig jobManager() {
@@ -108,21 +116,37 @@ public class SpecConfigurer
     }
 
     public PodTemplateSpecConfig podTemplate() {
+        tryInitializePodTemplate();
         return podTemplateSpec;
     }
 
     public SpecConfigurer podTemplate(Customizer<PodTemplateSpecConfig> podTemplateSpecConfigCustomizer) {
+        tryInitializePodTemplate();
         podTemplateSpecConfigCustomizer.customize(podTemplateSpec);
         return this;
     }
 
+    private void tryInitializePodTemplate() {
+        if (podTemplateSpec == null) {
+            podTemplateSpec = new PodTemplateSpecConfig();
+        }
+    }
+
     public JobSpecConfig job() {
+        tryInitializeJob();
         return jobSpec;
     }
 
     public SpecConfigurer job(Customizer<JobSpecConfig> jobSpecConfigCustomizer) {
+        tryInitializeJob();
         jobSpecConfigCustomizer.customize(jobSpec);
         return this;
+    }
+
+    private void tryInitializeJob() {
+        if (jobSpec == null) {
+            jobSpec = new JobSpecConfig();
+        }
     }
 
 
@@ -133,13 +157,19 @@ public class SpecConfigurer
         spec.setImagePullPolicy(imagePullPolicy);
         spec.setServiceAccount(serviceAccount);
         spec.setFlinkVersion(flinkVersion);
-        spec.setIngress(ingressSpec.builder.build());
+        if (ingressSpec != null) {
+            spec.setIngress(ingressSpec.builder.build());
+        }
         spec.setJobManager(jobManagerSpec.build());
         spec.setTaskManager(taskManagerSpec.build());
         spec.setLogConfiguration(logConfiguration);
         spec.setFlinkConfiguration(flinkConfiguration);
-        spec.setPodTemplate(podTemplateSpec.builder.build());
-        spec.setJob(jobSpec.build());
+        if (podTemplateSpec != null) {
+            spec.setPodTemplate(podTemplateSpec.builder.build());
+        }
+        if (jobSpec != null) {
+            spec.setJob(jobSpec.build());
+        }
         flinkDeployment.setSpec(spec);
     }
 
@@ -259,7 +289,7 @@ public class SpecConfigurer
         /**
          * Parallelism of the Flink job.
          */
-        private int parallelism;
+        private int parallelism = 1;
 
         /**
          * Fully qualified main class name of the Flink job.
@@ -307,13 +337,13 @@ public class SpecConfigurer
         }
 
         public JobSpec build() {
-            final JobSpec jobSpec = new JobSpec();
-            jobSpec.setJarURI(jarURI);
-            jobSpec.setParallelism(parallelism);
-            jobSpec.setEntryClass(entryClass);
-            jobSpec.setArgs(args);
-            jobSpec.setUpgradeMode(upgradeMode);
-            return jobSpec;
+            return JobSpec.builder()
+                    .jarURI(jarURI)
+                    .parallelism(parallelism)
+                    .entryClass(entryClass)
+                    .args(args)
+                    .upgradeMode(upgradeMode)
+                    .build();
         }
 
         public SpecConfigurer and() {
