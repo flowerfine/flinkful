@@ -20,6 +20,7 @@ package cn.sliew.flinkful.kubernetes.operator.configurer;
 
 import cn.sliew.flinkful.kubernetes.operator.FlinkDeploymentBuilder;
 import io.fabric8.kubernetes.api.model.ObjectMetaBuilder;
+import org.apache.flink.util.StringUtils;
 
 import static cn.sliew.milky.common.check.Ensures.notBlank;
 
@@ -56,6 +57,9 @@ public class ObjectMetaConfigurer
 
     @Override
     public void configure(FlinkDeploymentBuilder flinkDeployment) throws Exception {
+        if (StringUtils.isNullOrWhitespaceOnly(builder.getNamespace())) {
+            builder.withNamespace("default");
+        }
         flinkDeployment.setObjectMeta(builder.build());
     }
 }

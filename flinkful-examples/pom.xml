@@ -16,6 +16,7 @@
         <module>flinkful-common-examples</module>
         <module>flinkful-cli-examples</module>
         <module>flinkful-rest-examples</module>
+        <module>flinkful-kubernetes-operator-examples</module>
     </modules>
 
     <properties>
