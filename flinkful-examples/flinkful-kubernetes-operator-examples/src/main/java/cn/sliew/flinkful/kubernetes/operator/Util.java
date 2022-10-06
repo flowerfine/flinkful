@@ -20,7 +20,7 @@ public enum Util {
     }
 
     private static void metadata(ObjectMetaConfigurer objectMetaConfigurer) {
-        objectMetaConfigurer.name("Basic");
+        objectMetaConfigurer.name("basic");
     }
 
     private static void spec(SpecConfigurer specConfigurer) {
@@ -29,11 +29,12 @@ public enum Util {
                 .jobManager(Util::jobManager)
                 .taskManager(Util::taskManager)
                 .podTemplate(Util::podTemplate)
-                .job(Util::job);
+                .job(Util::job)
+                .flinkConfiguration("taskmanager.numberOfTaskSlots", "2");
     }
 
     private static void ingress(SpecConfigurer.IngressSpecConfig config) {
-
+        config.template("{{name}}.{{namespace}}.flink.k8s.io");
     }
 
     private static void jobManager(SpecConfigurer.JobManagerSpecConfig config) {
@@ -49,6 +50,7 @@ public enum Util {
     }
 
     private static void job(SpecConfigurer.JobSpecConfig config) {
-
+        config.jarURI("local:///opt/flink/examples/streaming/StateMachineExample.jar")
+                .parallelism(2);
     }
 }

@@ -39,7 +39,7 @@ public class SpecConfigurer
     private final JobSpecConfig jobSpec = new JobSpecConfig();
 
     private String image = "flink:1.15";
-//  KubernetesConfigOptions.ImagePullPolicy.IfNotPresent;
+    //  KubernetesConfigOptions.ImagePullPolicy.IfNotPresent;
     private String imagePullPolicy = "IfNotPresent";
     private String serviceAccount = "flink";
     private FlinkVersion flinkVersion = FlinkVersion.v1_15;
@@ -271,6 +271,12 @@ public class SpecConfigurer
          */
         private String[] args = new String[0];
 
+        /**
+         * Upgrade mode of the Flink job.
+         */
+        private UpgradeMode upgradeMode = UpgradeMode.STATELESS;
+
+
         private JobSpecConfig() {
 
         }
@@ -295,12 +301,18 @@ public class SpecConfigurer
             return this;
         }
 
+        public JobSpecConfig upgradeMode(UpgradeMode upgradeMode) {
+            this.upgradeMode = upgradeMode;
+            return this;
+        }
+
         public JobSpec build() {
             final JobSpec jobSpec = new JobSpec();
             jobSpec.setJarURI(jarURI);
             jobSpec.setParallelism(parallelism);
             jobSpec.setEntryClass(entryClass);
             jobSpec.setArgs(args);
+            jobSpec.setUpgradeMode(upgradeMode);
             return jobSpec;
         }
 

@@ -10,13 +10,14 @@ public class SessionCreateExample {
 
     public static void main(String[] args) throws Exception {
         FlinkDeployment flinkDeployment = Util.build();
-        try (KubernetesClient kubernetesClient = new DefaultKubernetesClient()) {
-            FlinkDeployment orReplace =
-                    kubernetesClient.resource(flinkDeployment).createOrReplace();
-            System.out.println(Serialization.asYaml(orReplace));
-        } catch (KubernetesClientException e) {
-            // some error while connecting to kube cluster
-            e.printStackTrace();
-        }
+        System.out.println(Serialization.asYaml(flinkDeployment));
+//        try (KubernetesClient kubernetesClient = new DefaultKubernetesClient()) {
+//            FlinkDeployment orReplace =
+//                    kubernetesClient.resource(flinkDeployment).createOrReplace();
+//            System.out.println(Serialization.asYaml(orReplace));
+//        } catch (KubernetesClientException e) {
+//            // some error while connecting to kube cluster
+//            e.printStackTrace();
+//        }
     }
 }
