@@ -90,7 +90,7 @@
         <docker.java.version>3.2.13</docker.java.version>
         <flink.version>1.15.2</flink.version>
         <knife4j.version>3.0.2</knife4j.version>
-        <milky.version>1.0.6_8</milky.version>
+        <milky.version>1.0.7</milky.version>
         <mybatis.plus.version>3.5.1</mybatis.plus.version>
         <mysql.connector.version>8.0.28</mysql.connector.version>
         <okhttp.version>4.9.3</okhttp.version>
@@ -103,20 +103,6 @@
             <groupId>cn.sliew</groupId>
             <artifactId>milky-common</artifactId>
             <version>${milky.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                    <artifactId>jackson-databind</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.fasterxml.jackson.datatype</groupId>
-                    <artifactId>jackson-datatype-jsr310</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.fasterxml.jackson.datatype</groupId>
-                    <artifactId>jackson-datatype-jdk8</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
