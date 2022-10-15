@@ -306,6 +306,10 @@ public class SpecConfigurer
          */
         private UpgradeMode upgradeMode = UpgradeMode.STATELESS;
 
+        /**
+         * Desired state for the job.
+         */
+        private JobState state = JobState.RUNNING;
 
         private JobSpecConfig() {
 
@@ -336,6 +340,11 @@ public class SpecConfigurer
             return this;
         }
 
+        public JobSpecConfig state(JobState state) {
+            this.state = state;
+            return this;
+        }
+
         public JobSpec build() {
             return JobSpec.builder()
                     .jarURI(jarURI)
@@ -343,6 +352,7 @@ public class SpecConfigurer
                     .entryClass(entryClass)
                     .args(args)
                     .upgradeMode(upgradeMode)
+                    .state(state)
                     .build();
         }
 

@@ -18,10 +18,7 @@
 
 package cn.sliew.flinkful.kubernetes.operator;
 
-import cn.sliew.flinkful.kubernetes.operator.configurer.ApiVersionConfigurer;
-import cn.sliew.flinkful.kubernetes.operator.configurer.KindConfigurer;
-import cn.sliew.flinkful.kubernetes.operator.configurer.ObjectMetaConfigurer;
-import cn.sliew.flinkful.kubernetes.operator.configurer.SpecConfigurer;
+import cn.sliew.flinkful.kubernetes.operator.configurer.*;
 import cn.sliew.milky.dsl.AbstractConfiguredBuilder;
 import cn.sliew.milky.dsl.AbstractConfigurer;
 import cn.sliew.milky.dsl.Builder;
@@ -30,6 +27,7 @@ import io.fabric8.kubernetes.api.model.ObjectMeta;
 import lombok.Setter;
 import org.apache.flink.kubernetes.operator.crd.FlinkDeployment;
 import org.apache.flink.kubernetes.operator.crd.spec.FlinkDeploymentSpec;
+import org.apache.flink.kubernetes.operator.crd.status.FlinkDeploymentStatus;
 
 import static cn.sliew.milky.common.check.Ensures.checkNotNull;
 import static cn.sliew.milky.common.check.Ensures.notBlank;
@@ -42,19 +40,20 @@ public class FlinkDeploymentBuilder extends AbstractConfiguredBuilder<FlinkDeplo
     private String kind;
     private ObjectMeta objectMeta;
     private FlinkDeploymentSpec spec;
+    private FlinkDeploymentStatus status;
 
     @Override
     protected FlinkDeployment performBuild() throws Exception {
         notBlank(apiVersion, () -> "apiVersion can't be blank");
         notBlank(kind, () -> "kind can't be blank");
         checkNotNull(objectMeta, () -> "metadata can't be null");
-        checkNotNull(spec, () -> "spec can't be null");
 
         FlinkDeployment flinkDeployment = new FlinkDeployment();
         flinkDeployment.setApiVersion(apiVersion);
         flinkDeployment.setKind(kind);
         flinkDeployment.setMetadata(objectMeta);
         flinkDeployment.setSpec(spec);
+        flinkDeployment.setStatus(status);
         return flinkDeployment;
     }
 
@@ -91,6 +90,15 @@ public class FlinkDeploymentBuilder extends AbstractConfiguredBuilder<FlinkDeplo
 
     public FlinkDeploymentBuilder spec(Customizer<SpecConfigurer> specConfigurerCustomizer) throws Exception {
         specConfigurerCustomizer.customize(getOrApply(new SpecConfigurer()));
+        return this;
+    }
+
+    public StatusConfigurer status() throws Exception {
+        return getOrApply(new StatusConfigurer());
+    }
+
+    public FlinkDeploymentBuilder status(Customizer<StatusConfigurer> statusConfigurerCustomizer) throws Exception {
+        statusConfigurerCustomizer.customize(getOrApply(new StatusConfigurer()));
         return this;
     }
 

@@ -1,5 +1,6 @@
-package cn.sliew.flinkful.kubernetes.operator;
+package cn.sliew.flinkful.kubernetes.operator.submit;
 
+import cn.sliew.flinkful.kubernetes.operator.FlinkDeploymentBuilder;
 import cn.sliew.flinkful.kubernetes.operator.configurer.ObjectMetaConfigurer;
 import cn.sliew.flinkful.kubernetes.operator.configurer.SpecConfigurer;
 import cn.sliew.milky.dsl.Customizer;
