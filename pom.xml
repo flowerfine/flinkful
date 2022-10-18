@@ -81,7 +81,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <scala.binary.version>2.11</scala.binary.version>
         <scala.version>2.11.12</scala.version>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
@@ -89,7 +89,7 @@
         <docker.java.version>3.2.13</docker.java.version>
         <flink.version>1.13.6</flink.version>
         <knife4j.version>3.0.2</knife4j.version>
-        <milky.version>1.0.6_8</milky.version>
+        <milky.version>1.0.7</milky.version>
         <mybatis.plus.version>3.5.1</mybatis.plus.version>
         <mysql.connector.version>8.0.28</mysql.connector.version>
         <okhttp.version>4.9.3</okhttp.version>
