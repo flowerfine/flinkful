@@ -92,7 +92,7 @@
         <milky.version>1.0.7</milky.version>
         <mybatis.plus.version>3.5.1</mybatis.plus.version>
         <mysql.connector.version>8.0.28</mysql.connector.version>
-        <okhttp.version>4.9.3</okhttp.version>
+        <okhttp.version>4.10.0</okhttp.version>
         <spring-cloud.version>2022.0.0-M1</spring-cloud.version>
         <springfox.version>3.0.0</springfox.version>
     </properties>
