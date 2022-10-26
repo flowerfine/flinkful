@@ -3,6 +3,7 @@ package cn.sliew.flinkful.rest.http;
 import cn.sliew.flinkful.rest.base.*;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.apache.flink.runtime.rest.util.RestConstants;
 import org.apache.flink.runtime.rest.versioning.RestAPIVersion;
 import org.jboss.netty.util.internal.ConcurrentHashMap;
@@ -26,7 +27,7 @@ public class FlinkHttpClient implements RestClient {
                 .readTimeout(Duration.ofSeconds(3L))
                 .writeTimeout(Duration.ofSeconds(3L))
                 .callTimeout(Duration.ofSeconds(3L))
-                .addInterceptor(new LogInterceptor())
+                .addInterceptor(new HttpLoggingInterceptor())
                 .build();
     }
 
