@@ -89,11 +89,12 @@
         <disruptor.version>3.4.4</disruptor.version>
         <docker.java.version>3.2.13</docker.java.version>
         <flink.version>1.15.2</flink.version>
+        <flink.kubernetes.operator.version>1.2.0</flink.kubernetes.operator.version>
         <knife4j.version>3.0.2</knife4j.version>
         <milky.version>1.0.7</milky.version>
         <mybatis.plus.version>3.5.1</mybatis.plus.version>
         <mysql.connector.version>8.0.28</mysql.connector.version>
-        <okhttp.version>4.9.3</okhttp.version>
+        <okhttp.version>4.10.0</okhttp.version>
         <spring-cloud.version>2022.0.0-M1</spring-cloud.version>
         <springfox.version>3.0.0</springfox.version>
     </properties>
@@ -235,6 +236,12 @@
             </dependency>
 
             <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-kubernetes-operator</artifactId>
+                <version>${flink.kubernetes.operator.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.github.docker-java</groupId>
                 <artifactId>docker-java</artifactId>
                 <version>${docker.java.version}</version>
@@ -243,6 +250,11 @@
             <dependency>
                 <groupId>com.squareup.okhttp3</groupId>
                 <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>logging-interceptor</artifactId>
                 <version>${okhttp.version}</version>
             </dependency>
 

@@ -40,7 +40,6 @@ public class FlinkDeploymentBuilder extends AbstractConfiguredBuilder<FlinkDeplo
     private String kind;
     private ObjectMeta objectMeta;
     private FlinkDeploymentSpec spec;
-    private FlinkDeploymentStatus status;
 
     @Override
     protected FlinkDeployment performBuild() throws Exception {
@@ -53,7 +52,6 @@ public class FlinkDeploymentBuilder extends AbstractConfiguredBuilder<FlinkDeplo
         flinkDeployment.setKind(kind);
         flinkDeployment.setMetadata(objectMeta);
         flinkDeployment.setSpec(spec);
-        flinkDeployment.setStatus(status);
         return flinkDeployment;
     }
 
@@ -90,15 +88,6 @@ public class FlinkDeploymentBuilder extends AbstractConfiguredBuilder<FlinkDeplo
 
     public FlinkDeploymentBuilder spec(Customizer<SpecConfigurer> specConfigurerCustomizer) throws Exception {
         specConfigurerCustomizer.customize(getOrApply(new SpecConfigurer()));
-        return this;
-    }
-
-    public StatusConfigurer status() throws Exception {
-        return getOrApply(new StatusConfigurer());
-    }
-
-    public FlinkDeploymentBuilder status(Customizer<StatusConfigurer> statusConfigurerCustomizer) throws Exception {
-        statusConfigurerCustomizer.customize(getOrApply(new StatusConfigurer()));
         return this;
     }
 
