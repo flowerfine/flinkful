@@ -10,7 +10,7 @@
 
     <groupId>cn.sliew</groupId>
     <artifactId>flinkful</artifactId>
-    <version>1.15.1_1_17-SNAPSHOT</version>
+    <version>1.16.0_1_11-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>flinkful</name>
     <url>https://github.com/flowerfine/flinkful</url>
@@ -88,7 +88,7 @@
 
         <disruptor.version>3.4.4</disruptor.version>
         <docker.java.version>3.2.13</docker.java.version>
-        <flink.version>1.15.2</flink.version>
+        <flink.version>1.16.0</flink.version>
         <flink.kubernetes.operator.version>1.2.0</flink.kubernetes.operator.version>
         <knife4j.version>3.0.2</knife4j.version>
         <milky.version>1.0.7</milky.version>
