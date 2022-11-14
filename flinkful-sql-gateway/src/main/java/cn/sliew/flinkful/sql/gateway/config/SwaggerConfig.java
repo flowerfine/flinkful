@@ -1,6 +1,5 @@
 package cn.sliew.flinkful.sql.gateway.config;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -9,7 +8,6 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
-@Slf4j
 @Configuration
 public class SwaggerConfig {
 
@@ -22,8 +20,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Flinkful Rest Client API")
-                .description("Flinkful for Rest Client")
+                .title("Flink Sql Gateway API")
+                .description("Flink Sql Gateway")
                 .version("1.0.0")
                 .contact(new Contact("kalencaya", "http://www.sliew.cn", "kalencaya@sliew.cn"))
                 .build();
