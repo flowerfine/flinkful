@@ -4,7 +4,7 @@ import cn.sliew.flinkful.rest.base.*;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import org.apache.flink.runtime.rest.util.RestConstants;
-import org.apache.flink.runtime.rest.versioning.RestAPIVersion;
+import org.apache.flink.runtime.rest.versioning.RuntimeRestAPIVersion;
 import org.jboss.netty.util.internal.ConcurrentHashMap;
 
 import java.time.Duration;
@@ -20,7 +20,7 @@ public class FlinkHttpClient implements RestClient {
     private ConcurrentMap<String, Object> cache = new ConcurrentHashMap<>(8);
 
     public FlinkHttpClient(String webInterfaceURL) {
-        this.webInterfaceURL = webInterfaceURL + "/" + RestAPIVersion.V1.getURLVersionPrefix();
+        this.webInterfaceURL = webInterfaceURL + "/" + RuntimeRestAPIVersion.V1.getURLVersionPrefix();
         this.client = new OkHttpClient.Builder()
                 .connectTimeout(Duration.ofSeconds(3L))
                 .readTimeout(Duration.ofSeconds(3L))
