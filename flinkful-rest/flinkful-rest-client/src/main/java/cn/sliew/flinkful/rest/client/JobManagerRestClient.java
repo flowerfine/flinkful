@@ -28,7 +28,7 @@ public class JobManagerRestClient implements JobManagerClient {
     }
 
     @Override
-    public CompletableFuture<ClusterConfigurationInfo> jobmanagerConfig() throws IOException {
+    public CompletableFuture<ConfigurationInfo> jobmanagerConfig() throws IOException {
         return client.sendRequest(address, port, ClusterConfigurationInfoHeaders.getInstance());
     }
 

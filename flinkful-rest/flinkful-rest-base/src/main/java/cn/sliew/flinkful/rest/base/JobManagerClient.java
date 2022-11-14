@@ -1,6 +1,6 @@
 package cn.sliew.flinkful.rest.base;
 
-import org.apache.flink.runtime.rest.messages.ClusterConfigurationInfo;
+import org.apache.flink.runtime.rest.messages.ConfigurationInfo;
 import org.apache.flink.runtime.rest.messages.LogListInfo;
 import org.apache.flink.runtime.rest.messages.ThreadDumpInfo;
 import org.apache.flink.runtime.rest.messages.job.metrics.MetricCollectionResponseBody;
@@ -14,7 +14,7 @@ public interface JobManagerClient {
     /**
      * Returns the cluster configuration.
      */
-    CompletableFuture<ClusterConfigurationInfo> jobmanagerConfig() throws IOException;
+    CompletableFuture<ConfigurationInfo> jobmanagerConfig() throws IOException;
 
     /**
      * Returns the list of log files on the JobManager.
