@@ -3,7 +3,7 @@ package cn.sliew.flinkful.rest.http;
 import cn.sliew.flinkful.rest.base.JobManagerClient;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import org.apache.flink.runtime.rest.messages.ClusterConfigurationInfo;
+import org.apache.flink.runtime.rest.messages.ConfigurationInfo;
 import org.apache.flink.runtime.rest.messages.LogListInfo;
 import org.apache.flink.runtime.rest.messages.ThreadDumpInfo;
 import org.apache.flink.runtime.rest.messages.job.metrics.MetricCollectionResponseBody;
@@ -22,13 +22,13 @@ public class JobManagerHttpClient extends AsyncClient implements JobManagerClien
     }
 
     @Override
-    public CompletableFuture<ClusterConfigurationInfo> jobmanagerConfig() throws IOException {
+    public CompletableFuture<ConfigurationInfo> jobmanagerConfig() throws IOException {
         String url = webInterfaceURL + "/jobmanager/config";
         Request request = new Request.Builder()
                 .get()
                 .url(url)
                 .build();
-        return remoteCall(request, ClusterConfigurationInfo.class);
+        return remoteCall(request, ConfigurationInfo.class);
     }
 
     @Override
