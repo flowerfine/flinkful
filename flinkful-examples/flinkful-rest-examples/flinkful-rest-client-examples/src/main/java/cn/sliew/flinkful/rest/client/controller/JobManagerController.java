@@ -3,7 +3,7 @@ package cn.sliew.flinkful.rest.client.controller;
 import cn.sliew.flinkful.rest.base.RestClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.flink.runtime.rest.messages.ClusterConfigurationInfo;
+import org.apache.flink.runtime.rest.messages.ConfigurationInfo;
 import org.apache.flink.runtime.rest.messages.LogListInfo;
 import org.apache.flink.runtime.rest.messages.job.metrics.MetricCollectionResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class JobManagerController {
      */
     @GetMapping("config")
     @ApiOperation("JobManager 配置")
-    public CompletableFuture<ClusterConfigurationInfo> config() throws IOException {
+    public CompletableFuture<ConfigurationInfo> config() throws IOException {
         return restClient.jobManager().jobmanagerConfig();
     }
 
