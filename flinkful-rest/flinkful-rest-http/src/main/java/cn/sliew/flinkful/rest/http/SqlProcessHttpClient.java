@@ -90,7 +90,9 @@ public class SqlProcessHttpClient extends AsyncClient implements
     @Override
     public CompletableFuture<FetchResultsResponseBody> getStatementResult(String sessionHandle,
         String operationHandle, String token) throws IOException, ConversionException {
-        String url = webInterfaceURL + "/sessions/" + sessionHandle + "/operations/result/" + token;
+        String url =
+            webInterfaceURL + "/sessions/" + sessionHandle + "/operations/" + operationHandle
+                + "/result/" + token;
         Request request = new Request.Builder()
             .get()
             .url(url)

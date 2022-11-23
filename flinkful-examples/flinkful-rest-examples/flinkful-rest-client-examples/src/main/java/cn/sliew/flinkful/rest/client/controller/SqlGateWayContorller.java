@@ -9,6 +9,7 @@ import org.apache.flink.runtime.rest.messages.ConversionException;
 import org.apache.flink.table.gateway.rest.message.session.OpenSessionResponseBody;
 import org.apache.flink.table.gateway.rest.message.statement.ExecuteStatementRequestBody;
 import org.apache.flink.table.gateway.rest.message.statement.ExecuteStatementResponseBody;
+import org.apache.flink.table.gateway.rest.message.statement.FetchResultsResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,6 +40,16 @@ public class SqlGateWayContorller {
         @RequestBody ExecuteStatementRequestBody requestBody)
         throws IOException, ConversionException {
         return sqlGateWayClient.sqlProcess().executeStatement(sessionHandle, requestBody);
+    }
+
+
+    @PostMapping("/statement/res")
+    @ApiOperation("open session")
+    public CompletableFuture<FetchResultsResponseBody> executeStatement(String sessionHandle,
+        String operationHandle, String token)
+        throws IOException, ConversionException {
+        return sqlGateWayClient.sqlProcess()
+            .getStatementResult(sessionHandle, operationHandle, token);
     }
 
 }
