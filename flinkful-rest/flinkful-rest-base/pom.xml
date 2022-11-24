@@ -37,6 +37,10 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-kubernetes</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-sql-gateway</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

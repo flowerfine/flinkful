@@ -20,6 +20,11 @@
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>flinkful-rest-client</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>flinkful-rest-http</artifactId>
+        </dependency>
         
         <dependency>
             <groupId>org.apache.flink</groupId>
@@ -42,6 +47,7 @@
             <artifactId>knife4j-spring-boot-starter</artifactId>
             <version>3.0.2</version>
         </dependency>
+
     </dependencies>
 
     <dependencyManagement>
