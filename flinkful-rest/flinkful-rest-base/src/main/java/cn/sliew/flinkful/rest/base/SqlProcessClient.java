@@ -1,6 +1,5 @@
 package cn.sliew.flinkful.rest.base;
 
-import org.apache.flink.runtime.rest.messages.ConversionException;
 import org.apache.flink.runtime.rest.messages.EmptyResponseBody;
 import org.apache.flink.table.gateway.rest.message.operation.OperationStatusResponseBody;
 import org.apache.flink.table.gateway.rest.message.session.CloseSessionResponseBody;
@@ -10,11 +9,17 @@ import org.apache.flink.table.gateway.rest.message.session.OpenSessionResponseBo
 import org.apache.flink.table.gateway.rest.message.statement.ExecuteStatementRequestBody;
 import org.apache.flink.table.gateway.rest.message.statement.ExecuteStatementResponseBody;
 import org.apache.flink.table.gateway.rest.message.statement.FetchResultsResponseBody;
+import org.apache.flink.table.gateway.rest.message.util.GetApiVersionResponseBody;
+import org.apache.flink.table.gateway.rest.message.util.GetInfoResponseBody;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 public interface SqlProcessClient {
+
+    CompletableFuture<GetApiVersionResponseBody> getApiVersion() throws IOException;
+
+    CompletableFuture<GetInfoResponseBody> getInfo() throws IOException;
 
     CompletableFuture<OpenSessionResponseBody> openSession(OpenSessionRequestBody requestBody) throws IOException;
 
@@ -33,6 +38,6 @@ public interface SqlProcessClient {
     CompletableFuture<OperationStatusResponseBody> cancelOperation(String sessionHandle, String operationHandle) throws IOException;
 
     CompletableFuture<OperationStatusResponseBody> closeOperation(String sessionHandle,
-                                                                  String operationHandle) throws IOException, ConversionException;
+                                                                  String operationHandle) throws IOException;
 
 }

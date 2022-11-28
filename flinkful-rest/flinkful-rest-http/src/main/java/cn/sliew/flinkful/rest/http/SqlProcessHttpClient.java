@@ -14,6 +14,8 @@ import org.apache.flink.table.gateway.rest.message.session.OpenSessionResponseBo
 import org.apache.flink.table.gateway.rest.message.statement.ExecuteStatementRequestBody;
 import org.apache.flink.table.gateway.rest.message.statement.ExecuteStatementResponseBody;
 import org.apache.flink.table.gateway.rest.message.statement.FetchResultsResponseBody;
+import org.apache.flink.table.gateway.rest.message.util.GetApiVersionResponseBody;
+import org.apache.flink.table.gateway.rest.message.util.GetInfoResponseBody;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
@@ -28,6 +30,26 @@ public class SqlProcessHttpClient extends AsyncClient implements
     public SqlProcessHttpClient(OkHttpClient client, String webInterfaceURL) {
         super(client);
         this.webInterfaceURL = webInterfaceURL;
+    }
+
+    @Override
+    public CompletableFuture<GetApiVersionResponseBody> getApiVersion() throws IOException {
+        String url = webInterfaceURL + "/api_versions";
+        Request request = new Request.Builder()
+                .get()
+                .url(url)
+                .build();
+        return remoteCall(request, GetApiVersionResponseBody.class);
+    }
+
+    @Override
+    public CompletableFuture<GetInfoResponseBody> getInfo() throws IOException {
+        String url = webInterfaceURL + "/info";
+        Request request = new Request.Builder()
+                .get()
+                .url(url)
+                .build();
+        return remoteCall(request, GetInfoResponseBody.class);
     }
 
     @Override

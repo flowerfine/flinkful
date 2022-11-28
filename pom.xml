@@ -75,7 +75,6 @@
         <module>flinkful-rest</module>
         <module>flinkful-examples</module>
         <module>flinkful-kubernetes-operator</module>
-        <module>flinkful-sql-gateway</module>
     </modules>
 
     <properties>

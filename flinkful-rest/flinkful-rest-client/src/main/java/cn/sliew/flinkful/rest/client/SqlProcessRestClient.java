@@ -13,11 +13,15 @@ import org.apache.flink.table.gateway.rest.header.session.OpenSessionHeaders;
 import org.apache.flink.table.gateway.rest.header.session.TriggerSessionHeartbeatHeaders;
 import org.apache.flink.table.gateway.rest.header.statement.ExecuteStatementHeaders;
 import org.apache.flink.table.gateway.rest.header.statement.FetchResultsHeaders;
+import org.apache.flink.table.gateway.rest.header.util.GetApiVersionHeaders;
+import org.apache.flink.table.gateway.rest.header.util.GetInfoHeaders;
 import org.apache.flink.table.gateway.rest.message.operation.OperationHandleIdPathParameter;
 import org.apache.flink.table.gateway.rest.message.operation.OperationMessageParameters;
 import org.apache.flink.table.gateway.rest.message.operation.OperationStatusResponseBody;
 import org.apache.flink.table.gateway.rest.message.session.*;
 import org.apache.flink.table.gateway.rest.message.statement.*;
+import org.apache.flink.table.gateway.rest.message.util.GetApiVersionResponseBody;
+import org.apache.flink.table.gateway.rest.message.util.GetInfoResponseBody;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -33,6 +37,22 @@ public class SqlProcessRestClient implements SqlProcessClient {
         this.address = address;
         this.port = port;
         this.client = client;
+    }
+
+    @Override
+    public CompletableFuture<GetApiVersionResponseBody> getApiVersion() throws IOException {
+        return client.sendRequest(address, port,
+                GetApiVersionHeaders.getInstance(),
+                EmptyMessageParameters.getInstance(),
+                EmptyRequestBody.getInstance());
+    }
+
+    @Override
+    public CompletableFuture<GetInfoResponseBody> getInfo() throws IOException {
+        return client.sendRequest(address, port,
+                GetInfoHeaders.getInstance(),
+                EmptyMessageParameters.getInstance(),
+                EmptyRequestBody.getInstance());
     }
 
     @Override
