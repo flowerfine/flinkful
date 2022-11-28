@@ -3,20 +3,16 @@ package cn.sliew.flinkful.rest.client.controller;
 import cn.sliew.flinkful.rest.base.SqlGateWayClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
-import org.apache.flink.runtime.rest.messages.ConversionException;
+import org.apache.flink.table.gateway.rest.message.session.OpenSessionRequestBody;
 import org.apache.flink.table.gateway.rest.message.session.OpenSessionResponseBody;
 import org.apache.flink.table.gateway.rest.message.statement.ExecuteStatementRequestBody;
 import org.apache.flink.table.gateway.rest.message.statement.ExecuteStatementResponseBody;
 import org.apache.flink.table.gateway.rest.message.statement.FetchResultsResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/flink/sql/gateway")
@@ -29,16 +25,17 @@ public class SqlGateWayContorller {
     @PostMapping
     @ApiOperation("open session")
     public CompletableFuture<OpenSessionResponseBody> openSession() throws IOException {
-        return sqlGateWayClient.sqlProcess().openSession();
+        OpenSessionRequestBody requestBody = new OpenSessionRequestBody("", null);
+        return sqlGateWayClient.sqlProcess().openSession(requestBody);
     }
 
 
     @PostMapping("{sessionHandle}")
     @ApiOperation("open session")
     public CompletableFuture<ExecuteStatementResponseBody> executeStatement(
-        @PathVariable String sessionHandle,
-        @RequestBody ExecuteStatementRequestBody requestBody)
-        throws IOException, ConversionException {
+            @PathVariable String sessionHandle,
+            @RequestBody ExecuteStatementRequestBody requestBody)
+            throws IOException {
         return sqlGateWayClient.sqlProcess().executeStatement(sessionHandle, requestBody);
     }
 
@@ -46,10 +43,10 @@ public class SqlGateWayContorller {
     @PostMapping("/statement/res")
     @ApiOperation("open session")
     public CompletableFuture<FetchResultsResponseBody> executeStatement(String sessionHandle,
-        String operationHandle, String token)
-        throws IOException, ConversionException {
+                                                                        String operationHandle, String token)
+            throws IOException {
         return sqlGateWayClient.sqlProcess()
-            .getStatementResult(sessionHandle, operationHandle, token);
+                .getStatementResult(sessionHandle, operationHandle, token);
     }
 
 }
