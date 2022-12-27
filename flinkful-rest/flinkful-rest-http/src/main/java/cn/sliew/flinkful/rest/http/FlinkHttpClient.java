@@ -5,9 +5,9 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import org.apache.flink.runtime.rest.util.RestConstants;
 import org.apache.flink.runtime.rest.versioning.RuntimeRestAPIVersion;
-import org.jboss.netty.util.internal.ConcurrentHashMap;
 
 import java.time.Duration;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 public class FlinkHttpClient implements RestClient {
