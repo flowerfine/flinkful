@@ -25,9 +25,8 @@ import cn.sliew.milky.dsl.Builder;
 import cn.sliew.milky.dsl.Customizer;
 import io.fabric8.kubernetes.api.model.ObjectMeta;
 import lombok.Setter;
-import org.apache.flink.kubernetes.operator.crd.FlinkDeployment;
-import org.apache.flink.kubernetes.operator.crd.spec.FlinkDeploymentSpec;
-import org.apache.flink.kubernetes.operator.crd.status.FlinkDeploymentStatus;
+import org.apache.flink.kubernetes.operator.api.FlinkDeployment;
+import org.apache.flink.kubernetes.operator.api.spec.FlinkDeploymentSpec;
 
 import static cn.sliew.milky.common.check.Ensures.checkNotNull;
 import static cn.sliew.milky.common.check.Ensures.notBlank;

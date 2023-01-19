@@ -56,18 +56,13 @@
         </repository>
     </distributionManagement>
 
-    <repositories>
+<!--    <repositories>
         <repository>
             <id>sonatype-nexus</id>
             <name>Sonatype Nexus Snapshots</name>
             <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
-        <repository>
-            <id>central</id>
-            <name>Central</name>
-            <url>https://repo1.maven.org/maven2/</url>
-        </repository>
-    </repositories>
+    </repositories>-->
 
     <modules>
         <module>flinkful-common</module>
@@ -90,7 +85,7 @@
         <disruptor.version>3.4.4</disruptor.version>
         <docker.java.version>3.2.13</docker.java.version>
         <flink.version>1.16.0</flink.version>
-        <flink.kubernetes.operator.version>1.2.0</flink.kubernetes.operator.version>
+        <flink.kubernetes.operator.version>1.3.1</flink.kubernetes.operator.version>
         <knife4j.version>3.0.2</knife4j.version>
         <milky.version>1.0.7</milky.version>
         <mybatis.plus.version>3.5.1</mybatis.plus.version>
@@ -252,6 +247,11 @@
             <dependency>
                 <groupId>org.apache.flink</groupId>
                 <artifactId>flink-kubernetes-operator</artifactId>
+                <version>${flink.kubernetes.operator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-kubernetes-operator-api</artifactId>
                 <version>${flink.kubernetes.operator.version}</version>
             </dependency>
 

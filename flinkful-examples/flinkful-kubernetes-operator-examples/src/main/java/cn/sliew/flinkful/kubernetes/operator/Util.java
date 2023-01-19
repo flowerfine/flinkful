@@ -3,7 +3,7 @@ package cn.sliew.flinkful.kubernetes.operator;
 import cn.sliew.flinkful.kubernetes.operator.configurer.ObjectMetaConfigurer;
 import cn.sliew.flinkful.kubernetes.operator.configurer.SpecConfigurer;
 import cn.sliew.milky.dsl.Customizer;
-import org.apache.flink.kubernetes.operator.crd.FlinkDeployment;
+import org.apache.flink.kubernetes.operator.api.FlinkDeployment;
 
 public enum Util {
     ;

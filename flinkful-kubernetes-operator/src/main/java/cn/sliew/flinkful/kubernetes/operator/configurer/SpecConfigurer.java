@@ -21,7 +21,7 @@ package cn.sliew.flinkful.kubernetes.operator.configurer;
 import cn.sliew.flinkful.kubernetes.operator.FlinkDeploymentBuilder;
 import cn.sliew.milky.dsl.Customizer;
 import io.fabric8.kubernetes.api.model.PodBuilder;
-import org.apache.flink.kubernetes.operator.crd.spec.*;
+import org.apache.flink.kubernetes.operator.api.spec.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,11 +38,11 @@ public class SpecConfigurer
     private PodTemplateSpecConfig podTemplateSpec;
     private JobSpecConfig jobSpec;
 
-    private String image = "flink:1.15";
+    private String image = "flink:1.16";
     //  KubernetesConfigOptions.ImagePullPolicy.IfNotPresent;
     private String imagePullPolicy = "IfNotPresent";
     private String serviceAccount = "flink";
-    private FlinkVersion flinkVersion = FlinkVersion.v1_15;
+    private FlinkVersion flinkVersion = FlinkVersion.v1_16;
     private Map<String, String> logConfiguration = new HashMap<>();
     private Map<String, String> flinkConfiguration = new HashMap<>();
 

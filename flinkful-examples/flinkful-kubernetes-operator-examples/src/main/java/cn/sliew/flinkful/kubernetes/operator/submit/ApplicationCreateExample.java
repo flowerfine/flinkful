@@ -4,17 +4,13 @@ import cn.sliew.flinkful.kubernetes.operator.FlinkDeploymentBuilder;
 import cn.sliew.flinkful.kubernetes.operator.configurer.ObjectMetaConfigurer;
 import cn.sliew.flinkful.kubernetes.operator.configurer.SpecConfigurer;
 import cn.sliew.milky.dsl.Customizer;
-import io.fabric8.kubernetes.api.model.Namespace;
-import io.fabric8.kubernetes.api.model.NamespaceList;
 import io.fabric8.kubernetes.client.Config;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClientException;
-import io.fabric8.kubernetes.client.dsl.NonNamespaceOperation;
-import io.fabric8.kubernetes.client.dsl.Resource;
 import io.fabric8.kubernetes.client.utils.Serialization;
-import org.apache.flink.kubernetes.operator.crd.FlinkDeployment;
-import org.apache.flink.kubernetes.operator.crd.spec.UpgradeMode;
+import org.apache.flink.kubernetes.operator.api.FlinkDeployment;
+import org.apache.flink.kubernetes.operator.api.spec.UpgradeMode;
 
 public class ApplicationCreateExample {
 

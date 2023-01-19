@@ -19,6 +19,10 @@
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
+            <artifactId>flink-kubernetes-operator-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
             <artifactId>flink-kubernetes-operator</artifactId>
         </dependency>
     </dependencies>

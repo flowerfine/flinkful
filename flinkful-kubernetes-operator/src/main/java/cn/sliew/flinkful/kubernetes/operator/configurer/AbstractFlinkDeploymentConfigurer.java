@@ -20,7 +20,7 @@ package cn.sliew.flinkful.kubernetes.operator.configurer;
 
 import cn.sliew.milky.dsl.AbstractConfigurer;
 import cn.sliew.milky.dsl.ConfigurableBuilder;
-import org.apache.flink.kubernetes.operator.crd.FlinkDeployment;
+import org.apache.flink.kubernetes.operator.api.FlinkDeployment;
 
 public abstract class AbstractFlinkDeploymentConfigurer<T extends AbstractFlinkDeploymentConfigurer<T, B>, B extends ConfigurableBuilder<FlinkDeployment, B>>
         extends AbstractConfigurer<FlinkDeployment, B> {
