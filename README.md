@@ -19,6 +19,7 @@ Flinkful helps people open the door to Flink management and provides `flinkful-e
 * `flinkful-common-examples`. helper module contains flink environment and job utility. 
 * `flinkful-cli-examples`. modules contains how to create session cluster and submit job.
 * `flinkful-rest-examples`. modules contains how to access jobs and cluster status.
+* `flinkful-rest-examples`. modules contains how to access 1.16 flink sql gateway.
 
 Get started with Flinkful firstly, add Flinkful as a dependency in your Java project. 
 
@@ -204,17 +205,23 @@ public enum SessionFactory {
 }
 ```
 
+### Flink Sql Gateway
+
+Flink 1.16 releases sql gateway to support multiple clients from the remote to execute SQL in concurrency. It provides an easy way to submit the Flink Job, look up the metadata, and analyze the data online.
+
+Flinkful has added flink sql gateway client to `flinkful-rest` modules and developer can use them directly.
+
 ## Flink vs Flinkful
 
 | java | Flink  | Flinkful             | branch          | service    |
 | ---- | ------ | -------------------- | --------------- | ---------- |
 | 1.8  | 1.13.6 | 1.13.6_1_8-SNAPSHOT  | 1.13/main       | deprecated |
 | 11   | 1.14.4 | 1.14.2_1_11-SNAPSHOT | 1.14/main       | deprecated |
-| 11   | 1.15.1 | 1.15.1_1_17-SNAPSHOT | 1.15/main, main | latest     |
+| 11   | 1.15.1 | 1.15.1_1_17-SNAPSHOT | 1.15/main       | deprecated |
+| 11   | 1.16.0 | 1.16.0_1_11-SNAPSHOT | 1.16/main, main | latest     |
 
 ## Next Flinkful
 
-* SQL client.
 * QueryableState client.
 * [Flink Kubernetes Operator](https://github.com/apache/flink-kubernetes-operator). done
 
