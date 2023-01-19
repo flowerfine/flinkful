@@ -1,5 +1,11 @@
 package cn.sliew.flinkful.kubernetes.operator.submit;
 
+import io.fabric8.kubernetes.api.model.Namespace;
+import io.fabric8.kubernetes.api.model.NamespaceList;
+import io.fabric8.kubernetes.client.Config;
+import io.fabric8.kubernetes.client.ConfigBuilder;
+import io.fabric8.kubernetes.client.dsl.NonNamespaceOperation;
+import io.fabric8.kubernetes.client.utils.Serialization;
 import org.apache.flink.kubernetes.operator.api.FlinkDeployment;
 import org.apache.flink.kubernetes.operator.api.spec.FlinkDeploymentSpec;
 import org.apache.flink.kubernetes.operator.api.spec.FlinkVersion;
@@ -51,7 +57,9 @@ public class Basic {
                                 .upgradeMode(UpgradeMode.STATELESS)
                                 .build());
 
-        try (KubernetesClient kubernetesClient = new KubernetesClientBuilder().build()) {
+        try (KubernetesClient kubernetesClient = new KubernetesClientBuilder()
+                .withConfig(Config.autoConfigure("docker-desktop"))
+                .build()) {
             kubernetesClient.resource(flinkDeployment).createOrReplace();
         }
     }

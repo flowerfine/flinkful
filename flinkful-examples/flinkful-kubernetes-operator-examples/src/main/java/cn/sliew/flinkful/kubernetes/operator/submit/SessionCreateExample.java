@@ -4,9 +4,7 @@ import cn.sliew.flinkful.kubernetes.operator.FlinkDeploymentBuilder;
 import cn.sliew.flinkful.kubernetes.operator.configurer.ObjectMetaConfigurer;
 import cn.sliew.flinkful.kubernetes.operator.configurer.SpecConfigurer;
 import cn.sliew.milky.dsl.Customizer;
-import io.fabric8.kubernetes.client.DefaultKubernetesClient;
-import io.fabric8.kubernetes.client.KubernetesClient;
-import io.fabric8.kubernetes.client.KubernetesClientException;
+import io.fabric8.kubernetes.client.*;
 import io.fabric8.kubernetes.client.utils.Serialization;
 import org.apache.flink.kubernetes.operator.api.FlinkDeployment;
 
@@ -21,7 +19,9 @@ public class SessionCreateExample {
                 .spec(SessionCreateExample::spec);
 
         FlinkDeployment flinkDeployment = config.getOrBuild();
-        try (KubernetesClient kubernetesClient = new DefaultKubernetesClient()) {
+        try (KubernetesClient kubernetesClient = new KubernetesClientBuilder()
+                .withConfig(Config.autoConfigure("docker-desktop"))
+                .build()) {
             FlinkDeployment orReplace =
                     kubernetesClient.resource(flinkDeployment).createOrReplace();
             System.out.println(Serialization.asYaml(orReplace));
