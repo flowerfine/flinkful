@@ -56,13 +56,13 @@
         </repository>
     </distributionManagement>
 
-<!--    <repositories>
+    <repositories>
         <repository>
             <id>sonatype-nexus</id>
             <name>Sonatype Nexus Snapshots</name>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+            <url>https://repo1.maven.org/maven2</url>
         </repository>
-    </repositories>-->
+    </repositories>
 
     <modules>
         <module>flinkful-common</module>
