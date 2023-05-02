@@ -1,6 +1,6 @@
 package cn.sliew.flinkful.rest.http;
 
-import cn.sliew.flinkful.rest.base.SqlGateWayClient;
+import cn.sliew.flinkful.rest.base.SqlGatewayClient;
 import cn.sliew.flinkful.rest.base.SqlProcessClient;
 import java.time.Duration;
 import java.util.concurrent.ConcurrentMap;
@@ -9,14 +9,14 @@ import org.apache.flink.runtime.rest.versioning.RuntimeRestAPIVersion;
 import org.jboss.netty.util.internal.ConcurrentHashMap;
 
 
-public class SqlGateWayHttpClient implements SqlGateWayClient {
+public class SqlGatewayHttpClient implements SqlGatewayClient {
 
     private final String webInterfaceURL;
     private final OkHttpClient client;
 
     private ConcurrentMap<String, Object> cache = new ConcurrentHashMap<>(8);
 
-    public SqlGateWayHttpClient(String webInterfaceURL) {
+    public SqlGatewayHttpClient(String webInterfaceURL) {
         this.webInterfaceURL =
             webInterfaceURL + "/" + RuntimeRestAPIVersion.V1.getURLVersionPrefix();
         this.client = new OkHttpClient.Builder()

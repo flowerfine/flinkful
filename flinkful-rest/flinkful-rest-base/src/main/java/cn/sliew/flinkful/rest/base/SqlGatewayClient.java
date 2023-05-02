@@ -1,6 +1,6 @@
 package cn.sliew.flinkful.rest.base;
 
-public interface SqlGateWayClient {
+public interface SqlGatewayClient {
 
     SqlProcessClient sqlProcess();
 

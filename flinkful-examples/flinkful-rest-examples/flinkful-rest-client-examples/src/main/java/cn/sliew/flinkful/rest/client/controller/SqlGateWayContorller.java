@@ -1,6 +1,6 @@
 package cn.sliew.flinkful.rest.client.controller;
 
-import cn.sliew.flinkful.rest.base.SqlGateWayClient;
+import cn.sliew.flinkful.rest.base.SqlGatewayClient;
 import cn.sliew.flinkful.rest.client.param.ExecuteStatementParam;
 import cn.sliew.flinkful.rest.client.param.OpenSessionParam;
 import io.swagger.annotations.Api;
@@ -29,7 +29,7 @@ import java.util.concurrent.CompletableFuture;
 public class SqlGateWayContorller {
 
     @Autowired
-    private SqlGateWayClient sqlGateWayClient;
+    private SqlGatewayClient sqlGateWayClient;
 
     @GetMapping("api_versions")
     @ApiOperation("Get the current available versions for the Rest Endpoint. " +

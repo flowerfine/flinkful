@@ -1,6 +1,6 @@
 package cn.sliew.flinkful.rest.client;
 
-import cn.sliew.flinkful.rest.base.SqlGateWayClient;
+import cn.sliew.flinkful.rest.base.SqlGatewayClient;
 import cn.sliew.flinkful.rest.base.SqlProcessClient;
 import cn.sliew.milky.common.exception.Rethrower;
 import org.apache.flink.configuration.Configuration;
@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class SqlGateWayRestClient implements SqlGateWayClient {
+public class SqlGatewayRestClient implements SqlGatewayClient {
 
     private final String address;
     private final int port;
@@ -22,7 +22,7 @@ public class SqlGateWayRestClient implements SqlGateWayClient {
 
     private ConcurrentMap<String, Object> cache = new ConcurrentHashMap<>(8);
 
-    public SqlGateWayRestClient(String address, int port, Configuration configuration) {
+    public SqlGatewayRestClient(String address, int port, Configuration configuration) {
         this.address = address;
         this.port = port;
 
