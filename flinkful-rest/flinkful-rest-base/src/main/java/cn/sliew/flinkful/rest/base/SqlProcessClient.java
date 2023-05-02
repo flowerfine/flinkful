@@ -6,9 +6,7 @@ import org.apache.flink.table.gateway.rest.message.session.CloseSessionResponseB
 import org.apache.flink.table.gateway.rest.message.session.GetSessionConfigResponseBody;
 import org.apache.flink.table.gateway.rest.message.session.OpenSessionRequestBody;
 import org.apache.flink.table.gateway.rest.message.session.OpenSessionResponseBody;
-import org.apache.flink.table.gateway.rest.message.statement.ExecuteStatementRequestBody;
-import org.apache.flink.table.gateway.rest.message.statement.ExecuteStatementResponseBody;
-import org.apache.flink.table.gateway.rest.message.statement.FetchResultsResponseBody;
+import org.apache.flink.table.gateway.rest.message.statement.*;
 import org.apache.flink.table.gateway.rest.message.util.GetApiVersionResponseBody;
 import org.apache.flink.table.gateway.rest.message.util.GetInfoResponseBody;
 
@@ -29,9 +27,11 @@ public interface SqlProcessClient {
 
     CompletableFuture<CloseSessionResponseBody> closeSession(String sessionHandle) throws IOException;
 
+    CompletableFuture<CompleteStatementResponseBody> completeStatement(String sessionHandle, CompleteStatementRequestBody requestBody) throws IOException;
+
     CompletableFuture<ExecuteStatementResponseBody> executeStatement(String sessionHandle, ExecuteStatementRequestBody requestBody) throws IOException;
 
-    CompletableFuture<FetchResultsResponseBody> getStatementResult(String sessionHandle, String operationHandle, String token) throws IOException;
+    CompletableFuture<FetchResultsResponseBody> getStatementResult(String sessionHandle, String operationHandle, String token, String rowFormat) throws IOException;
 
     CompletableFuture<OperationStatusResponseBody> getOperationStatus(String sessionHandle, String operationHandle) throws IOException;
 

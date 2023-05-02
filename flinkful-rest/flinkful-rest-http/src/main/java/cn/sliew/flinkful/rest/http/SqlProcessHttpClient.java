@@ -11,9 +11,7 @@ import org.apache.flink.table.gateway.rest.message.session.CloseSessionResponseB
 import org.apache.flink.table.gateway.rest.message.session.GetSessionConfigResponseBody;
 import org.apache.flink.table.gateway.rest.message.session.OpenSessionRequestBody;
 import org.apache.flink.table.gateway.rest.message.session.OpenSessionResponseBody;
-import org.apache.flink.table.gateway.rest.message.statement.ExecuteStatementRequestBody;
-import org.apache.flink.table.gateway.rest.message.statement.ExecuteStatementResponseBody;
-import org.apache.flink.table.gateway.rest.message.statement.FetchResultsResponseBody;
+import org.apache.flink.table.gateway.rest.message.statement.*;
 import org.apache.flink.table.gateway.rest.message.util.GetApiVersionResponseBody;
 import org.apache.flink.table.gateway.rest.message.util.GetInfoResponseBody;
 
@@ -93,6 +91,17 @@ public class SqlProcessHttpClient extends AsyncClient implements
     }
 
     @Override
+    public CompletableFuture<CompleteStatementResponseBody> completeStatement(String sessionHandle, CompleteStatementRequestBody requestBody) throws IOException {
+        String url = webInterfaceURL + "/sessions/" + sessionHandle + "/statements";
+        RequestBody body = RequestBody.create(FlinkShadedJacksonUtil.toJsonString(requestBody), APPLICATION_JSON);
+        Request request = new Request.Builder()
+                .post(body)
+                .url(url)
+                .build();
+        return remoteCall(request, CompleteStatementResponseBody.class);
+    }
+
+    @Override
     public CompletableFuture<ExecuteStatementResponseBody> executeStatement(String sessionHandle, ExecuteStatementRequestBody requestBody) throws IOException {
         String url = webInterfaceURL + "/sessions/" + sessionHandle + "/statements";
         RequestBody body = RequestBody.create(FlinkShadedJacksonUtil.toJsonString(requestBody), APPLICATION_JSON);
@@ -104,8 +113,8 @@ public class SqlProcessHttpClient extends AsyncClient implements
     }
 
     @Override
-    public CompletableFuture<FetchResultsResponseBody> getStatementResult(String sessionHandle, String operationHandle, String token) throws IOException {
-        String url = webInterfaceURL + "/sessions/" + sessionHandle + "/operations/" + operationHandle + "/result/" + token;
+    public CompletableFuture<FetchResultsResponseBody> getStatementResult(String sessionHandle, String operationHandle, String token, String rowFormat) throws IOException {
+        String url = webInterfaceURL + "/sessions/" + sessionHandle + "/operations/" + operationHandle + "/result/" + token + "?rowFormat=" + rowFormat;
         Request request = new Request.Builder()
                 .get()
                 .url(url)

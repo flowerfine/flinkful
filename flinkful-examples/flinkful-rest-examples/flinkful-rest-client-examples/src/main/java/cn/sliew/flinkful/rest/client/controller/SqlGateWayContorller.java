@@ -82,8 +82,9 @@ public class SqlGateWayContorller {
     @ApiOperation("Fetch results of Operation.")
     public CompletableFuture<FetchResultsResponseBody> getStatementResult(@PathVariable("sessionHandle") String sessionHandle,
                                                                           @PathVariable("operationHandle") String operationHandle,
-                                                                          @PathVariable("token") String token) throws IOException {
-        return sqlGateWayClient.sqlProcess().getStatementResult(sessionHandle, operationHandle, token);
+                                                                          @PathVariable("token") String token,
+                                                                          @RequestParam("rowFormat") String rowFormat) throws IOException {
+        return sqlGateWayClient.sqlProcess().getStatementResult(sessionHandle, operationHandle, token, rowFormat);
     }
 
     @GetMapping("{sessionHandle}/operations/{operationHandle}/status")

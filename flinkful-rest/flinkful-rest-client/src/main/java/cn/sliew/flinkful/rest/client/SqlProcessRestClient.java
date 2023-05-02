@@ -11,6 +11,7 @@ import org.apache.flink.table.gateway.rest.header.session.CloseSessionHeaders;
 import org.apache.flink.table.gateway.rest.header.session.GetSessionConfigHeaders;
 import org.apache.flink.table.gateway.rest.header.session.OpenSessionHeaders;
 import org.apache.flink.table.gateway.rest.header.session.TriggerSessionHeartbeatHeaders;
+import org.apache.flink.table.gateway.rest.header.statement.CompleteStatementHeaders;
 import org.apache.flink.table.gateway.rest.header.statement.ExecuteStatementHeaders;
 import org.apache.flink.table.gateway.rest.header.statement.FetchResultsHeaders;
 import org.apache.flink.table.gateway.rest.header.util.GetApiVersionHeaders;
@@ -22,6 +23,7 @@ import org.apache.flink.table.gateway.rest.message.session.*;
 import org.apache.flink.table.gateway.rest.message.statement.*;
 import org.apache.flink.table.gateway.rest.message.util.GetApiVersionResponseBody;
 import org.apache.flink.table.gateway.rest.message.util.GetInfoResponseBody;
+import org.apache.flink.table.gateway.rest.util.SqlGatewayRestAPIVersion;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -124,6 +126,26 @@ public class SqlProcessRestClient implements SqlProcessClient {
     }
 
     @Override
+    public CompletableFuture<CompleteStatementResponseBody> completeStatement(String sessionHandle, CompleteStatementRequestBody requestBody) throws IOException {
+        try {
+            SessionMessageParameters parameters = new SessionMessageParameters();
+            Collection<MessagePathParameter<?>> pathParameters = parameters.getPathParameters();
+            for (MessagePathParameter pathParameter : pathParameters) {
+                if (pathParameter instanceof SessionHandleIdPathParameter) {
+                    pathParameter.resolveFromString(sessionHandle);
+                }
+            }
+            return client.sendRequest(address, port,
+                    CompleteStatementHeaders.getInstance(),
+                    parameters,
+                    requestBody);
+        } catch (ConversionException e) {
+            Rethrower.throwAs(e);
+            return null;
+        }
+    }
+
+    @Override
     public CompletableFuture<ExecuteStatementResponseBody> executeStatement(String sessionHandle, ExecuteStatementRequestBody requestBody) throws IOException {
         try {
             SessionMessageParameters parameters = new SessionMessageParameters();
@@ -144,9 +166,9 @@ public class SqlProcessRestClient implements SqlProcessClient {
     }
 
     @Override
-    public CompletableFuture<FetchResultsResponseBody> getStatementResult(String sessionHandle, String operationHandle, String token) throws IOException {
+    public CompletableFuture<FetchResultsResponseBody> getStatementResult(String sessionHandle, String operationHandle, String token, String rowFormat) throws IOException {
         try {
-            FetchResultsTokenParameters parameters = new FetchResultsTokenParameters();
+            FetchResultsMessageParameters parameters = new FetchResultsMessageParameters(SqlGatewayRestAPIVersion.getDefaultVersion());
             Collection<MessagePathParameter<?>> pathParameters = parameters.getPathParameters();
             for (MessagePathParameter pathParameter : pathParameters) {
                 if (pathParameter instanceof SessionHandleIdPathParameter) {
@@ -159,8 +181,14 @@ public class SqlProcessRestClient implements SqlProcessClient {
                     pathParameter.resolveFromString(token);
                 }
             }
+            Collection<MessageQueryParameter<?>> queryParameters = parameters.getQueryParameters();
+            for (MessageQueryParameter queryParameter : queryParameters) {
+                if (queryParameter instanceof FetchResultsRowFormatQueryParameter) {
+                    queryParameter.resolveFromString(rowFormat);
+                }
+            }
             return client.sendRequest(address, port,
-                    FetchResultsHeaders.getInstance(),
+                    FetchResultsHeaders.getDefaultInstance(),
                     parameters,
                     EmptyRequestBody.getInstance());
         } catch (ConversionException e) {
