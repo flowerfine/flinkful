@@ -213,12 +213,13 @@ Flinkful has added flink sql gateway client to `flinkful-rest` modules and devel
 
 ## Flink vs Flinkful
 
-| java | Flink  | Flinkful             | branch          | service    |
-| ---- | ------ | -------------------- | --------------- | ---------- |
-| 1.8  | 1.13.6 | 1.13.6_1_8-SNAPSHOT  | 1.13/main       | deprecated |
-| 11   | 1.14.4 | 1.14.2_1_11-SNAPSHOT | 1.14/main       | deprecated |
-| 11   | 1.15.1 | 1.15.1_1_17-SNAPSHOT | 1.15/main       | deprecated |
-| 11   | 1.16.0 | 1.16.0_1_11-SNAPSHOT | 1.16/main, main | latest     |
+| java | Flink  | Flinkful             | branch    | service    |
+| ---- | ------ | -------------------- | --------- | ---------- |
+| 1.8  | 1.13.6 | 1.13.6_1_8-SNAPSHOT  | 1.13/main | deprecated |
+| 11   | 1.14.4 | 1.14.2_1_11-SNAPSHOT | 1.14/main | deprecated |
+| 11   | 1.15.1 | 1.15.1_1_17-SNAPSHOT | 1.15/main | deprecated |
+| 11   | 1.16.0 | 1.16.0_1_11-SNAPSHOT | 1.16/main | latest     |
+| 11   | 1.17.0 | 1.17.0_1_11-SNAPSHOT | main      | latest     |
 
 ## Next Flinkful
 
