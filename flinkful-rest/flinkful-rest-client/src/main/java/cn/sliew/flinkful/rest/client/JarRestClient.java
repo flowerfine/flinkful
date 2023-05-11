@@ -1,6 +1,6 @@
 package cn.sliew.flinkful.rest.client;
 
-import cn.sliew.flinkful.rest.base.JarClient;
+import cn.sliew.flinkful.rest.base.v1.client.JarClient;
 import org.apache.flink.runtime.rest.FileUpload;
 import org.apache.flink.runtime.rest.RestClient;
 import org.apache.flink.runtime.rest.messages.EmptyMessageParameters;

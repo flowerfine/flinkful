@@ -30,6 +30,12 @@
         </dependency>
 
         <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-core</artifactId>
+        </dependency>
+
+
+        <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-sql-gateway</artifactId>
         </dependency>

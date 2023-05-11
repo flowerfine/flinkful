@@ -1,6 +1,6 @@
 package cn.sliew.flinkful.rest.http;
 
-import cn.sliew.flinkful.rest.base.SavepointClient;
+import cn.sliew.flinkful.rest.base.v1.client.SavepointClient;
 import cn.sliew.flinkful.rest.http.util.FlinkShadedJacksonUtil;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

@@ -1,6 +1,6 @@
 package cn.sliew.flinkful.rest.client;
 
-import cn.sliew.flinkful.rest.base.JobVerticeClient;
+import cn.sliew.flinkful.rest.base.v1.client.JobVerticeClient;
 import org.apache.flink.runtime.rest.RestClient;
 import org.apache.flink.runtime.rest.messages.*;
 import org.apache.flink.runtime.rest.messages.job.*;

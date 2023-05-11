@@ -1,6 +1,6 @@
 package cn.sliew.flinkful.rest.http;
 
-import cn.sliew.flinkful.rest.base.*;
+import cn.sliew.flinkful.rest.base.v1.client.*;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import org.apache.flink.runtime.rest.util.RestConstants;

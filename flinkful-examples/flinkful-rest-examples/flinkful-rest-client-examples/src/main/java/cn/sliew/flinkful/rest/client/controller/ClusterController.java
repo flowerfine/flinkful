@@ -1,7 +1,7 @@
 package cn.sliew.flinkful.rest.client.controller;
 
-import cn.sliew.flinkful.rest.base.ClusterClient;
-import cn.sliew.flinkful.rest.base.RestClient;
+import cn.sliew.flinkful.rest.base.v1.client.ClusterClient;
+import cn.sliew.flinkful.rest.base.v1.client.RestClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.flink.runtime.rest.handler.legacy.messages.ClusterOverviewWithVersion;

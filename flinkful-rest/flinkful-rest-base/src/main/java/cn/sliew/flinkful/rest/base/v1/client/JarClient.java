@@ -1,4 +1,4 @@
-package cn.sliew.flinkful.rest.base;
+package cn.sliew.flinkful.rest.base.v1.client;
 
 import org.apache.flink.runtime.rest.messages.EmptyResponseBody;
 import org.apache.flink.runtime.rest.messages.JobPlanInfo;

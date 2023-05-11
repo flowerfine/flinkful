@@ -1,6 +1,6 @@
 package cn.sliew.flinkful.rest.http;
 
-import cn.sliew.flinkful.rest.base.JarClient;
+import cn.sliew.flinkful.rest.base.v1.client.JarClient;
 import cn.sliew.flinkful.rest.http.util.FlinkShadedJacksonUtil;
 import okhttp3.*;
 import org.apache.flink.runtime.rest.messages.EmptyResponseBody;

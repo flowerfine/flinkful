@@ -1,6 +1,6 @@
 package cn.sliew.flinkful.rest.http;
 
-import cn.sliew.flinkful.rest.base.JobManagerClient;
+import cn.sliew.flinkful.rest.base.v1.client.JobManagerClient;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.apache.flink.runtime.rest.messages.ConfigurationInfo;

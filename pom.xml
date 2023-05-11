@@ -89,6 +89,7 @@
         <milky.version>1.0.10</milky.version>
         <mybatis.plus.version>3.5.1</mybatis.plus.version>
         <mysql.connector.version>8.0.28</mysql.connector.version>
+        <feign.version>12.3</feign.version>
         <okhttp.version>4.10.0</okhttp.version>
         <spring-cloud.version>2022.0.0-M1</spring-cloud.version>
         <springfox.version>3.0.0</springfox.version>
@@ -253,6 +254,12 @@
                 <groupId>com.github.docker-java</groupId>
                 <artifactId>docker-java</artifactId>
                 <version>${docker.java.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-core</artifactId>
+                <version>${feign.version}</version>
             </dependency>
 
             <dependency>

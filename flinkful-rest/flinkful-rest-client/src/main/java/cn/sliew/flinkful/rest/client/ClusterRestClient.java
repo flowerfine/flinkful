@@ -1,6 +1,6 @@
 package cn.sliew.flinkful.rest.client;
 
-import cn.sliew.flinkful.rest.base.ClusterClient;
+import cn.sliew.flinkful.rest.base.v1.client.ClusterClient;
 import org.apache.flink.runtime.rest.RestClient;
 import org.apache.flink.runtime.rest.handler.legacy.messages.ClusterOverviewWithVersion;
 import org.apache.flink.runtime.rest.messages.ClusterOverviewHeaders;

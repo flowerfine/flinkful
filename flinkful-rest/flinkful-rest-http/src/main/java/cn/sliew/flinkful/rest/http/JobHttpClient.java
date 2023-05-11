@@ -1,6 +1,6 @@
 package cn.sliew.flinkful.rest.http;
 
-import cn.sliew.flinkful.rest.base.JobClient;
+import cn.sliew.flinkful.rest.base.v1.client.JobClient;
 import cn.sliew.flinkful.rest.http.util.FlinkShadedJacksonUtil;
 import cn.sliew.milky.common.check.Ensures;
 import cn.sliew.milky.common.util.StringUtils;

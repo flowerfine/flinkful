@@ -1,4 +1,4 @@
-package cn.sliew.flinkful.rest.base;
+package cn.sliew.flinkful.rest.base.v1.client;
 
 public interface RestClient {
 

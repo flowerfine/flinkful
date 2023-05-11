@@ -1,6 +1,6 @@
 package cn.sliew.flinkful.rest.client;
 
-import cn.sliew.flinkful.rest.base.TaskManagerClient;
+import cn.sliew.flinkful.rest.base.v1.client.TaskManagerClient;
 import org.apache.flink.runtime.rest.RestClient;
 import org.apache.flink.runtime.rest.messages.EmptyRequestBody;
 import org.apache.flink.runtime.rest.messages.LogListInfo;

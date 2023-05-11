@@ -1,6 +1,6 @@
 package cn.sliew.flinkful.rest.client.controller;
 
-import cn.sliew.flinkful.rest.base.SqlGatewayClient;
+import cn.sliew.flinkful.rest.base.v1.client.SqlGatewayClient;
 import cn.sliew.flinkful.rest.client.param.ExecuteStatementParam;
 import cn.sliew.flinkful.rest.client.param.OpenSessionParam;
 import io.swagger.annotations.Api;

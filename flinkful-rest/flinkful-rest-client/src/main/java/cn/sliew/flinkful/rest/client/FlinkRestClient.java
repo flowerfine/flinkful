@@ -1,6 +1,6 @@
 package cn.sliew.flinkful.rest.client;
 
-import cn.sliew.flinkful.rest.base.*;
+import cn.sliew.flinkful.rest.base.v1.client.*;
 import cn.sliew.milky.common.exception.Rethrower;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.runtime.rest.RestClient;
@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class FlinkRestClient implements cn.sliew.flinkful.rest.base.RestClient {
+public class FlinkRestClient implements cn.sliew.flinkful.rest.base.v1.client.RestClient {
 
     private final String address;
     private final int port;

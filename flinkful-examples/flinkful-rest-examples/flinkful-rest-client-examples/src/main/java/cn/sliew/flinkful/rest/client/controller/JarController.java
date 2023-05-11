@@ -1,7 +1,7 @@
 package cn.sliew.flinkful.rest.client.controller;
 
-import cn.sliew.flinkful.rest.base.JarClient;
-import cn.sliew.flinkful.rest.base.RestClient;
+import cn.sliew.flinkful.rest.base.v1.client.JarClient;
+import cn.sliew.flinkful.rest.base.v1.client.RestClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.flink.runtime.rest.messages.EmptyResponseBody;

@@ -1,6 +1,6 @@
 package cn.sliew.flinkful.rest.http;
 
-import cn.sliew.flinkful.rest.base.SqlProcessClient;
+import cn.sliew.flinkful.rest.base.v1.client.SqlProcessClient;
 import cn.sliew.flinkful.rest.http.util.FlinkShadedJacksonUtil;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

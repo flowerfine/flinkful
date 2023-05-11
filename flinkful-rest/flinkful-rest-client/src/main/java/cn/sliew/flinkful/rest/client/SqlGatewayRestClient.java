@@ -1,7 +1,7 @@
 package cn.sliew.flinkful.rest.client;
 
-import cn.sliew.flinkful.rest.base.SqlGatewayClient;
-import cn.sliew.flinkful.rest.base.SqlProcessClient;
+import cn.sliew.flinkful.rest.base.v1.client.SqlGatewayClient;
+import cn.sliew.flinkful.rest.base.v1.client.SqlProcessClient;
 import cn.sliew.milky.common.exception.Rethrower;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.runtime.rest.RestClient;

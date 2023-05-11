@@ -1,7 +1,7 @@
 package cn.sliew.flinkful.rest.http;
 
-import cn.sliew.flinkful.rest.base.SqlGatewayClient;
-import cn.sliew.flinkful.rest.base.SqlProcessClient;
+import cn.sliew.flinkful.rest.base.v1.client.SqlGatewayClient;
+import cn.sliew.flinkful.rest.base.v1.client.SqlProcessClient;
 import java.time.Duration;
 import java.util.concurrent.ConcurrentMap;
 import okhttp3.OkHttpClient;

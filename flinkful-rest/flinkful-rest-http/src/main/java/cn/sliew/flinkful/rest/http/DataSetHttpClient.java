@@ -1,6 +1,6 @@
 package cn.sliew.flinkful.rest.http;
 
-import cn.sliew.flinkful.rest.base.DataSetClient;
+import cn.sliew.flinkful.rest.base.v1.client.DataSetClient;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.apache.flink.runtime.rest.handler.async.AsynchronousOperationInfo;

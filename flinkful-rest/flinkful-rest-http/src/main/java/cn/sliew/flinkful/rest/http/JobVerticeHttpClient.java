@@ -1,6 +1,6 @@
 package cn.sliew.flinkful.rest.http;
 
-import cn.sliew.flinkful.rest.base.JobVerticeClient;
+import cn.sliew.flinkful.rest.base.v1.client.JobVerticeClient;
 import cn.sliew.milky.common.util.StringUtils;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
