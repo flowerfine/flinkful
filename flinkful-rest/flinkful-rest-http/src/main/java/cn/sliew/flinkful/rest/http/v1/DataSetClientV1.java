@@ -1,12 +1,12 @@
 package cn.sliew.flinkful.rest.http.v1;
 
+import cn.sliew.flinkful.rest.base.v1.messages.async.AsynchronousOperationInfo;
 import cn.sliew.flinkful.rest.base.v1.messages.async.AsynchronousOperationResult;
 import cn.sliew.flinkful.rest.base.v1.messages.async.TriggerResponse;
 import cn.sliew.flinkful.rest.base.v1.messages.dataset.ClusterDataSetList;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
-import org.apache.flink.runtime.rest.handler.async.AsynchronousOperationInfo;
 
 public interface DataSetClientV1 {
 
@@ -14,7 +14,7 @@ public interface DataSetClientV1 {
     @Headers("Content-Type: application/json")
     ClusterDataSetList datasets();
 
-    @RequestLine("GET v1/datasets/{datasetId}")
+    @RequestLine("DELETE v1/datasets/{datasetId}")
     @Headers("Content-Type: application/json")
     TriggerResponse deleteDataSet(@Param("datasetId") String datasetId);
 

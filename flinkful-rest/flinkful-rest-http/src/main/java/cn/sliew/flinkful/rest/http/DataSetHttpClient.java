@@ -34,7 +34,7 @@ public class DataSetHttpClient extends AsyncClient implements DataSetClient {
     public CompletableFuture<TriggerResponse> deleteDataSet(String datasetId) throws IOException {
         String url = webInterfaceURL + "/datasets/" + datasetId;
         Request request = new Request.Builder()
-                .get()
+                .delete()
                 .url(url)
                 .build();
         return remoteCall(request, TriggerResponse.class);
