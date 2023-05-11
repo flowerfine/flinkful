@@ -5,7 +5,7 @@ import org.apache.flink.runtime.rest.messages.job.SubtaskExecutionAttemptAccumul
 import org.apache.flink.runtime.rest.messages.job.SubtaskExecutionAttemptDetailsInfo;
 import org.apache.flink.runtime.rest.messages.job.SubtasksAllAccumulatorsInfo;
 import org.apache.flink.runtime.rest.messages.job.metrics.MetricCollectionResponseBody;
-import org.apache.flink.runtime.webmonitor.threadinfo.JobVertexFlameGraph;
+import org.apache.flink.runtime.webmonitor.threadinfo.VertexFlameGraph;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -44,7 +44,7 @@ public interface JobVerticeClient {
      * @param vertexId       32-character hexadecimal string value that identifies a job vertex.
      * @param type(optional) String value that specifies the Flame Graph type. Supported options are: "[FULL, ON_CPU, OFF_CPU]".
      */
-    CompletableFuture<JobVertexFlameGraph> jobVertexFlameGraph(String jobId, String vertexId, Optional<String> type) throws IOException;
+    CompletableFuture<VertexFlameGraph> jobVertexFlameGraph(String jobId, String vertexId, Optional<String> type) throws IOException;
 
     /**
      * Provides access to task metrics.

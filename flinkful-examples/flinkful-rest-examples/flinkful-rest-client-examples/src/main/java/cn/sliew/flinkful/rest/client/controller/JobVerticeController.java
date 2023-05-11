@@ -8,7 +8,7 @@ import org.apache.flink.runtime.rest.messages.job.SubtaskExecutionAttemptAccumul
 import org.apache.flink.runtime.rest.messages.job.SubtaskExecutionAttemptDetailsInfo;
 import org.apache.flink.runtime.rest.messages.job.SubtasksAllAccumulatorsInfo;
 import org.apache.flink.runtime.rest.messages.job.metrics.MetricCollectionResponseBody;
-import org.apache.flink.runtime.webmonitor.threadinfo.JobVertexFlameGraph;
+import org.apache.flink.runtime.webmonitor.threadinfo.VertexFlameGraph;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,7 +65,7 @@ public class JobVerticeController {
      */
     @GetMapping("{jobId}/vertices/{vertexId}/flamegraph")
     @ApiOperation("Returns flame graph information for a vertex, and may initiate flame graph sampling if necessary.")
-    public CompletableFuture<JobVertexFlameGraph> jobVertexFlameGraph(
+    public CompletableFuture<VertexFlameGraph> jobVertexFlameGraph(
             @PathVariable("jobId") String jobId,
             @PathVariable("vertexId") String vertexId,
             @RequestParam("type") Optional<String> type) throws IOException {

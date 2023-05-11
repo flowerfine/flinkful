@@ -9,7 +9,7 @@ import org.apache.flink.runtime.rest.messages.job.SubtaskExecutionAttemptAccumul
 import org.apache.flink.runtime.rest.messages.job.SubtaskExecutionAttemptDetailsInfo;
 import org.apache.flink.runtime.rest.messages.job.SubtasksAllAccumulatorsInfo;
 import org.apache.flink.runtime.rest.messages.job.metrics.MetricCollectionResponseBody;
-import org.apache.flink.runtime.webmonitor.threadinfo.JobVertexFlameGraph;
+import org.apache.flink.runtime.webmonitor.threadinfo.VertexFlameGraph;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -58,7 +58,7 @@ public class JobVerticeHttpClient extends AsyncClient implements JobVerticeClien
     }
 
     @Override
-    public CompletableFuture<JobVertexFlameGraph> jobVertexFlameGraph(String jobId, String vertexId, Optional<String> type) throws IOException {
+    public CompletableFuture<VertexFlameGraph> jobVertexFlameGraph(String jobId, String vertexId, Optional<String> type) throws IOException {
         String url = webInterfaceURL + "/jobs/" + jobId + "/vertices/" + vertexId + "/flamegraph";
         if (type.isPresent()) {
             url = url + "?type=" + type.get();
@@ -67,7 +67,7 @@ public class JobVerticeHttpClient extends AsyncClient implements JobVerticeClien
                 .get()
                 .url(url)
                 .build();
-        return remoteCall(request, JobVertexFlameGraph.class);
+        return remoteCall(request, VertexFlameGraph.class);
     }
 
     @Override

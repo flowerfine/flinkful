@@ -5,7 +5,7 @@ import org.apache.flink.runtime.rest.RestClient;
 import org.apache.flink.runtime.rest.messages.*;
 import org.apache.flink.runtime.rest.messages.job.*;
 import org.apache.flink.runtime.rest.messages.job.metrics.*;
-import org.apache.flink.runtime.webmonitor.threadinfo.JobVertexFlameGraph;
+import org.apache.flink.runtime.webmonitor.threadinfo.VertexFlameGraph;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -50,7 +50,7 @@ public class JobVerticeRestClient implements JobVerticeClient {
     }
 
     @Override
-    public CompletableFuture<JobVertexFlameGraph> jobVertexFlameGraph(String jobId, String vertexId, Optional<String> type) throws IOException {
+    public CompletableFuture<VertexFlameGraph> jobVertexFlameGraph(String jobId, String vertexId, Optional<String> type) throws IOException {
         JobVertexFlameGraphParameters parameters = new JobVertexFlameGraphParameters();
         toIllegalArgument(() -> parameters.jobPathParameter.resolveFromString(jobId));
         toIllegalArgument(() -> parameters.jobVertexIdPathParameter.resolveFromString(vertexId));
