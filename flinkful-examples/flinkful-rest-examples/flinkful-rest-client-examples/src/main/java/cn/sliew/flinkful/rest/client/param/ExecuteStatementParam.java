@@ -1,10 +1,10 @@
 package cn.sliew.flinkful.rest.client.param;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.annotation.Nullable;
-import javax.validation.constraints.NotBlank;
 import java.util.Map;
 
 @Getter

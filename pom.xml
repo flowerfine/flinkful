@@ -105,6 +105,14 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>cn.sliew</groupId>
+                <artifactId>carp-dependencies</artifactId>
+                <version>${carp-parent.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>flinkful-common</artifactId>
                 <version>${project.version}</version>

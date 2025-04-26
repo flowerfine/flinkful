@@ -2,8 +2,8 @@ package cn.sliew.flinkful.rest.client.controller;
 
 import cn.sliew.flinkful.rest.base.v1.client.ClusterClient;
 import cn.sliew.flinkful.rest.base.v1.client.RestClient;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.flink.runtime.rest.handler.legacy.messages.ClusterOverviewWithVersion;
 import org.apache.flink.runtime.rest.messages.EmptyResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,27 +17,27 @@ import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/cluster")
-@Api(value = "/cluster", tags = "集群接口")
+@Tag(name = "集群接口")
 public class ClusterController {
 
     @Autowired
     private RestClient restClient;
 
     /**
-     * https://nightlies.apache.org/flink/flink-docs-release-1.14/docs/ops/rest_api/#overview-1
+     * https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/ops/rest_api/#overview-1
      */
     @GetMapping("overview")
-    @ApiOperation("集群概况")
+    @Operation(summary = "集群概况", description = "集群概况")
     public CompletableFuture<ClusterOverviewWithVersion> overview() throws IOException {
         ClusterClient clusterClient = restClient.cluster();
         return clusterClient.overview();
     }
 
     /**
-     * https://nightlies.apache.org/flink/flink-docs-release-1.14/docs/ops/rest_api/#cluster
+     * https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/ops/rest_api/#cluster
      */
     @DeleteMapping
-    @ApiOperation("关闭集群")
+    @Operation(summary = "关闭集群", description = "关闭集群")
     public CompletableFuture<EmptyResponseBody> shutdown() throws IOException {
         ClusterClient clusterClient = restClient.cluster();
         return clusterClient.shutdownCluster();
