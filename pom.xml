@@ -9,7 +9,7 @@
     </parent>
     <groupId>cn.sliew</groupId>
     <artifactId>flinkful</artifactId>
-    <version>1.17.0_1_11-SNAPSHOT</version>
+    <version>0.0.1</version>
     <packaging>pom</packaging>
     <name>flinkful</name>
     <url>https://github.com/flowerfine/flinkful</url>
@@ -67,8 +67,8 @@
         <module>flinkful-common</module>
         <module>flinkful-cli</module>
         <module>flinkful-rest</module>
-        <module>flinkful-examples</module>
         <module>flinkful-kubernetes-operator</module>
+        <module>flinkful-examples</module>
     </modules>
 
     <properties>
@@ -76,13 +76,13 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <scala.binary.version>2.12</scala.binary.version>
         <scala.version>2.12.7</scala.version>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <disruptor.version>3.4.4</disruptor.version>
         <docker.java.version>3.2.13</docker.java.version>
-        <flink.version>1.17.0</flink.version>
+        <flink.version>1.19.2</flink.version>
         <flink.kubernetes.operator.version>1.4.0</flink.kubernetes.operator.version>
         <knife4j.version>3.0.2</knife4j.version>
         <milky.version>1.0.10</milky.version>

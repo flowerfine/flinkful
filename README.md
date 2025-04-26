@@ -68,7 +68,7 @@ As mentioned [here](https://nightlies.apache.org/flink/flink-docs-release-1.14/d
 Flink supports 3 deployment mode:
 
 * Application
-* Per-Job
+* Per-Job（Deprecated）
 * Session
 
 Application and Per-Job deployment mode will create a new Flink cluster through resource providers such as YARN or Kubernetes, so Flink http API is limited on job submission scene for http API just working well  with `JobManager`, you can't require more when `JobManager` not exists.
@@ -213,20 +213,9 @@ Flink 1.16 releases sql gateway to support multiple clients from the remote to e
 
 Flinkful has added flink sql gateway client to `flinkful-rest` modules and developer can use them directly.
 
-## Flink vs Flinkful
+### Flink Kubernetes Operator
 
-| java | Flink  | Flinkful             | branch    | service    |
-| ---- | ------ | -------------------- | --------- | ---------- |
-| 1.8  | 1.13.6 | 1.13.6_1_8-SNAPSHOT  | 1.13/main | deprecated |
-| 11   | 1.14.4 | 1.14.2_1_11-SNAPSHOT | 1.14/main | deprecated |
-| 11   | 1.15.1 | 1.15.1_1_17-SNAPSHOT | 1.15/main | deprecated |
-| 11   | 1.16.0 | 1.16.0_1_11-SNAPSHOT | 1.16/main | latest     |
-| 11   | 1.17.0 | 1.17.0_1_11-SNAPSHOT | main      | latest     |
-
-## Next Flinkful
-
-* QueryableState client.
-* [Flink Kubernetes Operator](https://github.com/apache/flink-kubernetes-operator). done
+support flink kubernetes operator
 
 ## License
 

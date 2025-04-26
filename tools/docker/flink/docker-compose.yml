@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  jobmanager:
+    image: flink:1.19.2-scala_2.12-java17
+    environment:
+      FLINK_PROPERTIES: |
+        jobmanager.rpc.address: jobmanager
+    command: jobmanager
+    ports:
+      - 8081:8081
+    networks:
+      - flink
+
+  taskmanager:
+    image: flink:1.19.2-scala_2.12-java17
+    deploy:
+      replicas: 2
+    depends_on:
+      - jobmanager
+    environment:
+      FLINK_PROPERTIES: |
+        jobmanager.rpc.address: jobmanager
+        taskmanager.numberOfTaskSlots: 8
+    command: taskmanager
+    networks:
+      - flink
+
+networks:
+  flink:
+    driver: bridge
