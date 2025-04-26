@@ -1,29 +1,19 @@
 package cn.sliew.flinkful.kubernetes.operator.submit;
 
-import io.fabric8.kubernetes.api.model.Namespace;
-import io.fabric8.kubernetes.api.model.NamespaceList;
-import io.fabric8.kubernetes.client.Config;
-import io.fabric8.kubernetes.client.ConfigBuilder;
-import io.fabric8.kubernetes.client.dsl.NonNamespaceOperation;
-import io.fabric8.kubernetes.client.utils.Serialization;
-import org.apache.flink.kubernetes.operator.api.FlinkDeployment;
-import org.apache.flink.kubernetes.operator.api.spec.FlinkDeploymentSpec;
-import org.apache.flink.kubernetes.operator.api.spec.FlinkVersion;
-import org.apache.flink.kubernetes.operator.api.spec.JobManagerSpec;
-import org.apache.flink.kubernetes.operator.api.spec.JobSpec;
-import org.apache.flink.kubernetes.operator.api.spec.Resource;
-import org.apache.flink.kubernetes.operator.api.spec.TaskManagerSpec;
-import org.apache.flink.kubernetes.operator.api.spec.UpgradeMode;
-
 import io.fabric8.kubernetes.api.model.ObjectMeta;
+import io.fabric8.kubernetes.client.Config;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClientBuilder;
+import org.apache.flink.kubernetes.operator.api.FlinkDeployment;
+import org.apache.flink.kubernetes.operator.api.spec.*;
 
 import java.util.Map;
 
 import static java.util.Map.entry;
 
-/** client code for ../basic.yaml. */
+/**
+ * client code for ../basic.yaml.
+ */
 public class Basic {
     public static void main(String[] args) {
         FlinkDeployment flinkDeployment = new FlinkDeployment();
@@ -42,10 +32,10 @@ public class Basic {
         flinkDeployment.setSpec(flinkDeploymentSpec);
         flinkDeploymentSpec.setServiceAccount("flink");
         JobManagerSpec jobManagerSpec = new JobManagerSpec();
-        jobManagerSpec.setResource(new Resource(1.0, "2048m"));
+        jobManagerSpec.setResource(new Resource(1.0, "2048m", null));
         flinkDeploymentSpec.setJobManager(jobManagerSpec);
         TaskManagerSpec taskManagerSpec = new TaskManagerSpec();
-        taskManagerSpec.setResource(new Resource(1.0, "2048m"));
+        taskManagerSpec.setResource(new Resource(1.0, "2048m", null));
         flinkDeploymentSpec.setTaskManager(taskManagerSpec);
         flinkDeployment
                 .getSpec()
