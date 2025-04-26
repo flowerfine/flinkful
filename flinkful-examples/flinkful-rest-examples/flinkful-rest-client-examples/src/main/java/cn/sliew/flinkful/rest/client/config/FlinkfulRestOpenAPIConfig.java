@@ -26,8 +26,8 @@ public class FlinkfulRestOpenAPIConfig {
 
     @Bean
     public GroupedOpenApi carpDataSourceModuleOpenApi() {
-        return GroupedOpenApi.builder().group("Flinkful-Rest模块")
+        return GroupedOpenApi.builder().group("Flinkful模块")
                 .pathsToMatch("/flinkful/**")
-                .packagesToScan("cn.sliew.flinkful.rest.client.controller").build();
+                .packagesToScan("cn.sliew.flinkful.rest.client.config").build();
     }
 }

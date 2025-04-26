@@ -1,4 +1,4 @@
-package cn.sliew.flinkful.rest.client;
+package cn.sliew;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
