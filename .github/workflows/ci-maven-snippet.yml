@@ -1,0 +1,60 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: CI-Maven-Snippet
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      os:
+        required: true
+        type: string
+      jdk:
+        required: true
+        type: string
+    outputs:
+      dist_name:
+        description: "carp-dist output name"
+        value: ${{ jobs.build_maven.outputs.dist_name }}
+
+jobs:
+  build_maven:
+    runs-on: ${{ inputs.os }}
+    outputs:
+      dist_name: ${{ steps.output-dist-name.outputs.dist_name }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Setup Java JDK ${{ inputs.jdk }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ inputs.jdk }}
+          distribution: temurin
+          cache: maven
+      - name: Build with Maven
+        timeout-minutes: 360
+        run: ./mvnw -B -U -T 4C clean package -Pdist -Dfast
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./**/target/site/jacoco/jacoco.xml
+          verbose: true
+      
+      

@@ -7,7 +7,6 @@
         <artifactId>apache</artifactId>
         <version>20</version>
     </parent>
-
     <groupId>cn.sliew</groupId>
     <artifactId>flinkful</artifactId>
     <version>1.17.0_1_11-SNAPSHOT</version>

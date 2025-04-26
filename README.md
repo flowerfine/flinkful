@@ -1,3 +1,5 @@
+[![Gihub Actions](https://github.com/flowerfine/flinkful/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/flowerfine/flinkful/actions) [![Last commit](https://img.shields.io/github/last-commit/flowerfine/flinkful.svg)](https://github.com/flowerfine/flinkful) [![GitHub Tag](https://img.shields.io/github/v/tag/flowerfine/flinkful)](https://github.com/flowerfine/flinkful/tags) [![Maven Central](https://img.shields.io/maven-central/v/cn.sliew/flinkful)](https://maven-badges.herokuapp.com/maven-central/cn.sliew/flinkful) [![License](https://img.shields.io/github/license/flowerfine/flinkful.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+
 # Flinkful
 
 ## Why Flinkful?
