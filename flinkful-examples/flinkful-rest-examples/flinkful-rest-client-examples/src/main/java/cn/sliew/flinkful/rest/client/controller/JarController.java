@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("/jars")
+@RequestMapping("/flinkful/jars")
 @Tag(name = "jars接口")
 public class JarController {
 

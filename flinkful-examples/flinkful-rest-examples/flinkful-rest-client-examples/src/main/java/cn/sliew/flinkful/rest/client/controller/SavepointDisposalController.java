@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("/savepoint-disposal")
+@RequestMapping("/flinkful/savepoint-disposal")
 @Tag(name = "savepoint销毁接口")
 public class SavepointDisposalController {
 

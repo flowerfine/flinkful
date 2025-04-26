@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("/flink/job-vertices")
+@RequestMapping("/flinkful/job-vertices")
 @Tag(name = "job vertice 接口")
 public class JobVerticeController {
 

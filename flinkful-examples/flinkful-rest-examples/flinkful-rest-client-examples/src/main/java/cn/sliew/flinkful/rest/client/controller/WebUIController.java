@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("/web-ui")
+@RequestMapping("/flinkful/web-ui")
 @Tag(name = "WebUI接口")
 public class WebUIController {
 

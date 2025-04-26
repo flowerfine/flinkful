@@ -31,7 +31,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("/flink/jobs")
+@RequestMapping("/flinkful/jobs")
 @Tag(name = "jobs接口")
 public class JobController {
 

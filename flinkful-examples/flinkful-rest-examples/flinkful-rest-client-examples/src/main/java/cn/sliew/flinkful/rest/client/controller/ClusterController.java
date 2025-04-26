@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("/cluster")
+@RequestMapping("/flinkful/cluster")
 @Tag(name = "集群接口")
 public class ClusterController {
 

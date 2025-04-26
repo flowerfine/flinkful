@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("/datasets")
+@RequestMapping("/flinkful/datasets")
 @Tag(name = "DataSet接口")
 public class DataSetController {
 

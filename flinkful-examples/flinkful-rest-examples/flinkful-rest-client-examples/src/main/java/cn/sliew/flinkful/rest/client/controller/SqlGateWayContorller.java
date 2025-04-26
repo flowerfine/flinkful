@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("/flink/sql/gateway")
+@RequestMapping("/flinkful/sql/gateway")
 @Tag(name = "SQL gateway接口")
 public class SqlGateWayContorller {
 

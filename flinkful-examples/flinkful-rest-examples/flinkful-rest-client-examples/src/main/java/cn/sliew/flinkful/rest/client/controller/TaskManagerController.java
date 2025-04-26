@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("/flink/taskmanagers")
+@RequestMapping("/flinkful/taskmanagers")
 @Tag(name = "TaskManager接口")
 public class TaskManagerController {
 
