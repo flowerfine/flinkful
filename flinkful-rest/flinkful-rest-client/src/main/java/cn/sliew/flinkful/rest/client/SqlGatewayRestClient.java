@@ -7,8 +7,8 @@ import org.apache.flink.configuration.Configuration;
 import org.apache.flink.runtime.rest.RestClient;
 import org.apache.flink.util.ConfigurationException;
 import org.apache.flink.util.concurrent.ExecutorThreadFactory;
-import org.jboss.netty.util.internal.ConcurrentHashMap;
 
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

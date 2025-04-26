@@ -6,7 +6,6 @@ import lombok.Getter;
 public enum DeploymentMode {
 
     APPLICATION(0, "Application"),
-    PER_JOB(1, "Per-Job"),
     SESSION(2, "Session");
 
     private int code;

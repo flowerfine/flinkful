@@ -6,7 +6,6 @@ import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.DeploymentOptions;
 import org.apache.flink.core.execution.PipelineExecutorFactory;
 import org.apache.flink.kubernetes.configuration.KubernetesDeploymentTarget;
-import org.apache.flink.yarn.configuration.YarnDeploymentTarget;
 
 @Getter
 public enum DeploymentTarget {
@@ -19,14 +18,6 @@ public enum DeploymentTarget {
      */
     NATIVE_KUBERNETES_APPLICATION(2, ResourceProvider.NATIVE_KUBERNETES, DeploymentMode.APPLICATION, KubernetesDeploymentTarget.APPLICATION.getName()),
     NATIVE_KUBERNETES_SESSION(3, ResourceProvider.NATIVE_KUBERNETES, DeploymentMode.SESSION, KubernetesDeploymentTarget.SESSION.getName()),
-
-    /**
-     * 以 YARN 作为 resource provider 时需要在提交机器上提前设置好 hadoop 配置，供 flink 连接 YARN 集群。
-     * 配置 hadoop 配置可以通过 $HADOOP_HOME 变量提供。
-     */
-    YARN_APPLICATION(4, ResourceProvider.YARN, DeploymentMode.APPLICATION, YarnDeploymentTarget.APPLICATION.getName()),
-    YARN_PER_JOB(5, ResourceProvider.YARN, DeploymentMode.PER_JOB, YarnDeploymentTarget.PER_JOB.getName()),
-    YARN_SESSION(6, ResourceProvider.YARN, DeploymentMode.SESSION, YarnDeploymentTarget.SESSION.getName()),
     ;
 
     private int code;
@@ -39,6 +30,7 @@ public enum DeploymentTarget {
     private String name;
 
     DeploymentTarget(int code, ResourceProvider resourceProvider, DeploymentMode deploymentMode, String name) {
+        this.code = code;
         this.resourceProvider = resourceProvider;
         this.deploymentMode = deploymentMode;
         this.name = name;

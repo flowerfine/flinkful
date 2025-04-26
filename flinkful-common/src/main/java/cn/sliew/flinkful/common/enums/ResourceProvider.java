@@ -6,8 +6,7 @@ import lombok.Getter;
 public enum ResourceProvider {
 
     STANDALONE(0, "Standalone"),
-    NATIVE_KUBERNETES(1, "Native Kubernetes"),
-    YARN(2, "YARN");
+    NATIVE_KUBERNETES(1, "Native Kubernetes");
 
     private int code;
     private String name;
