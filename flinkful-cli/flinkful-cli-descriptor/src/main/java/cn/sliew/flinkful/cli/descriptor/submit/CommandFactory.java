@@ -11,12 +11,6 @@ public enum CommandFactory {
                 return new RestClusterClientCommand();
             case STANDALONE_APPLICATION:
                 throw new UnsupportedOperationException();
-            case YARN_SESSION:
-                return new YarnSessionSubmitCommand();
-            case YARN_APPLICATION:
-                return new YarnApplicationCommand();
-            case YARN_PER_JOB:
-                return new YarnPerJobCommand();
             case NATIVE_KUBERNETES_SESSION:
                 return new KubernetesSessionSubmitCommand();
             case NATIVE_KUBERNETES_APPLICATION:

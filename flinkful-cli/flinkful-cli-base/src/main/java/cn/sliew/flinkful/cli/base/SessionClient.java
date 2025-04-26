@@ -13,7 +13,6 @@ public class SessionClient {
     public static ClusterClient create(DeploymentTarget deploymentTarget, Path flinkHome, Configuration configuration) throws Exception {
         switch (deploymentTarget) {
             case NATIVE_KUBERNETES_SESSION:
-            case YARN_SESSION:
             case STANDALONE_SESSION:
                 SessionCommand command = SessionFactory.buildSessionCommand(deploymentTarget);
                 deploymentTarget.apply(configuration);

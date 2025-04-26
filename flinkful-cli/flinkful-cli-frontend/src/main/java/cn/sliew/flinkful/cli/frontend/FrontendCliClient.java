@@ -6,7 +6,6 @@ import cn.sliew.flinkful.cli.base.util.FlinkUtil;
 import cn.sliew.flinkful.common.enums.DeploymentTarget;
 import org.apache.flink.client.ClientUtils;
 import org.apache.flink.client.cli.ApplicationDeployer;
-import org.apache.flink.client.cli.CliFrontend;
 import org.apache.flink.client.deployment.ClusterClientServiceLoader;
 import org.apache.flink.client.deployment.DefaultClusterClientServiceLoader;
 import org.apache.flink.client.deployment.application.ApplicationConfiguration;
@@ -27,7 +26,7 @@ public class FrontendCliClient implements CliClient {
     private final PipelineExecutorServiceLoader pipelineExecutorServiceLoader = new DefaultExecutorServiceLoader();
 
     /**
-     * @see CliFrontend#run(String[])
+     * refer CliFrontend#run(String[])
      */
     @Override
     public ClusterClient submit(DeploymentTarget deploymentTarget, Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
@@ -39,7 +38,7 @@ public class FrontendCliClient implements CliClient {
     }
 
     /**
-     * @see CliFrontend#runApplication(String[])
+     * refer CliFrontend#runApplication(String[])
      */
     @Override
     public ClusterClient submitApplication(DeploymentTarget deploymentTarget, Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {

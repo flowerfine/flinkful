@@ -33,6 +33,11 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-kubernetes</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>cn.sliew</groupId>
+            <artifactId>milky-common</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

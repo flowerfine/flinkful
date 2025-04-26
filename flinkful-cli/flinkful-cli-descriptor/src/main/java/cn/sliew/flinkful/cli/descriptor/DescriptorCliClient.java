@@ -16,8 +16,6 @@ public class DescriptorCliClient implements CliClient {
     public ClusterClient submit(DeploymentTarget deploymentTarget, Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
         switch (deploymentTarget) {
             case NATIVE_KUBERNETES_SESSION:
-            case YARN_SESSION:
-            case YARN_PER_JOB:
             case STANDALONE_SESSION:
                 SubmitCommand command = CommandFactory.buildSubmitCommand(deploymentTarget);
                 deploymentTarget.apply(configuration);
@@ -31,7 +29,6 @@ public class DescriptorCliClient implements CliClient {
     public ClusterClient submitApplication(DeploymentTarget deploymentTarget, Path flinkHome, Configuration configuration, PackageJarJob job) throws Exception {
         switch (deploymentTarget) {
             case NATIVE_KUBERNETES_APPLICATION:
-            case YARN_APPLICATION:
             case STANDALONE_APPLICATION:
                 SubmitCommand command = CommandFactory.buildSubmitCommand(deploymentTarget);
                 deploymentTarget.apply(configuration);

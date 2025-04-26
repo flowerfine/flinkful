@@ -27,7 +27,7 @@ public class PackageJarJob {
     /**
      * Class with the program entry point ("main()" method).
      * Only needed if the JAR file does not specify the class in its manifest.
-     * @see JarManifestParser#findEntryClass
+     * refer JarManifestParser#findEntryClass
      */
     private String entryPointClass;
 
