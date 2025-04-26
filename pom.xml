@@ -2,14 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.apache</groupId>
-        <artifactId>apache</artifactId>
-        <version>20</version>
-    </parent>
     <groupId>cn.sliew</groupId>
     <artifactId>flinkful</artifactId>
-    <version>0.0.1</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
     <name>flinkful</name>
     <url>https://github.com/flowerfine/flinkful</url>
@@ -71,52 +66,44 @@
         <module>flinkful-examples</module>
     </modules>
 
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <scala.binary.version>2.12</scala.binary.version>
-        <scala.version>2.12.7</scala.version>
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.test.skip>true</maven.test.skip>
+        <maven.deploy.skip>false</maven.deploy.skip>
+        <maven.plugin.compiler.version>3.8.1</maven.plugin.compiler.version>
+        <maven.plugin.frontend.version>1.6</maven.plugin.frontend.version>
+        <maven.plugin.assembly.version>3.5.0</maven.plugin.assembly.version>
 
-        <disruptor.version>3.4.4</disruptor.version>
-        <docker.java.version>3.2.13</docker.java.version>
+        <revision>0.0.1</revision>
+        <carp-parent.version>0.0.73</carp-parent.version>
+        <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+        <mapstruct.lombok.binding.version>0.2.0</mapstruct.lombok.binding.version>
+        <org.projectlombok.version>1.18.32</org.projectlombok.version>
+
+        <auto-service.version>1.1.1</auto-service.version>
+        <pf4j.version>3.12.1</pf4j.version>
+
         <flink.version>1.19.2</flink.version>
-        <flink.kubernetes.operator.version>1.4.0</flink.kubernetes.operator.version>
-        <knife4j.version>3.0.2</knife4j.version>
-        <milky.version>1.0.10</milky.version>
-        <mybatis.plus.version>3.5.1</mybatis.plus.version>
-        <mysql.connector.version>8.0.28</mysql.connector.version>
-        <feign.version>12.3</feign.version>
-        <okhttp.version>4.10.0</okhttp.version>
-        <spring-cloud.version>2022.0.0-M1</spring-cloud.version>
-        <springfox.version>3.0.0</springfox.version>
+        <flink.kubernetes.operator.version>1.11.0</flink.kubernetes.operator.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>cn.sliew</groupId>
-            <artifactId>milky-common</artifactId>
-            <version>${milky.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.22</version>
             <optional>true</optional>
         </dependency>
     </dependencies>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>com.fasterxml.jackson</groupId>
-                <artifactId>jackson-bom</artifactId>
-                <version>2.13.1</version>
-                <scope>import</scope>
-                <type>import</type>
-            </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>flinkful-common</artifactId>
@@ -140,6 +127,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>flinkful-rest-http</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>flinkful-kubernetes-operator</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -169,68 +161,18 @@
                 <artifactId>flink-clients</artifactId>
                 <version>${flink.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.apache.flink</groupId>
-                <artifactId>flink-yarn</artifactId>
-                <version>${flink.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.apache.hadoop</groupId>
-                        <artifactId>hadoop-common</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>jsp-api</artifactId>
-                        <groupId>javax.servlet.jsp</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>servlet-api</artifactId>
-                        <groupId>javax.servlet</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
 
             <dependency>
                 <groupId>org.apache.flink</groupId>
                 <artifactId>flink-json</artifactId>
                 <version>${flink.version}</version>
             </dependency>
-
             <dependency>
-                <groupId>org.apache.hadoop</groupId>
-                <artifactId>hadoop-common</artifactId>
-                <version>2.8.5</version>
-                <scope>compile</scope>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>jdk.tools</artifactId>
-                        <groupId>jdk.tools</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>log4j</artifactId>
-                        <groupId>log4j</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>slf4j-log4j12</artifactId>
-                        <groupId>org.slf4j</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>tomcat</groupId>
-                        <artifactId>jasper-compiler</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>tomcat</groupId>
-                        <artifactId>jasper-runtime</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>jsp-api</artifactId>
-                        <groupId>javax.servlet.jsp</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>servlet-api</artifactId>
-                        <groupId>javax.servlet</groupId>
-                    </exclusion>
-                </exclusions>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-connector-files</artifactId>
+                <version>${flink.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.apache.flink</groupId>
                 <artifactId>flink-kubernetes</artifactId>
@@ -248,93 +190,71 @@
                 <artifactId>flink-kubernetes-operator-api</artifactId>
                 <version>${flink.kubernetes.operator.version}</version>
             </dependency>
-
-            <dependency>
-                <groupId>com.github.docker-java</groupId>
-                <artifactId>docker-java</artifactId>
-                <version>${docker.java.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.github.openfeign</groupId>
-                <artifactId>feign-core</artifactId>
-                <version>${feign.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>okhttp</artifactId>
-                <version>${okhttp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>logging-interceptor</artifactId>
-                <version>${okhttp.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.lmax</groupId>
-                <artifactId>disruptor</artifactId>
-                <version>${disruptor.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <encoding>${maven.compiler.encoding}</encoding>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${org.mapstruct.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${org.projectlombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>${mapstruct.lombok.binding.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
+
             <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.8</version>
-                <extensions>true</extensions>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
                 <configuration>
-                    <serverId>sonatype-nexus</serverId>
-                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten-clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
+
 
     <profiles>
         <profile>
             <id>oss-release</id>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-shade-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>shade</goal>
-                                </goals>
-                                <configuration>
-                                    <createSourcesJar>true</createSourcesJar>
-                                    <artifactSet>
-                                        <includes>
-                                            <include>${project.groupId}:*:*</include>
-                                        </includes>
-                                    </artifactSet>
-                                    <filters>
-                                        <filter>
-                                            <artifact>*:*</artifact>
-                                            <excludes>
-                                                <exclude>META-INF/maven/**</exclude>
-                                            </excludes>
-                                        </filter>
-                                    </filters>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
@@ -402,8 +322,21 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.7.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <!-- sonatype-nexus 和 github workflow，distributionManagement 都是一一对应的，勿改-->
+                            <publishingServerId>sonatype-nexus</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                            <waitUntil>uploaded</waitUntil>
+                        </configuration>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
+
 </project>

@@ -6,15 +6,11 @@
     <parent>
         <groupId>cn.sliew</groupId>
         <artifactId>flinkful-examples</artifactId>
-        <version>1.17.0_1_11-SNAPSHOT</version>
+        <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>flinkful-cli-examples</artifactId>
     <packaging>pom</packaging>
-
-    <properties>
-        <maven.deploy.skip>true</maven.deploy.skip>
-    </properties>
 
     <modules>
         <module>flinkful-cli-frontend-examples</module>

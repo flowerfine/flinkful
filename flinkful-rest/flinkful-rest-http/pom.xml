@@ -6,7 +6,7 @@
     <parent>
         <groupId>cn.sliew</groupId>
         <artifactId>flinkful-rest</artifactId>
-        <version>1.17.0_1_11-SNAPSHOT</version>
+        <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>flinkful-rest-http</artifactId>
@@ -18,33 +18,14 @@
         </dependency>
 
         <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>4.9.3</version>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-json</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>com.squareup.okio</groupId>
-            <artifactId>okio</artifactId>
-            <version>2.8.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-core</artifactId>
-        </dependency>
-
 
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-sql-gateway</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-json</artifactId>
-        </dependency>
-
     </dependencies>
 
 </project>

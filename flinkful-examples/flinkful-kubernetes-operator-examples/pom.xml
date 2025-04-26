@@ -6,16 +6,15 @@
     <parent>
         <groupId>cn.sliew</groupId>
         <artifactId>flinkful-examples</artifactId>
-        <version>1.17.0_1_11-SNAPSHOT</version>
+        <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>flinkful-kubernetes-operator-examples</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>cn.sliew</groupId>
+            <groupId>${project.parent.groupId}</groupId>
             <artifactId>flinkful-kubernetes-operator</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -25,23 +24,6 @@
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>logging-interceptor</artifactId>
-        </dependency>
-
-        <!-- k3s -->
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcpkix-jdk15on</artifactId>
-            <version>1.69</version>
-        </dependency>
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15on</artifactId>
-            <version>1.69</version>
-        </dependency>
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-ext-jdk15on</artifactId>
-            <version>1.69</version>
         </dependency>
     </dependencies>
 

@@ -6,7 +6,7 @@
     <parent>
         <groupId>cn.sliew</groupId>
         <artifactId>flinkful</artifactId>
-        <version>1.17.0_1_11-SNAPSHOT</version>
+        <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>flinkful-examples</artifactId>
@@ -18,10 +18,6 @@
         <module>flinkful-rest-examples</module>
         <module>flinkful-kubernetes-operator-examples</module>
     </modules>
-
-    <properties>
-        <maven.deploy.skip>true</maven.deploy.skip>
-    </properties>
 
     <dependencyManagement>
         <dependencies>

@@ -6,14 +6,10 @@
     <parent>
         <groupId>cn.sliew</groupId>
         <artifactId>flinkful-cli-examples</artifactId>
-        <version>1.17.0_1_11-SNAPSHOT</version>
+        <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>flinkful-cli-descriptor-examples</artifactId>
-
-    <properties>
-        <maven.deploy.skip>true</maven.deploy.skip>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -32,15 +28,8 @@
         </dependency>
 
         <dependency>
-            <artifactId>log4j</artifactId>
-            <groupId>log4j</groupId>
-            <version>1.2.17</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-files</artifactId>
-            <version>${flink.version}</version>
         </dependency>
     </dependencies>
 
