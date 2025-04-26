@@ -28,6 +28,6 @@ public class FlinkfulRestOpenAPIConfig {
     public GroupedOpenApi carpDataSourceModuleOpenApi() {
         return GroupedOpenApi.builder().group("Flinkful模块")
                 .pathsToMatch("/flinkful/**")
-                .packagesToScan("cn.sliew.flinkful.rest.client.config").build();
+                .packagesToScan("cn.sliew.flinkful.rest.client.controller").build();
     }
 }
