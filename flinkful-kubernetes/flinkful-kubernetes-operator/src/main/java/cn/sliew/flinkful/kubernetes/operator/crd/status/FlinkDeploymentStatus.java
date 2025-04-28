@@ -18,7 +18,7 @@
 
 package cn.sliew.flinkful.kubernetes.operator.crd.status;
 
-import cn.sliew.scaleph.application.flink.operator.spec.FlinkDeploymentSpec;
+import cn.sliew.flinkful.kubernetes.operator.crd.spec.FlinkDeploymentSpec;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

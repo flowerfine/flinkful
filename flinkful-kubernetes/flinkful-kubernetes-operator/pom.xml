@@ -13,8 +13,30 @@
 
     <dependencies>
         <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>flinkful-kubernetes-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.sliew</groupId>
+            <artifactId>carp-framework-kubernetes</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.sliew</groupId>
+            <artifactId>carp-framework-spring</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-kubernetes-operator-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-kubernetes</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-streaming-java</artifactId>
         </dependency>
     </dependencies>
 

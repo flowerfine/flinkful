@@ -18,7 +18,7 @@
 
 package cn.sliew.flinkful.kubernetes.operator.crd.status;
 
-import cn.sliew.scaleph.application.flink.operator.spec.FlinkSessionJobSpec;
+import cn.sliew.flinkful.kubernetes.operator.crd.spec.FlinkSessionJobSpec;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

@@ -18,8 +18,8 @@
 
 package cn.sliew.flinkful.kubernetes.operator.crd.util;
 
-import cn.sliew.scaleph.application.flink.operator.reconciler.ReconciliationMetadata;
-import cn.sliew.scaleph.application.flink.operator.spec.AbstractFlinkSpec;
+import cn.sliew.flinkful.kubernetes.operator.crd.reconciler.ReconciliationMetadata;
+import cn.sliew.flinkful.kubernetes.operator.crd.spec.AbstractFlinkSpec;
 import lombok.Value;
 
 /**

@@ -18,11 +18,11 @@
 
 package cn.sliew.flinkful.kubernetes.operator.crd.status;
 
-import cn.sliew.scaleph.application.flink.operator.AbstractFlinkResource;
-import cn.sliew.scaleph.application.flink.operator.spec.AbstractFlinkSpec;
-import cn.sliew.scaleph.application.flink.operator.spec.JobState;
-import cn.sliew.scaleph.application.flink.operator.util.SpecUtils;
-import cn.sliew.scaleph.application.flink.operator.util.SpecWithMeta;
+import cn.sliew.flinkful.kubernetes.operator.crd.AbstractFlinkResource;
+import cn.sliew.flinkful.kubernetes.operator.crd.spec.AbstractFlinkSpec;
+import cn.sliew.flinkful.kubernetes.operator.crd.spec.JobState;
+import cn.sliew.flinkful.kubernetes.operator.crd.util.SpecUtils;
+import cn.sliew.flinkful.kubernetes.operator.crd.util.SpecWithMeta;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;

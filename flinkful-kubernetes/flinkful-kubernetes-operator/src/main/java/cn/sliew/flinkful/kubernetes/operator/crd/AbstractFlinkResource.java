@@ -18,8 +18,8 @@
 
 package cn.sliew.flinkful.kubernetes.operator.crd;
 
-import cn.sliew.scaleph.application.flink.operator.spec.AbstractFlinkSpec;
-import cn.sliew.scaleph.application.flink.operator.status.CommonStatus;
+import cn.sliew.flinkful.kubernetes.operator.crd.spec.AbstractFlinkSpec;
+import cn.sliew.flinkful.kubernetes.operator.crd.status.CommonStatus;
 import io.fabric8.kubernetes.api.model.Namespaced;
 import io.fabric8.kubernetes.client.CustomResource;
 

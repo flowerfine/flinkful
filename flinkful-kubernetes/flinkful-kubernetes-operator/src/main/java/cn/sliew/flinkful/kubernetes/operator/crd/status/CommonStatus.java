@@ -18,9 +18,9 @@
 
 package cn.sliew.flinkful.kubernetes.operator.crd.status;
 
-import cn.sliew.scaleph.application.flink.operator.lifecycle.ResourceLifecycleState;
-import cn.sliew.scaleph.application.flink.operator.spec.AbstractFlinkSpec;
-import cn.sliew.scaleph.application.flink.operator.spec.JobState;
+import cn.sliew.flinkful.kubernetes.operator.crd.lifecycle.ResourceLifecycleState;
+import cn.sliew.flinkful.kubernetes.operator.crd.spec.AbstractFlinkSpec;
+import cn.sliew.flinkful.kubernetes.operator.crd.spec.JobState;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

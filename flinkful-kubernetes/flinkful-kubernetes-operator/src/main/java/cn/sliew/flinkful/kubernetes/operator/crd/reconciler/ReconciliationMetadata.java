@@ -18,8 +18,8 @@
 
 package cn.sliew.flinkful.kubernetes.operator.crd.reconciler;
 
-import cn.sliew.scaleph.application.flink.operator.AbstractFlinkResource;
-import cn.sliew.scaleph.application.flink.operator.status.ReconciliationState;
+import cn.sliew.flinkful.kubernetes.operator.crd.AbstractFlinkResource;
+import cn.sliew.flinkful.kubernetes.operator.crd.status.ReconciliationState;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.fabric8.kubernetes.api.model.ObjectMeta;
 import lombok.AllArgsConstructor;
