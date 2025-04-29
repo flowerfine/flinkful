@@ -82,7 +82,7 @@
         <maven.plugin.assembly.version>3.5.0</maven.plugin.assembly.version>
 
         <revision>1.0.3</revision>
-        <carp-parent.version>0.0.74</carp-parent.version>
+        <carp-parent.version>0.0.75</carp-parent.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
         <mapstruct.lombok.binding.version>0.2.0</mapstruct.lombok.binding.version>
         <org.projectlombok.version>1.18.32</org.projectlombok.version>
@@ -141,6 +141,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>flinkful-kubernetes-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>flinkful-kubernetes-cluster</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

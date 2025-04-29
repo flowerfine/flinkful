@@ -5,16 +5,21 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.sliew</groupId>
-        <artifactId>flinkful</artifactId>
+        <artifactId>flinkful-kubernetes</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>flinkful-kubernetes</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>flinkful-kubernetes-cluster</artifactId>
 
-    <modules>
-        <module>flinkful-kubernetes-common</module>
-        <module>flinkful-kubernetes-operator</module>
-        <module>flinkful-kubernetes-cluster</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>flinkful-kubernetes-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.sliew</groupId>
+            <artifactId>carp-framework-kubernetes</artifactId>
+        </dependency>
+    </dependencies>
 </project>
