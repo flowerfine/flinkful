@@ -42,7 +42,7 @@ public class JobStatus {
     /**
      * Last observed state of the job.
      */
-    private String state;
+    private org.apache.flink.api.common.JobStatus state;
 
     /**
      * Start time of the job.
@@ -54,13 +54,17 @@ public class JobStatus {
      */
     private String updateTime;
 
+    private String upgradeSavepointPath;
+
     /**
      * Information about pending and last savepoint for the job.
      */
+    @Deprecated
     private SavepointInfo savepointInfo = new SavepointInfo();
 
     /**
      * Information about pending and last checkpoint for the job.
      */
+    @Deprecated
     private CheckpointInfo checkpointInfo = new CheckpointInfo();
 }

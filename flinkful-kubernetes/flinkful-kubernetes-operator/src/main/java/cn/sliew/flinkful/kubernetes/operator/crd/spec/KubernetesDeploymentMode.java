@@ -36,5 +36,12 @@ public enum KubernetesDeploymentMode {
      */
     @JsonProperty("standalone")
     STANDALONE;
-    
+
+    public static KubernetesDeploymentMode getDeploymentMode(FlinkDeployment flinkDeployment) {
+        return getDeploymentMode(flinkDeployment.getSpec());
+    }
+
+    public static KubernetesDeploymentMode getDeploymentMode(FlinkDeploymentSpec spec) {
+        return spec.getMode() == null ? KubernetesDeploymentMode.NATIVE : spec.getMode();
+    }
 }

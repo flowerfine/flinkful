@@ -24,5 +24,5 @@ public enum JobState {
     @JsonProperty("running")
     RUNNING,
     @JsonProperty("suspended")
-    SUSPENDED;
+    SUSPENDED
 }

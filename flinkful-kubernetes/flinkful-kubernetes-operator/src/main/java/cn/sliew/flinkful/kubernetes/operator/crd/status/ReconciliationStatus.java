@@ -20,7 +20,6 @@ package cn.sliew.flinkful.kubernetes.operator.crd.status;
 
 import cn.sliew.flinkful.kubernetes.operator.crd.AbstractFlinkResource;
 import cn.sliew.flinkful.kubernetes.operator.crd.spec.AbstractFlinkSpec;
-import cn.sliew.flinkful.kubernetes.operator.crd.spec.JobState;
 import cn.sliew.flinkful.kubernetes.operator.crd.util.SpecUtils;
 import cn.sliew.flinkful.kubernetes.operator.crd.util.SpecWithMeta;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -85,6 +84,7 @@ public abstract class ReconciliationStatus<SPEC extends AbstractFlinkSpec> {
     public void serializeAndSetLastReconciledSpec(
             SPEC spec, AbstractFlinkResource<SPEC, ?> resource) {
         setLastReconciledSpec(SpecUtils.writeSpecWithMeta(spec, resource));
+        resource.getStatus().setObservedGeneration(resource.getMetadata().getGeneration());
     }
 
     public void markReconciledSpecAsStable() {
@@ -102,15 +102,5 @@ public abstract class ReconciliationStatus<SPEC extends AbstractFlinkSpec> {
     @JsonIgnore
     public boolean isBeforeFirstDeployment() {
         return lastReconciledSpec == null;
-    }
-
-    @JsonIgnore
-    public boolean scalingInProgress() {
-        if (isBeforeFirstDeployment() || state != ReconciliationState.UPGRADING) {
-            return false;
-        }
-        var job = deserializeLastReconciledSpec().getJob();
-        // For regular full upgrades the jobstate is suspended in UPGRADING state
-        return job != null && job.getState() == JobState.RUNNING;
     }
 }

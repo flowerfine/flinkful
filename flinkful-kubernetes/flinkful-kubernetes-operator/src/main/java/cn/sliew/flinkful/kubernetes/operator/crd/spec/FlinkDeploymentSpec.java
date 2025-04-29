@@ -56,7 +56,7 @@ public class FlinkDeploymentSpec extends AbstractFlinkSpec {
     /**
      * Flink image version.
      */
-    private FlinkVersion flinkVersion;
+    private OperatorFlinkVersion flinkVersion;
 
     /**
      * Ingress specs.

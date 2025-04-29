@@ -64,6 +64,7 @@ public class JobSpec implements Diffable<JobSpec> {
      * Nonce used to manually trigger savepoint for the running job. In order to trigger a
      * savepoint, change the number to anything other than the current value.
      */
+    @Deprecated
     private Long savepointTriggerNonce;
 
     /**
@@ -76,6 +77,7 @@ public class JobSpec implements Diffable<JobSpec> {
      * Nonce used to manually trigger checkpoint for the running job. In order to trigger a
      * checkpoint, change the number to anything other than the current value.
      */
+    @Deprecated
     private Long checkpointTriggerNonce;
 
     /**
@@ -94,6 +96,14 @@ public class JobSpec implements Diffable<JobSpec> {
      * non-null value. Rollback is not possible after redeployment.
      */
     private Long savepointRedeployNonce;
+
+    /**
+     * Nonce used to reset the autoscaler metrics, parallelism overrides and history for the job.
+     * This can be used to quickly go back to the initial user-provided parallelism settings without
+     * having to toggle the autoscaler on and off. In order to trigger the reset behaviour simply
+     * change the nonce to a new non-null value.
+     */
+    private Long autoscalerResetNonce;
 
     @Override
     public DiffResult<JobSpec> diff(JobSpec right) {

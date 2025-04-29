@@ -15,13 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package cn.sliew.flinkful.kubernetes.operator.crd.reconciler;
 
 import cn.sliew.flinkful.kubernetes.operator.crd.AbstractFlinkResource;
 import cn.sliew.flinkful.kubernetes.operator.crd.status.ReconciliationState;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.fabric8.kubernetes.api.model.ObjectMeta;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,19 +35,14 @@ public class ReconciliationMetadata {
 
     private String apiVersion;
 
-    private ObjectMeta metadata;
-
     private boolean firstDeployment;
 
     public static ReconciliationMetadata from(AbstractFlinkResource<?, ?> resource) {
-        ObjectMeta metadata = new ObjectMeta();
-        metadata.setGeneration(resource.getMetadata().getGeneration());
-
         var firstDeploy =
                 resource.getStatus().getReconciliationStatus().isBeforeFirstDeployment()
                         || isFirstDeployment(resource);
 
-        return new ReconciliationMetadata(resource.getApiVersion(), metadata, firstDeploy);
+        return new ReconciliationMetadata(resource.getApiVersion(), firstDeploy);
     }
 
     private static boolean isFirstDeployment(AbstractFlinkResource<?, ?> resource) {

@@ -29,6 +29,7 @@ import javax.annotation.Nullable;
 @Data
 @NoArgsConstructor
 public class Checkpoint implements Snapshot {
+
     /**
      * Millisecond timestamp at the start of the checkpoint operation.
      */

@@ -23,6 +23,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ import java.util.List;
 /**
  * Stores savepoint related information.
  */
+@Slf4j
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -92,7 +94,13 @@ public class SavepointInfo implements SnapshotInfo {
      * @param savepoint Savepoint to be added.
      */
     public void updateLastSavepoint(Savepoint savepoint) {
-        if (lastSavepoint == null || !lastSavepoint.getLocation().equals(savepoint.getLocation())) {
+        if (savepoint == null) {
+            // In terminal states we have to handle the case when there is actually no savepoint to
+            // not restore from an old one
+            lastSavepoint = null;
+        } else if (lastSavepoint == null
+                || !lastSavepoint.getLocation().equals(savepoint.getLocation())) {
+            log.debug("Updating last savepoint to {}", savepoint);
             lastSavepoint = savepoint;
             savepointHistory.add(savepoint);
             if (savepoint.getTriggerType() == SnapshotTriggerType.PERIODIC) {
