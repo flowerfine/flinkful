@@ -49,6 +49,7 @@ public class DemoSessionClusterResourceDefinitionFactory implements SessionClust
     private FlinkSessionClusterSpecProvider getFlinkSessionClusterSpecProvider() {
         Map<String, String> flinkConfiguration = FlinkConfigurations.createFlinkConfiguration();
         flinkConfiguration.putAll(FlinkConfigurations.createSessionClusterConfiguration());
+
         return () -> {
             return FlinkSessionClusterSpec.builder()
                     .imagePullPolicy(CarpK8sImagePullPolicy.IF_NOT_PRESENT.getValue())
