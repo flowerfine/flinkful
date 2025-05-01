@@ -2,7 +2,6 @@ package cn.sliew.flinkful.kubernetes.operator.definitions.handler.flinkconfigura
 
 import io.fabric8.kubernetes.api.model.HasMetadata;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,7 @@ public abstract class AbstractFlinkConfigurationStepDecorator implements FlinkCo
     }
 
     @Override
-    public List<HasMetadata> buildRelatedResources() throws IOException {
+    public List<HasMetadata> buildRelatedResources() {
         return Collections.emptyList();
     }
 }

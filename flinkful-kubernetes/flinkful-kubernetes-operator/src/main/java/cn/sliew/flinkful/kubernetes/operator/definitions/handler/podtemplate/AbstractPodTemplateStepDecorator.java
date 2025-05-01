@@ -15,7 +15,7 @@ public abstract class AbstractPodTemplateStepDecorator implements PodTemplateSte
     }
 
     @Override
-    public List<HasMetadata> buildRelatedResources() throws IOException {
+    public List<HasMetadata> buildRelatedResources() {
         return Collections.emptyList();
     }
 }

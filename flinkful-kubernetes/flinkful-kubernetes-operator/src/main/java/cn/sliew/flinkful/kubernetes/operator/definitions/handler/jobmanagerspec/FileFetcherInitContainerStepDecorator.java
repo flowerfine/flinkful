@@ -1,4 +1,4 @@
-package cn.sliew.flinkful.kubernetes.operator.definitions.handler.podtemplate;
+package cn.sliew.flinkful.kubernetes.operator.definitions.handler.jobmanagerspec;
 
 import cn.sliew.carp.framework.common.dict.k8s.CarpK8sImagePullPolicy;
 import cn.sliew.carp.framework.common.util.NetUtil;
@@ -6,6 +6,7 @@ import cn.sliew.carp.framework.storage.config.HdfsConfigProperties;
 import cn.sliew.carp.framework.storage.config.OSSConfigProperties;
 import cn.sliew.carp.framework.storage.config.S3ConfigProperties;
 import cn.sliew.carp.framework.storage.config.StorageConfigProperties;
+import cn.sliew.flinkful.kubernetes.operator.crd.spec.JobManagerSpec;
 import cn.sliew.flinkful.kubernetes.operator.util.ResourceNames;
 import cn.sliew.milky.common.util.JacksonUtil;
 import io.fabric8.kubernetes.api.model.*;
@@ -13,13 +14,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequiredArgsConstructor
-public class FileFetcherInitContainerStepDecorator extends AbstractPodTemplateStepDecorator {
+public class FileFetcherInitContainerStepDecorator extends AbstractJobManagerSpecStepDecorator {
 
     private static final Map<String, Quantity> FILE_FETCHER_CONTAINER_REQUEST = Map.of(
             "cpu", Quantity.parse("0.25"),
@@ -41,8 +39,18 @@ public class FileFetcherInitContainerStepDecorator extends AbstractPodTemplateSt
     private final List<FileFetcherParam> files;
 
     @Override
-    public Pod decorate(Pod podTemplate) {
-        PodBuilder podBuilder = new PodBuilder(podTemplate);
+    public JobManagerSpec decorate(JobManagerSpec spec) {
+        return spec.toBuilder()
+                .resource(spec.getResource())
+                .replicas(spec.getReplicas())
+                .podTemplate(buildPod(spec.getPodTemplate()))
+                .build();
+    }
+
+    private Pod buildPod(Pod podTemplate) {
+        PodBuilder podBuilder = Optional.ofNullable(podTemplate)
+                .map(pod -> new PodBuilder(pod))
+                .orElse(new PodBuilder());
 
         podBuilder.editOrNewMetadata()
                 .withName(ResourceNames.JOB_MANAGER_POD_TEMPLATE_NAME)

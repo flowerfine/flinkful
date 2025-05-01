@@ -4,6 +4,7 @@ import cn.sliew.carp.framework.kubernetes.util.ContainerUtil;
 import cn.sliew.carp.framework.storage.config.OSSConfigProperties;
 import cn.sliew.carp.framework.storage.config.StorageConfigProperties;
 import cn.sliew.flinkful.kubernetes.common.dict.FlinkVersion;
+import cn.sliew.flinkful.kubernetes.operator.definitions.handler.jobmanagerspec.FileFetcherInitContainerStepDecorator;
 import cn.sliew.flinkful.kubernetes.operator.util.ResourceNames;
 import io.fabric8.kubernetes.api.model.*;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,10 @@ public class FlinkFileSystemPluginStepDecorator extends AbstractPodTemplateStepD
     public static final String S3_SECRET_KEY = "s3.secret-key";
     public static final String S3_PATH_STYLE_ACCESS = "s3.path.style.access";
     public static final String FS_ALLOWED_FALLBACK_FILESYSTEM = "fs.allowed-fallback-filesystems";
+
+    public static final String OSS_ENDPOINT = "fs.oss.endpoint";
+    public static final String OSS_ACCESS_KEY = "fs.oss.accessKeyId";
+    public static final String OSS_SECRET_KEY = "fs.oss.accessKeySecret";
 
     private static final String FILE_SYSTEM_ENV_NAME = "ENABLE_BUILT_IN_PLUGINS";
     private static final String S3_FILE_SYSTEM_TEMPLATE = "flink-s3-fs-hadoop-%s.jar";
@@ -65,6 +70,8 @@ public class FlinkFileSystemPluginStepDecorator extends AbstractPodTemplateStepD
             fileSystemEnableEnv.withName(FILE_SYSTEM_ENV_NAME);
             fileSystemEnableEnv.withValue(String.format(OSS_FILE_SYSTEM_TEMPLATE, flinkVersion.getValue()));
             // 展示 oss 如何通过环境变量设置授权信息，但是 endpoint 需要 flink-configuration
+            // 同时添加如下配置：
+            // fs.oss.credentials.provider: com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider
             EnvVarBuilder accessKeyEnv = new EnvVarBuilder();
             accessKeyEnv.withName(FileFetcherInitContainerStepDecorator.ENV_OSS_ACCESS);
             accessKeyEnv.withValue(oss.getAccessKey());

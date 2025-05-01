@@ -2,17 +2,23 @@ package cn.sliew.flinkful.kubernetes.operator.parameters;
 
 import cn.sliew.carp.framework.storage.config.StorageConfigProperties;
 import cn.sliew.flinkful.kubernetes.common.dict.FlinkVersion;
+import cn.sliew.flinkful.kubernetes.operator.definitions.handler.jobmanagerspec.FileFetcherInitContainerStepDecorator;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.Singular;
+
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Getter
-@RequiredArgsConstructor
+@Builder
 public class SessionClusterParameters {
 
-    // urls
-
-    private StorageConfigProperties storageConfigProperties;
-
+    private UUID id;
     private FlinkVersion flinkVersion;
-
+    @Singular
+    private List<FileFetcherInitContainerStepDecorator.FileFetcherParam> fileFetcherParams;
+    private StorageConfigProperties properties;
+    private Map<String, String> labels;
 }
