@@ -5,9 +5,11 @@ import cn.sliew.flinkful.kubernetes.operator.definitions.handler.FlinkSessionClu
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.FlinkSessionClusterSpecProvider;
 import cn.sliew.flinkful.kubernetes.operator.entity.sessioncluster.SessionCluster;
 import cn.sliew.flinkful.kubernetes.operator.parameters.SessionClusterParameters;
+import io.fabric8.kubernetes.api.model.HasMetadata;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -21,14 +23,14 @@ public class DemoSessionClusterResourceDefinitionFactory implements SessionClust
 
     @Override
     public SessionClusterResourceDefinition create() {
-        return new DefaultSessionClusterResourceDefinition(createSessionCluster());
-    }
-
-    private SessionCluster createSessionCluster() {
-        return SessionCluster.builder()
-                .metadata(getFlinkSessionClusterMetadataProvider().getMetadata())
-                .spec(getFlinkSessionClusterSpecProvider().getSpec())
+        FlinkSessionClusterMetadataProvider flinkSessionClusterMetadataProvider = getFlinkSessionClusterMetadataProvider();
+        FlinkSessionClusterSpecProvider flinkSessionClusterSpecProvider = getFlinkSessionClusterSpecProvider();
+        SessionCluster sessionCluster = SessionCluster.builder()
+                .metadata(flinkSessionClusterMetadataProvider.getMetadata())
+                .spec(flinkSessionClusterSpecProvider.getSpec())
                 .build();
+        List<HasMetadata> additionalResources = flinkSessionClusterSpecProvider.getAdditionalResources();
+        return new DefaultSessionClusterResourceDefinition(sessionCluster, additionalResources);
     }
 
     private FlinkSessionClusterMetadataProvider getFlinkSessionClusterMetadataProvider() {
