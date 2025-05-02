@@ -16,13 +16,13 @@ import static cn.sliew.flinkful.kubernetes.common.dict.FlinkJobType.*;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum FlinkImage implements DictInstance {
 
-    JAR_1_15(JAR, FlinkVersion.V_1_15_4, "1.15.4-scala_2.12-java8", "1.15.4-scala_2.12-java8"),
-    JAR_1_16(JAR, FlinkVersion.V_1_16_3, "1.16.3-scala_2.12-java8", "1.16.3-scala_2.12-java8"),
-    JAR_1_17(JAR, FlinkVersion.V_1_17_2, "1.17.2-scala_2.12-java8", "1.17.2-scala_2.12-java8"),
-    JAR_1_18(JAR, FlinkVersion.V_1_18_1, "1.18.1-scala_2.12-java8", "1.18.1-scala_2.12-java8"),
-    JAR_1_19(JAR, FlinkVersion.V_1_19_2, "1.19.2-scala_2.12-java8", "1.19.2-scala_2.12-java8"),
-    JAR_1_20(JAR, FlinkVersion.V_1_20_1, "1.20.1-scala_2.12-java8", "1.20.1-scala_2.12-java8"),
-    JAR_2_0(JAR, FlinkVersion.V_2_0_0, "2.0.0-scala_2.12-java17", "2.0.0-scala_2.12-java17"),
+    JAR_1_15(JAR, FlinkVersion.V_1_15_4, "flink:1.15.4-scala_2.12-java8", "flink:1.15.4-scala_2.12-java8"),
+    JAR_1_16(JAR, FlinkVersion.V_1_16_3, "flink:1.16.3-scala_2.12-java8", "flink:1.16.3-scala_2.12-java8"),
+    JAR_1_17(JAR, FlinkVersion.V_1_17_2, "flink:1.17.2-scala_2.12-java8", "flink:1.17.2-scala_2.12-java8"),
+    JAR_1_18(JAR, FlinkVersion.V_1_18_1, "flink:1.18.1-scala_2.12-java8", "flink:1.18.1-scala_2.12-java8"),
+    JAR_1_19(JAR, FlinkVersion.V_1_19_2, "flink:1.19.2-scala_2.12-java8", "flink:1.19.2-scala_2.12-java8"),
+    JAR_1_20(JAR, FlinkVersion.V_1_20_1, "flink:1.20.1-scala_2.12-java8", "flink:1.20.1-scala_2.12-java8"),
+    JAR_2_0(JAR, FlinkVersion.V_2_0_0, "flink:2.0.0-scala_2.12-java17", "flink:2.0.0-scala_2.12-java17"),
 
     SQL_1_17(SQL, FlinkVersion.V_1_17_2, "ghcr.io/flowerfine/scaleph-sql-template:1.17", "ghcr.io/flowerfine/scaleph-sql-template:1.17"),
     SQL_1_18(SQL, FlinkVersion.V_1_18_1, "ghcr.io/flowerfine/scaleph-sql-template:1.18", "ghcr.io/flowerfine/scaleph-sql-template:1.19"),
