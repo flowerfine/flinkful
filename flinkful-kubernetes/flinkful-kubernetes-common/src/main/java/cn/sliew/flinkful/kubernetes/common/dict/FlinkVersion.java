@@ -22,38 +22,42 @@ import cn.sliew.carp.framework.common.dict.DictInstance;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
 
+@Getter
+@RequiredArgsConstructor
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum FlinkVersion implements DictInstance {
 
-    V_1_15_0("1.15.0", "1.15.0"),
-    V_1_15_1("1.15.1", "1.15.1"),
-    V_1_15_2("1.15.2", "1.15.2"),
-    V_1_15_3("1.15.3", "1.15.3"),
-    V_1_15_4("1.15.4", "1.15.4"),
+    V_1_15_0("1.15.0", 1, 15, 0, "1.15.0"),
+    V_1_15_1("1.15.1", 1, 15, 1, "1.15.1"),
+    V_1_15_2("1.15.2", 1, 15, 2, "1.15.2"),
+    V_1_15_3("1.15.3", 1, 15, 3, "1.15.3"),
+    V_1_15_4("1.15.4", 1, 15, 4, "1.15.4"),
 
-    V_1_16_0("1.16.0", "1.16.0"),
-    V_1_16_1("1.16.1", "1.16.1"),
-    V_1_16_2("1.16.2", "1.16.2"),
-    V_1_16_3("1.16.3", "1.16.3"),
+    V_1_16_0("1.16.0", 1, 16, 0, "1.16.0"),
+    V_1_16_1("1.16.1", 1, 16, 1, "1.16.1"),
+    V_1_16_2("1.16.2", 1, 16, 2, "1.16.2"),
+    V_1_16_3("1.16.3", 1, 16, 3, "1.16.3"),
 
-    V_1_17_0("1.17.0", "1.17.0"),
-    V_1_17_1("1.17.1", "1.17.1"),
-    V_1_17_2("1.17.2", "1.17.2"),
+    V_1_17_0("1.17.0", 1, 17, 0, "1.17.0"),
+    V_1_17_1("1.17.1", 1, 17, 1, "1.17.1"),
+    V_1_17_2("1.17.2", 1, 17, 2, "1.17.2"),
 
-    V_1_18_0("1.18.0", "1.18.0"),
-    V_1_18_1("1.18.1", "1.18.1"),
+    V_1_18_0("1.18.0", 1, 18, 0, "1.18.0"),
+    V_1_18_1("1.18.1", 1, 18, 1, "1.18.1"),
 
-    V_1_19_0("1.19.0", "1.19.0"),
-    V_1_19_1("1.19.1", "1.19.1"),
-    V_1_19_2("1.19.2", "1.19.2"),
+    V_1_19_0("1.19.0", 1, 19, 0, "1.19.0"),
+    V_1_19_1("1.19.1", 1, 19, 1, "1.19.1"),
+    V_1_19_2("1.19.2", 1, 19, 2, "1.19.2"),
 
-    V_1_20_0("1.20.0", "1.20.0"),
-    V_1_20_1("1.20.1", "1.20.1"),
+    V_1_20_0("1.20.0", 1, 20, 0, "1.20.0"),
+    V_1_20_1("1.20.1", 1, 20, 1, "1.20.1"),
 
-    V_2_0_0("2.0.0", "2.0.0"),
+    V_2_0_0("2.0.0", 2, 0, 0, "2.0.0"),
     ;
 
     @JsonCreator
@@ -68,21 +72,9 @@ public enum FlinkVersion implements DictInstance {
     }
 
     @EnumValue
-    private String value;
-    private String label;
-
-    FlinkVersion(String value, String label) {
-        this.value = value;
-        this.label = label;
-    }
-
-    @Override
-    public String getValue() {
-        return value;
-    }
-
-    @Override
-    public String getLabel() {
-        return label;
-    }
+    private final String value;
+    private final Integer major;
+    private final Integer minor;
+    private final Integer patch;
+    private final String label;
 }

@@ -1,6 +1,9 @@
 package cn.sliew.flinkful.kubernetes.operator.definitions.handler;
 
 import cn.sliew.carp.framework.common.dict.k8s.CarpK8sImagePullPolicy;
+import cn.sliew.flinkful.kubernetes.common.dict.FlinkImage;
+import cn.sliew.flinkful.kubernetes.common.dict.FlinkJobType;
+import cn.sliew.flinkful.kubernetes.common.dict.operator.FlinkOperatorFlinkVersion;
 import cn.sliew.flinkful.kubernetes.operator.crd.spec.*;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.flinkconfiguration.FileSystemStepDecorator;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.flinkconfiguration.FlinkConfigurationStepDecorator;
@@ -18,6 +21,7 @@ import com.google.common.base.Joiner;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.PodBuilder;
+import org.apache.commons.lang3.EnumUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,11 +88,13 @@ public class DefaultFlinkSessionClusterSpecProvider implements FlinkSessionClust
     }
 
     private String getImage() {
-        return "flink:1.18.1-scala_2.12-java8";
+        FlinkImage flinkImage = FlinkImage.ofFlinkVersion(FlinkJobType.JAR, parameters.getFlinkVersion());
+        return flinkImage.getValue();
     }
 
     private OperatorFlinkVersion getFlinkVersion() {
-        return OperatorFlinkVersion.v1_18;
+        FlinkOperatorFlinkVersion flinkOperatorFlinkVersion = FlinkOperatorFlinkVersion.of(parameters.getFlinkVersion());
+        return EnumUtils.getEnum(OperatorFlinkVersion.class, flinkOperatorFlinkVersion.getValue());
     }
 
     private String getServiceAccount() {
