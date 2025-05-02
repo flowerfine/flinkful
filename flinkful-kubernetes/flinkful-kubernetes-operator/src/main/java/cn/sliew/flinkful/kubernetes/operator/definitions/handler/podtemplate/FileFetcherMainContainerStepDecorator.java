@@ -24,6 +24,7 @@ public class FileFetcherMainContainerStepDecorator extends AbstractPodTemplateSt
                 .addAllToEnv(buildJavaOptsEnv())
                 .addAllToVolumeMounts(buildVolumeMount()) // add volume mount
                 .endContainer();
+        spec.endSpec();
 
         return podBuilder.build();
     }

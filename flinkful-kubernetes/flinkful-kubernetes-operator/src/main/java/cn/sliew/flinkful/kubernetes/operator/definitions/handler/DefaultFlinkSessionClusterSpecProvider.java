@@ -14,6 +14,7 @@ import cn.sliew.flinkful.kubernetes.operator.definitions.handler.podtemplate.Fli
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.podtemplate.PodTemplateStepDecorator;
 import cn.sliew.flinkful.kubernetes.operator.parameters.SessionClusterParameters;
 import cn.sliew.flinkful.kubernetes.operator.util.FlinkConfigurations;
+import com.google.common.base.Joiner;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.PodBuilder;
@@ -83,7 +84,7 @@ public class DefaultFlinkSessionClusterSpecProvider implements FlinkSessionClust
     }
 
     private String getImage() {
-        return "flink:1.18";
+        return "flink:1.18.1-scala_2.12-java8";
     }
 
     private OperatorFlinkVersion getFlinkVersion() {
@@ -114,9 +115,9 @@ public class DefaultFlinkSessionClusterSpecProvider implements FlinkSessionClust
     }
 
     private Map<String, String> getLogConfiguration() {
-        return Map.of(
-                "cn.sliew", "DEBUG"
-        );
+        Map<String, String> loggers = Map.of("cn.sliew", "DEBUG");
+        String logConfig = Joiner.on("\n").withKeyValueSeparator(" = ").join(loggers);
+        return Map.of("log4j-console.properties", logConfig);
     }
 
     private Map<String, String> getFlinkConfiguration() {
