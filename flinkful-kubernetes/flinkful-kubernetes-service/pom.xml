@@ -5,17 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.sliew</groupId>
-        <artifactId>flinkful</artifactId>
-        <version>${revision}</version>
+        <artifactId>flinkful-kubernetes</artifactId>
+        <version>1.0.3</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>flinkful-kubernetes</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>flinkful-kubernetes-service</artifactId>
 
-    <modules>
-        <module>flinkful-kubernetes-common</module>
-        <module>flinkful-kubernetes-operator</module>
-        <module>flinkful-kubernetes-cluster</module>
-        <module>flinkful-kubernetes-service</module>
-    </modules>
+    <dependencies>
+
+    </dependencies>
+
 </project>
