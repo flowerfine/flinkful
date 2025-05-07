@@ -2,19 +2,19 @@ package cn.sliew.flinkful.kubernetes.operator.definitions;
 
 import cn.sliew.carp.framework.storage.config.S3ConfigProperties;
 import cn.sliew.carp.framework.storage.config.StorageConfigProperties;
+import cn.sliew.flinkful.kubernetes.common.artifact.JarArtifact;
 import cn.sliew.flinkful.kubernetes.common.dict.FlinkVersion;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.DefaultFlinkDeploymentSpecProvider;
-import cn.sliew.flinkful.kubernetes.operator.definitions.handler.DefaultFlinkSessionClusterSpecProvider;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.FlinkDeploymentMetadataProvider;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.FlinkDeploymentSpecProvider;
 import cn.sliew.flinkful.kubernetes.operator.entity.deployment.Deployment;
 import cn.sliew.flinkful.kubernetes.operator.parameters.DeploymentParameters;
+import cn.sliew.flinkful.kubernetes.operator.util.ResourceLabels;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -33,19 +33,20 @@ public class DemoDeploymentResourceDefinitionFactory implements DeploymentResour
         s3.setAccessKey("admin");
         s3.setSecretKey("password");
         properties.setS3(s3);
-        Map<String, String> labels = Map.of("system", "flinkful",
-                "internalNamespace", "default",
-                "app", "flink",
-                "instance", "instance-1",
-                "component", "deployment",
-                "deploymentId", DEFAULT_DEPLOYMENT_ID.toString(),
-                "deploymentName", DEFAULT_DEPLOYMENT_NAME);
 
         DeploymentParameters parameters = DeploymentParameters.builder()
                 .id(DEFAULT_DEPLOYMENT_ID)
-                .flinkVersion(FlinkVersion.V_1_18_1)
+                .name(DEFAULT_DEPLOYMENT_NAME)
+                .namespace("default")
+                .internalNamespace("default")
                 .properties(properties)
-                .labels(labels)
+                .artifact(JarArtifact.builder()
+                        .jarUri("https://repo1.maven.org/maven2/org/apache/flink/flink-examples-streaming/1.19.0/flink-examples-streaming-1.19.0-TopSpeedWindowing.jar")
+                        .entryClass("org.apache.flink.streaming.examples.windowing.TopSpeedWindowing")
+                        .mainArgs(new String[]{"--env", "prod"})
+                        .flinkVersion(FlinkVersion.V_1_19_0)
+                        .build())
+                .parallelism(1)
                 .build();
 
         FlinkDeploymentMetadataProvider flinkDeploymentMetadataProvider = getFlinkDeploymentMetadataProvider(parameters);
@@ -61,9 +62,9 @@ public class DemoDeploymentResourceDefinitionFactory implements DeploymentResour
     private FlinkDeploymentMetadataProvider getFlinkDeploymentMetadataProvider(DeploymentParameters parameters) {
         return () -> {
             return Deployment.DeploymentMetadata.builder()
-                    .name(DEFAULT_DEPLOYMENT_ID.toString())
-                    .namespace("default")
-                    .labels(parameters.getLabels())
+                    .name(parameters.getId().toString())
+                    .namespace(parameters.getNamespace())
+                    .labels(ResourceLabels.getDeploymentLabels(parameters))
                     .annotations(Collections.emptyMap())
                     .build();
         };

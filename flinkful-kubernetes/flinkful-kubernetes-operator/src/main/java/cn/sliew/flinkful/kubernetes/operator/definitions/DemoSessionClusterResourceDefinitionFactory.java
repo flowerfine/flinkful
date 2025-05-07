@@ -8,19 +8,19 @@ import cn.sliew.flinkful.kubernetes.operator.definitions.handler.FlinkSessionClu
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.FlinkSessionClusterSpecProvider;
 import cn.sliew.flinkful.kubernetes.operator.entity.sessioncluster.SessionCluster;
 import cn.sliew.flinkful.kubernetes.operator.parameters.SessionClusterParameters;
+import cn.sliew.flinkful.kubernetes.operator.util.ResourceLabels;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @RequiredArgsConstructor
 public class DemoSessionClusterResourceDefinitionFactory implements SessionClusterResourceDefinitionFactory {
 
-    private static final UUID DEFAULT_SESSION_CLUSTER_ID = UUID.fromString("dac4ca57-6dd2-3168-3d27-7e23a91c85d7");
-    private static final String DEFAULT_SESSION_CLUSTER_NAME = "test-session-cluster";
+    public static final UUID DEFAULT_SESSION_CLUSTER_ID = UUID.fromString("dac4ca57-6dd2-3168-3d27-7e23a91c85d7");
+    public static final String DEFAULT_SESSION_CLUSTER_NAME = "test-session-cluster";
 
     @Override
     public SessionClusterResourceDefinition create() {
@@ -32,19 +32,14 @@ public class DemoSessionClusterResourceDefinitionFactory implements SessionClust
         s3.setAccessKey("admin");
         s3.setSecretKey("password");
         properties.setS3(s3);
-        Map<String, String> labels = Map.of("system", "flinkful",
-                "internalNamespace", "default",
-                "app", "flink",
-                "instance", "instance-1",
-                "component", "session-cluster",
-                "sessionClusterId", DEFAULT_SESSION_CLUSTER_ID.toString(),
-                "sessionClusterName", DEFAULT_SESSION_CLUSTER_NAME);
 
         SessionClusterParameters parameters = SessionClusterParameters.builder()
                 .id(DEFAULT_SESSION_CLUSTER_ID)
+                .name(DEFAULT_SESSION_CLUSTER_NAME)
+                .namespace("default")
+                .internalNamespace("default")
                 .flinkVersion(FlinkVersion.V_1_18_1)
                 .properties(properties)
-                .labels(labels)
                 .build();
 
         FlinkSessionClusterMetadataProvider flinkSessionClusterMetadataProvider = getFlinkSessionClusterMetadataProvider(parameters);
@@ -60,9 +55,9 @@ public class DemoSessionClusterResourceDefinitionFactory implements SessionClust
     private FlinkSessionClusterMetadataProvider getFlinkSessionClusterMetadataProvider(SessionClusterParameters parameters) {
         return () -> {
             return SessionCluster.SessionClusterMetadata.builder()
-                    .name(DEFAULT_SESSION_CLUSTER_ID.toString())
-                    .namespace("default")
-                    .labels(parameters.getLabels())
+                    .name(parameters.getId().toString())
+                    .namespace(parameters.getNamespace())
+                    .labels(ResourceLabels.getSessionClusterLabels(parameters))
                     .annotations(Collections.emptyMap())
                     .build();
         };

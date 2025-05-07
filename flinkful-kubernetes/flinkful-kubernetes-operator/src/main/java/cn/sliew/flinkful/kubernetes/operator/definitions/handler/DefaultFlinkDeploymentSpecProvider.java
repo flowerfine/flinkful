@@ -1,14 +1,15 @@
 package cn.sliew.flinkful.kubernetes.operator.definitions.handler;
 
 import cn.sliew.carp.framework.common.dict.k8s.CarpK8sImagePullPolicy;
-import cn.sliew.flinkful.kubernetes.common.dict.FlinkImage;
-import cn.sliew.flinkful.kubernetes.common.dict.FlinkJobType;
+import cn.sliew.carp.framework.kubernetes.model.ContainerImage;
+import cn.sliew.flinkful.kubernetes.common.artifact.Artifact;
 import cn.sliew.flinkful.kubernetes.common.dict.operator.FlinkOperatorFlinkVersion;
 import cn.sliew.flinkful.kubernetes.operator.crd.spec.*;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.flinkconfiguration.FileSystemStepDecorator;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.flinkconfiguration.FlinkConfigurationStepDecorator;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.flinkconfiguration.FlinkStateStorageStepDecorator;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.flinkconfiguration.SessionClusterServiceStepDecorator;
+import cn.sliew.flinkful.kubernetes.operator.definitions.handler.job.JarJobSpecProvider;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.jobmanagerspec.FileFetcherInitContainerStepDecorator;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.jobmanagerspec.JobManagerSpecStepDecorator;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.podtemplate.FileFetcherMainContainerStepDecorator;
@@ -17,6 +18,7 @@ import cn.sliew.flinkful.kubernetes.operator.definitions.handler.podtemplate.Fli
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.podtemplate.PodTemplateStepDecorator;
 import cn.sliew.flinkful.kubernetes.operator.parameters.DeploymentParameters;
 import cn.sliew.flinkful.kubernetes.operator.util.FlinkConfigurations;
+import cn.sliew.flinkful.kubernetes.operator.util.ResourceLabels;
 import com.google.common.base.Joiner;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.api.model.Pod;
@@ -47,8 +49,8 @@ public class DefaultFlinkDeploymentSpecProvider implements FlinkDeploymentSpecPr
                 new SessionClusterServiceStepDecorator()
         );
         this.podTemplateStepDecorators = Arrays.asList(
-                new FlinkMainContainerStepDecorator(parameters.getLabels()),
-                new FlinkFileSystemPluginStepDecorator(parameters.getFlinkVersion(), parameters.getProperties()),
+                new FlinkMainContainerStepDecorator(ResourceLabels.getDeploymentLabels(parameters)),
+                new FlinkFileSystemPluginStepDecorator(parameters.getArtifact().getFlinkVersion(), parameters.getProperties()),
                 new FileFetcherMainContainerStepDecorator()
         );
         this.jobManagerSpecStepDecorators = Arrays.asList(
@@ -70,6 +72,7 @@ public class DefaultFlinkDeploymentSpecProvider implements FlinkDeploymentSpecPr
                 .flinkConfiguration(getFlinkConfiguration())
                 .podTemplate(getPodTemplate())
                 .mode(KubernetesDeploymentMode.NATIVE)
+                .job(getJobSpec())
                 .build();
     }
 
@@ -84,16 +87,17 @@ public class DefaultFlinkDeploymentSpecProvider implements FlinkDeploymentSpecPr
     }
 
     private CarpK8sImagePullPolicy getImagePullPolicy() {
-        return CarpK8sImagePullPolicy.IF_NOT_PRESENT;
+        return parameters.getArtifact().getContainerImage().getImagePullPolicy();
     }
 
     private String getImage() {
-        FlinkImage flinkImage = FlinkImage.ofFlinkVersion(FlinkJobType.JAR, parameters.getFlinkVersion());
-        return flinkImage.getValue();
+        ContainerImage containerImage = parameters.getArtifact().getContainerImage();
+        return String.format("%s/%s:%s", containerImage.getRegistry(), containerImage.getRepository(), containerImage.getTag());
     }
 
     private OperatorFlinkVersion getFlinkVersion() {
-        FlinkOperatorFlinkVersion flinkOperatorFlinkVersion = FlinkOperatorFlinkVersion.of(parameters.getFlinkVersion());
+        Artifact artifact = parameters.getArtifact();
+        FlinkOperatorFlinkVersion flinkOperatorFlinkVersion = FlinkOperatorFlinkVersion.of(artifact.getFlinkVersion());
         return EnumUtils.getEnum(OperatorFlinkVersion.class, flinkOperatorFlinkVersion.getValue());
     }
 
@@ -145,6 +149,6 @@ public class DefaultFlinkDeploymentSpecProvider implements FlinkDeploymentSpecPr
     }
 
     private JobSpec getJobSpec() {
-
+        return new JarJobSpecProvider(parameters).getJobSpec();
     }
 }

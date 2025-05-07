@@ -17,6 +17,7 @@ import cn.sliew.flinkful.kubernetes.operator.definitions.handler.podtemplate.Fli
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.podtemplate.PodTemplateStepDecorator;
 import cn.sliew.flinkful.kubernetes.operator.parameters.SessionClusterParameters;
 import cn.sliew.flinkful.kubernetes.operator.util.FlinkConfigurations;
+import cn.sliew.flinkful.kubernetes.operator.util.ResourceLabels;
 import com.google.common.base.Joiner;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.api.model.Pod;
@@ -47,7 +48,7 @@ public class DefaultFlinkSessionClusterSpecProvider implements FlinkSessionClust
                 new SessionClusterServiceStepDecorator()
         );
         this.podTemplateStepDecorators = Arrays.asList(
-                new FlinkMainContainerStepDecorator(parameters.getLabels()),
+                new FlinkMainContainerStepDecorator(ResourceLabels.getSessionClusterLabels(parameters)),
                 new FlinkFileSystemPluginStepDecorator(parameters.getFlinkVersion(), parameters.getProperties()),
                 new FileFetcherMainContainerStepDecorator()
         );
