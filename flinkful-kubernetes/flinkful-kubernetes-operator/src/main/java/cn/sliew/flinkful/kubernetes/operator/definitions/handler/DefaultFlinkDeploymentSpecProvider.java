@@ -143,4 +143,8 @@ public class DefaultFlinkDeploymentSpecProvider implements FlinkDeploymentSpecPr
         }
         return podTemplate;
     }
+
+    private JobSpec getJobSpec() {
+
+    }
 }

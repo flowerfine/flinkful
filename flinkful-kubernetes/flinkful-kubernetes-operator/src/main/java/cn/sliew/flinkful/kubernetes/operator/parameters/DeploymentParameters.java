@@ -1,6 +1,7 @@
 package cn.sliew.flinkful.kubernetes.operator.parameters;
 
 import cn.sliew.carp.framework.storage.config.StorageConfigProperties;
+import cn.sliew.flinkful.kubernetes.common.artifact.Artifact;
 import cn.sliew.flinkful.kubernetes.common.dict.FlinkVersion;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.jobmanagerspec.FileFetcherInitContainerStepDecorator;
 import lombok.Builder;
@@ -21,4 +22,7 @@ public class DeploymentParameters {
     private List<FileFetcherInitContainerStepDecorator.FileFetcherParam> fileFetcherParams;
     private StorageConfigProperties properties;
     private Map<String, String> labels;
+    private Artifact artifact;
+    private int parallelism = 1;
+    private String initialSavepointPath;
 }

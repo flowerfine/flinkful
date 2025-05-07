@@ -29,9 +29,10 @@ public class JarArtifact implements Artifact {
 
     private String jarUri;
     private String entryClass;
-    private String mainArgs;
+    private String[] mainArgs;
     private FlinkVersion flinkVersion;
     private ContainerImage containerImage;
+    // todo
     private List<String> additionalDependencies;
 
     @Override
