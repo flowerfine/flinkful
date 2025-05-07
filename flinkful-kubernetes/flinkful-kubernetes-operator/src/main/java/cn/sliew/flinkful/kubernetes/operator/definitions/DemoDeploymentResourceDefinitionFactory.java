@@ -23,8 +23,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class DemoDeploymentResourceDefinitionFactory implements DeploymentResourceDefinitionFactory {
 
-    private static final UUID DEFAULT_DEPLOYMENT_ID = UUID.fromString("2d9c4deb-f3ad-d124-fa3b-41127a14ccbe");
-    private static final String DEFAULT_DEPLOYMENT_NAME = "test-deployment" + DEFAULT_DEPLOYMENT_ID;
+    static final UUID DEFAULT_DEPLOYMENT_ID = UUID.fromString("2d9c4deb-f3ad-d124-fa3b-41127a14ccbe");
+    static final String DEFAULT_DEPLOYMENT_NAME = "test-deployment" + DEFAULT_DEPLOYMENT_ID;
 
     @Override
     public DeploymentResourceDefinition create() {
