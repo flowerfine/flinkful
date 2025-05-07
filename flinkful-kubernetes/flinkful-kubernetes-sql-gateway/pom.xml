@@ -12,6 +12,10 @@
     <artifactId>flinkful-kubernetes-sql-gateway</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>cn.sliew</groupId>
+            <artifactId>carp-framework-kubernetes</artifactId>
+        </dependency>
 
     </dependencies>
 
