@@ -1,5 +1,7 @@
 package cn.sliew.flinkful.kubernetes.operator.definitions;
 
+import cn.sliew.carp.framework.common.dict.k8s.CarpK8sImagePullPolicy;
+import cn.sliew.carp.framework.kubernetes.model.ContainerImage;
 import cn.sliew.carp.framework.storage.config.S3ConfigProperties;
 import cn.sliew.carp.framework.storage.config.StorageConfigProperties;
 import cn.sliew.flinkful.kubernetes.common.artifact.JarArtifact;
@@ -12,6 +14,7 @@ import cn.sliew.flinkful.kubernetes.operator.parameters.DeploymentParameters;
 import cn.sliew.flinkful.kubernetes.operator.util.ResourceLabels;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +24,7 @@ import java.util.UUID;
 public class DemoDeploymentResourceDefinitionFactory implements DeploymentResourceDefinitionFactory {
 
     private static final UUID DEFAULT_DEPLOYMENT_ID = UUID.fromString("2d9c4deb-f3ad-d124-fa3b-41127a14ccbe");
-    private static final String DEFAULT_DEPLOYMENT_NAME = "test-deployment";
+    private static final String DEFAULT_DEPLOYMENT_NAME = "test-deployment" + DEFAULT_DEPLOYMENT_ID;
 
     @Override
     public DeploymentResourceDefinition create() {
@@ -36,7 +39,7 @@ public class DemoDeploymentResourceDefinitionFactory implements DeploymentResour
 
         DeploymentParameters parameters = DeploymentParameters.builder()
                 .id(DEFAULT_DEPLOYMENT_ID)
-                .name(DEFAULT_DEPLOYMENT_NAME)
+                .name(StringUtils.truncate(StringUtils.replace(DEFAULT_DEPLOYMENT_NAME, "-", ""), 45))
                 .namespace("default")
                 .internalNamespace("default")
                 .properties(properties)
@@ -45,6 +48,11 @@ public class DemoDeploymentResourceDefinitionFactory implements DeploymentResour
                         .entryClass("org.apache.flink.streaming.examples.windowing.TopSpeedWindowing")
                         .mainArgs(new String[]{"--env", "prod"})
                         .flinkVersion(FlinkVersion.V_1_19_0)
+                        .containerImage(ContainerImage.builder()
+                                .imagePullPolicy(CarpK8sImagePullPolicy.IF_NOT_PRESENT)
+                                .repository("flink")
+                                .tag("1.19.0-scala_2.12-java8")
+                                .build())
                         .build())
                 .parallelism(1)
                 .build();
@@ -62,7 +70,7 @@ public class DemoDeploymentResourceDefinitionFactory implements DeploymentResour
     private FlinkDeploymentMetadataProvider getFlinkDeploymentMetadataProvider(DeploymentParameters parameters) {
         return () -> {
             return Deployment.DeploymentMetadata.builder()
-                    .name(parameters.getId().toString())
+                    .name(parameters.getName())
                     .namespace(parameters.getNamespace())
                     .labels(ResourceLabels.getDeploymentLabels(parameters))
                     .annotations(Collections.emptyMap())

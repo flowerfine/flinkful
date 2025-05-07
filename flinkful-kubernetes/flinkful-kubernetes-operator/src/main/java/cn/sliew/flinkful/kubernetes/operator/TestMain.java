@@ -1,6 +1,8 @@
 package cn.sliew.flinkful.kubernetes.operator;
 
+import cn.sliew.flinkful.kubernetes.operator.definitions.DemoDeploymentResourceDefinitionFactory;
 import cn.sliew.flinkful.kubernetes.operator.definitions.DemoSessionClusterResourceDefinitionFactory;
+import cn.sliew.flinkful.kubernetes.operator.definitions.DeploymentResourceDefinition;
 import cn.sliew.flinkful.kubernetes.operator.definitions.SessionClusterResourceDefinition;
 import io.fabric8.kubernetes.client.utils.Serialization;
 import org.apache.flink.configuration.Configuration;
@@ -14,19 +16,31 @@ import java.nio.charset.StandardCharsets;
 public class TestMain {
 
     public static void main(String[] args) {
-        DemoSessionClusterResourceDefinitionFactory sessionClusterResourceDefinitionFactory = new DemoSessionClusterResourceDefinitionFactory();
-        SessionClusterResourceDefinition sessionClusterResourceDefinition = sessionClusterResourceDefinitionFactory.create();
-
-        FlinkKubeClientFactory flinkKubeClientFactory = FlinkKubeClientFactory.getInstance();
-        Configuration configuration = GlobalConfiguration.loadConfiguration();
-        NamespacedKubernetesClient fabric8ioKubernetesClient = flinkKubeClientFactory.createFabric8ioKubernetesClient(configuration);
-
-        String yaml = Serialization.asYaml(sessionClusterResourceDefinition.getSessionCluster());
-
+//        String yaml = testSessionCluster();
+        String yaml = testDeployment();
         System.out.println(yaml);
 
-        fabric8ioKubernetesClient
-                .load(new ByteArrayInputStream(yaml.getBytes(StandardCharsets.UTF_8)))
-                .createOrReplace();
+//        NamespacedKubernetesClient fabric8ioKubernetesClient = getKubernetesClient();
+//        fabric8ioKubernetesClient
+//                .load(new ByteArrayInputStream(yaml.getBytes(StandardCharsets.UTF_8)))
+//                .createOrReplace();
+    }
+
+    private static String testSessionCluster() {
+        DemoSessionClusterResourceDefinitionFactory sessionClusterResourceDefinitionFactory = new DemoSessionClusterResourceDefinitionFactory();
+        SessionClusterResourceDefinition sessionClusterResourceDefinition = sessionClusterResourceDefinitionFactory.create();
+        return Serialization.asYaml(sessionClusterResourceDefinition.getResource());
+    }
+
+    private static String testDeployment() {
+        DemoDeploymentResourceDefinitionFactory demoDeploymentResourceDefinitionFactory = new DemoDeploymentResourceDefinitionFactory();
+        DeploymentResourceDefinition deploymentResourceDefinition = demoDeploymentResourceDefinitionFactory.create();
+        return Serialization.asYaml(deploymentResourceDefinition.getResource());
+    }
+
+    private static NamespacedKubernetesClient getKubernetesClient() {
+        FlinkKubeClientFactory flinkKubeClientFactory = FlinkKubeClientFactory.getInstance();
+        Configuration configuration = GlobalConfiguration.loadConfiguration();
+        return flinkKubeClientFactory.createFabric8ioKubernetesClient(configuration);
     }
 }

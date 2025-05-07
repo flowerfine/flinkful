@@ -11,6 +11,7 @@ import cn.sliew.flinkful.kubernetes.operator.parameters.SessionClusterParameters
 import cn.sliew.flinkful.kubernetes.operator.util.ResourceLabels;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.UUID;
 public class DemoSessionClusterResourceDefinitionFactory implements SessionClusterResourceDefinitionFactory {
 
     public static final UUID DEFAULT_SESSION_CLUSTER_ID = UUID.fromString("dac4ca57-6dd2-3168-3d27-7e23a91c85d7");
-    public static final String DEFAULT_SESSION_CLUSTER_NAME = "test-session-cluster";
+    public static final String DEFAULT_SESSION_CLUSTER_NAME = "test-session-cluster" + DEFAULT_SESSION_CLUSTER_ID;
 
     @Override
     public SessionClusterResourceDefinition create() {
@@ -35,7 +36,7 @@ public class DemoSessionClusterResourceDefinitionFactory implements SessionClust
 
         SessionClusterParameters parameters = SessionClusterParameters.builder()
                 .id(DEFAULT_SESSION_CLUSTER_ID)
-                .name(DEFAULT_SESSION_CLUSTER_NAME)
+                .name(StringUtils.truncate(StringUtils.replace(DEFAULT_SESSION_CLUSTER_NAME, "-", ""), 45))
                 .namespace("default")
                 .internalNamespace("default")
                 .flinkVersion(FlinkVersion.V_1_18_1)
@@ -55,7 +56,7 @@ public class DemoSessionClusterResourceDefinitionFactory implements SessionClust
     private FlinkSessionClusterMetadataProvider getFlinkSessionClusterMetadataProvider(SessionClusterParameters parameters) {
         return () -> {
             return SessionCluster.SessionClusterMetadata.builder()
-                    .name(parameters.getId().toString())
+                    .name(parameters.getName())
                     .namespace(parameters.getNamespace())
                     .labels(ResourceLabels.getSessionClusterLabels(parameters))
                     .annotations(Collections.emptyMap())

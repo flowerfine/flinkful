@@ -92,7 +92,7 @@ public class DefaultFlinkDeploymentSpecProvider implements FlinkDeploymentSpecPr
 
     private String getImage() {
         ContainerImage containerImage = parameters.getArtifact().getContainerImage();
-        return String.format("%s/%s:%s", containerImage.getRegistry(), containerImage.getRepository(), containerImage.getTag());
+        return containerImage.getImage();
     }
 
     private OperatorFlinkVersion getFlinkVersion() {

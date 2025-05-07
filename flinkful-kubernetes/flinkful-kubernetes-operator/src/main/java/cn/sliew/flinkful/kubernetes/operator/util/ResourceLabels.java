@@ -21,7 +21,9 @@ public enum ResourceLabels {
         return Map.of(LabelNames.SYSTEM_LABEL, "flinkful",
                 LabelNames.APP_LABEL, "flink",
                 LabelNames.INSTANCE_LABEL, parameter.getId().toString(),
-                LabelNames.INTERNAL_NAMESPACE_LABEL, parameter.getInternalNamespace()
+                LabelNames.INTERNAL_NAMESPACE_LABEL, parameter.getInternalNamespace(),
+                LabelNames.UUID_LABEL, parameter.getId().toString(),
+                LabelNames.NAME_LABEL, parameter.getName()
         );
     }
 
