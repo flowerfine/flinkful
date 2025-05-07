@@ -20,6 +20,7 @@ package cn.sliew.flinkful.kubernetes.common.artifact;
 import cn.sliew.carp.framework.kubernetes.model.ContainerImage;
 import cn.sliew.flinkful.kubernetes.common.dict.FlinkJobType;
 import cn.sliew.flinkful.kubernetes.common.dict.FlinkVersion;
+import cn.sliew.flinkful.kubernetes.common.upgrade.JobUpgradeMode;
 import lombok.Builder;
 import lombok.Data;
 import lombok.With;
@@ -36,6 +37,7 @@ public class JarArtifact implements Artifact {
     private final String[] mainArgs;
     private final FlinkVersion flinkVersion;
     private final ContainerImage containerImage;
+    private final JobUpgradeMode upgradeMode;
     private List<String> additionalDependencies;
 
     @Override

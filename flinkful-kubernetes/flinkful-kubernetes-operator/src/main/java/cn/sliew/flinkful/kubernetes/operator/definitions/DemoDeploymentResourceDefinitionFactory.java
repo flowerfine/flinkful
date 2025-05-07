@@ -6,6 +6,7 @@ import cn.sliew.carp.framework.storage.config.S3ConfigProperties;
 import cn.sliew.carp.framework.storage.config.StorageConfigProperties;
 import cn.sliew.flinkful.kubernetes.common.artifact.JarArtifact;
 import cn.sliew.flinkful.kubernetes.common.dict.FlinkVersion;
+import cn.sliew.flinkful.kubernetes.common.upgrade.SavepointUpgradeMode;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.DefaultFlinkDeploymentSpecProvider;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.FlinkDeploymentMetadataProvider;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.FlinkDeploymentSpecProvider;
@@ -52,6 +53,9 @@ public class DemoDeploymentResourceDefinitionFactory implements DeploymentResour
                                 .imagePullPolicy(CarpK8sImagePullPolicy.IF_NOT_PRESENT)
                                 .repository("flink")
                                 .tag("1.19.0-scala_2.12-java8")
+                                .build())
+                        .upgradeMode(SavepointUpgradeMode.builder()
+                                .savepointPath("s3a://carp/flinkful/jobs/2d9c4deb-f3ad-d124-fa3b-41127a14ccbe/savepoints/savepoint-cc71a5-c29faf0f0cf3")
                                 .build())
                         .build())
                 .parallelism(1)

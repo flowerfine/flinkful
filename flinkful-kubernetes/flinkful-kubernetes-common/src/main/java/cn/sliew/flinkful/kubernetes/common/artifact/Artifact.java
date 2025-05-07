@@ -23,7 +23,6 @@ import cn.sliew.carp.framework.kubernetes.model.ContainerImage;
 import cn.sliew.flinkful.kubernetes.common.dict.FlinkJobType;
 import cn.sliew.flinkful.kubernetes.common.dict.FlinkVersion;
 import cn.sliew.flinkful.kubernetes.common.upgrade.JobUpgradeMode;
-import cn.sliew.flinkful.kubernetes.common.upgrade.StatelessUpgradeMode;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 
@@ -38,9 +37,7 @@ public interface Artifact extends Polymorphic<FlinkJobType> {
 
     ContainerImage getContainerImage();
 
-    default JobUpgradeMode getUpgradeMode() {
-        return StatelessUpgradeMode.builder().build();
-    }
+    JobUpgradeMode getUpgradeMode();
 
     default List<String> getAdditionalDependencies() {
         return Collections.emptyList();
