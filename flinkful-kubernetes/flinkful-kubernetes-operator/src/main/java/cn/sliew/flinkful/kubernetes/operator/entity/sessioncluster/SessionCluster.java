@@ -31,7 +31,6 @@ public final class SessionCluster {
     @Builder(toBuilder = true)
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class SessionClusterMetadata {
-        private final UUID id;
         private final String name;
         private final String namespace;
         private final Map<String, String> labels;

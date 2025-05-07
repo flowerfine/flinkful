@@ -17,5 +17,6 @@
         <module>flinkful-kubernetes-operator</module>
         <module>flinkful-kubernetes-cluster</module>
         <module>flinkful-kubernetes-sql-gateway</module>
+        <module>flinkful-kubernetes-service</module>
     </modules>
 </project>

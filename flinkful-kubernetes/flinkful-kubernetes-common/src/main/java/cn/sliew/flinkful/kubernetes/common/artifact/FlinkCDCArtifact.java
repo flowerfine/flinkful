@@ -20,6 +20,7 @@ package cn.sliew.flinkful.kubernetes.common.artifact;
 import cn.sliew.carp.framework.kubernetes.model.ContainerImage;
 import cn.sliew.flinkful.kubernetes.common.dict.FlinkJobType;
 import cn.sliew.flinkful.kubernetes.common.dict.FlinkVersion;
+import cn.sliew.flinkful.kubernetes.common.upgrade.JobUpgradeMode;
 import lombok.Data;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class FlinkCDCArtifact implements Artifact {
     private String conf;
     private FlinkVersion flinkVersion;
     private ContainerImage containerImage;
+    private JobUpgradeMode upgradeMode;
     private List<String> additionalDependencies;
 
     @Override

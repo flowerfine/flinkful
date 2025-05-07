@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package cn.sliew.flinkful.kubernetes.common.dict.kubernetes;
+package cn.sliew.flinkful.kubernetes.common.dict.operator;
 
 import cn.sliew.carp.framework.common.dict.DictInstance;
 import com.baomidou.mybatisplus.annotation.EnumValue;
@@ -30,18 +30,17 @@ import java.util.Arrays;
 @Getter
 @RequiredArgsConstructor
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-public enum UpgradeMode implements DictInstance {
+public enum DeploymentKind implements DictInstance {
 
-    STATELESS("stateless", "stateless"),
-    LAST_STATE("last-state", "last-state"),
-    SAVEPOINT("savepoint", "savepoint"),
+    FLINK_DEPLOYMENT("FlinkDeployment", "Deployment"),
+    FLINK_SESSION_JOB("FlinkSessionJob", "SessionCluster"),
     ;
 
     @JsonCreator
-    public static UpgradeMode of(String value) {
+    public static DeploymentKind of(String value) {
         return Arrays.stream(values())
                 .filter(instance -> instance.getValue().equals(value))
-                .findAny().orElseThrow(() -> new EnumConstantNotPresentException(UpgradeMode.class, value));
+                .findAny().orElseThrow(() -> new EnumConstantNotPresentException(DeploymentKind.class, value));
     }
 
     @EnumValue

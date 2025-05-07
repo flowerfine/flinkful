@@ -81,7 +81,7 @@ So job submission and Flink cluster and job status access can vary significantly
 
 #### `ClusterDescriptor`
 
-![image-20220412220000689](README.assets/image-20220412220000689.png)
+![uml](docs/images/uml.png)
 
 For complex deployment ways, it is also a challenage for Flink on how to design cluster client API and `ClusterDescriptor` would be the answer.
 

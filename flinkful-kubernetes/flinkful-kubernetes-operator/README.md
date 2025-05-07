@@ -80,3 +80,6 @@ checkpoint、savepoint、ha
 ### 日志
 
 * [custom-logging.yaml](https://github.com/apache/flink-kubernetes-operator/blob/main/examples/custom-logging.yaml)
+
+### 启动参数
+

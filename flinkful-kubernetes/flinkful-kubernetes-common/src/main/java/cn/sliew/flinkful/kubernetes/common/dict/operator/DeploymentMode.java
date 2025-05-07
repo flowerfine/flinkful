@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package cn.sliew.flinkful.kubernetes.common.dict.kubernetes;
+package cn.sliew.flinkful.kubernetes.common.dict.operator;
 
 import cn.sliew.carp.framework.common.dict.DictInstance;
 import com.baomidou.mybatisplus.annotation.EnumValue;
@@ -30,22 +30,20 @@ import java.util.Arrays;
 @Getter
 @RequiredArgsConstructor
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-public enum SavepointFormatType implements DictInstance {
+public enum DeploymentMode implements DictInstance {
 
-    CANONICAL("CANONICAL", "CANONICAL", "A canonical, common for all state backends format."),
-    NATIVE("NATIVE", "NATIVE", "A format specific for the chosen state backend."),
-    UNKNOWN("UNKNOWN", "UNKNOWN", "unknown"),
+    NATIVE("native", "native"),
+    STANDALONE("standalone", "standalone"),
     ;
 
     @JsonCreator
-    public static SavepointFormatType of(String value) {
+    public static DeploymentMode of(String value) {
         return Arrays.stream(values())
                 .filter(instance -> instance.getValue().equals(value))
-                .findAny().orElseThrow(() -> new EnumConstantNotPresentException(SavepointFormatType.class, value));
+                .findAny().orElseThrow(() -> new EnumConstantNotPresentException(DeploymentMode.class, value));
     }
 
     @EnumValue
     private final String value;
     private final String label;
-    private final String remark;
 }

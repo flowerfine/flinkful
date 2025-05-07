@@ -4,6 +4,7 @@ import cn.sliew.carp.framework.common.jackson.polymorphic.Polymorphic;
 import cn.sliew.carp.framework.kubernetes.model.ContainerImage;
 import cn.sliew.flinkful.kubernetes.common.dict.FlinkJobType;
 import cn.sliew.flinkful.kubernetes.common.dict.FlinkVersion;
+import cn.sliew.flinkful.kubernetes.common.upgrade.JobUpgradeMode;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 
@@ -23,6 +24,11 @@ public class UnknownArtifact implements Artifact, Polymorphic.Unknown {
 
     @Override
     public ContainerImage getContainerImage() {
+        return null;
+    }
+
+    @Override
+    public JobUpgradeMode getUpgradeMode() {
         return null;
     }
 }

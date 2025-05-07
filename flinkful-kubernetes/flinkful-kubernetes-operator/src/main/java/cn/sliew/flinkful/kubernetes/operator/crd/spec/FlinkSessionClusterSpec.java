@@ -2,15 +2,17 @@ package cn.sliew.flinkful.kubernetes.operator.crd.spec;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.fabric8.kubernetes.api.model.Pod;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Map;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FlinkSessionClusterSpec {
 

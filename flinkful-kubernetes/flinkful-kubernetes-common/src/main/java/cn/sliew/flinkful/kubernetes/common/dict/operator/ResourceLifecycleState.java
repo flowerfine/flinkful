@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package cn.sliew.flinkful.kubernetes.common.dict.kubernetes;
+package cn.sliew.flinkful.kubernetes.common.dict.operator;
 
 import cn.sliew.carp.framework.common.dict.DictInstance;
 import com.baomidou.mybatisplus.annotation.EnumValue;
