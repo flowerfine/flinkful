@@ -5,10 +5,7 @@ import cn.sliew.carp.framework.kubernetes.model.ContainerImage;
 import cn.sliew.flinkful.kubernetes.common.artifact.Artifact;
 import cn.sliew.flinkful.kubernetes.common.dict.operator.FlinkOperatorFlinkVersion;
 import cn.sliew.flinkful.kubernetes.operator.crd.spec.*;
-import cn.sliew.flinkful.kubernetes.operator.definitions.handler.flinkconfiguration.FileSystemStepDecorator;
-import cn.sliew.flinkful.kubernetes.operator.definitions.handler.flinkconfiguration.FlinkConfigurationStepDecorator;
-import cn.sliew.flinkful.kubernetes.operator.definitions.handler.flinkconfiguration.FlinkStateStorageStepDecorator;
-import cn.sliew.flinkful.kubernetes.operator.definitions.handler.flinkconfiguration.SessionClusterServiceStepDecorator;
+import cn.sliew.flinkful.kubernetes.operator.definitions.handler.flinkconfiguration.*;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.job.JarJobSpecProvider;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.jobmanagerspec.FileFetcherInitContainerStepDecorator;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.jobmanagerspec.JobManagerSpecStepDecorator;
@@ -46,7 +43,7 @@ public class DefaultFlinkDeploymentSpecProvider implements FlinkDeploymentSpecPr
         this.flinkConfigurationStepDecorators = Arrays.asList(
                 new FileSystemStepDecorator(parameters.getProperties()),
                 new FlinkStateStorageStepDecorator(parameters.getProperties(), parameters.getId()),
-                new SessionClusterServiceStepDecorator()
+                new DeploymentServiceStepDecorator()
         );
         this.podTemplateStepDecorators = Arrays.asList(
                 new FlinkMainContainerStepDecorator(ResourceLabels.getDeploymentLabels(parameters)),
