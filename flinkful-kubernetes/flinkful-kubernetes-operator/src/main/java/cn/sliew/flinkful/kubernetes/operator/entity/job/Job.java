@@ -22,7 +22,7 @@ import java.util.UUID;
 public final class Job {
 
     private final String kind = ResourceKinds.JOB;
-    private final String apiVersion = ResourceVersions.DEFAULT_VERSION;
+    private final String apiVersion = ResourceVersions.FLINK_VERSION;
     private final JobMetadata metadata;
     private final JobSpec spec;
     private final JobStatus status;

@@ -11,7 +11,6 @@ import lombok.Data;
 import lombok.extern.jackson.Jacksonized;
 
 import java.util.Map;
-import java.util.UUID;
 
 @Data
 @Jacksonized
@@ -21,7 +20,7 @@ import java.util.UUID;
 public final class SessionCluster {
 
     private final String kind = ResourceKinds.SESSION_CLUSTER;
-    private final String apiVersion = ResourceVersions.DEFAULT_VERSION;
+    private final String apiVersion = ResourceVersions.FLINK_VERSION;
     private final SessionClusterMetadata metadata;
     private final FlinkSessionClusterSpec spec;
     private final FlinkDeploymentStatus status;

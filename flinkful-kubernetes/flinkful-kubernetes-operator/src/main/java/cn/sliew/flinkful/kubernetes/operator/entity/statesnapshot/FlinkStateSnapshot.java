@@ -21,7 +21,7 @@ import java.util.UUID;
 public class FlinkStateSnapshot {
 
     private final String kind = ResourceKinds.STATE_SNAPSHOT;
-    private final String apiVersion = ResourceVersions.DEFAULT_VERSION;
+    private final String apiVersion = ResourceVersions.FLINK_VERSION;
     private final FlinkStateSnapshotMetadata metadata;
     private final FlinkStateSnapshotSpec spec;
     private final FlinkStateSnapshotStatus status;

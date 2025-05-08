@@ -37,6 +37,7 @@ public enum ResourceNames {
 
     public static final String FILE_FETCHER_FLINKFUL_USRLIB_VOLUME_NAME = "file-fetcher-flinkful-usrlib-volume";
     public static final String FLINKFUL_USRLIB_DIRECTORY = "/flinkful/usrlib/";
+    public static final String FLINKFUL_USRLIB_DIRECTORY_ENV = FLINKFUL_USRLIB_DIRECTORY + "*";
     public static final String FLINKFUL_USRLIB_LOCAL_PATH = LOCAL_SCHEMA + FLINKFUL_USRLIB_DIRECTORY;
 
     public static final String FLINKFUL_SQL_DIRECTORY = "/flinkful/sql/";

@@ -21,7 +21,7 @@ import java.util.UUID;
 public class Deployment {
 
     private final String kind = ResourceKinds.DEPLOYMENT;
-    private final String apiVersion = ResourceVersions.DEFAULT_VERSION;
+    private final String apiVersion = ResourceVersions.FLINK_VERSION;
     private final DeploymentMetadata metadata;
     private final FlinkDeploymentSpec spec;
     private final FlinkDeploymentStatus status;
