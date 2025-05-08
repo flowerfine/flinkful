@@ -63,6 +63,7 @@
         <module>flinkful-cli</module>
         <module>flinkful-rest</module>
         <module>flinkful-kubernetes</module>
+        <module>flinkful-sql-gateway</module>
         <module>flinkful-examples</module>
     </modules>
 
@@ -81,7 +82,7 @@
         <maven.plugin.assembly.version>3.5.0</maven.plugin.assembly.version>
 
         <revision>1.0.3</revision>
-        <carp-parent.version>0.0.78</carp-parent.version>
+        <carp-parent.version>0.0.77</carp-parent.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
         <mapstruct.lombok.binding.version>0.2.0</mapstruct.lombok.binding.version>
         <org.projectlombok.version>1.18.32</org.projectlombok.version>
@@ -166,6 +167,11 @@
             <dependency>
                 <groupId>org.apache.flink</groupId>
                 <artifactId>flink-streaming-java</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-table-runtime</artifactId>
                 <version>${flink.version}</version>
             </dependency>
             <dependency>
