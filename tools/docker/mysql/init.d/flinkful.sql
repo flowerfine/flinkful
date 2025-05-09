@@ -1,63 +1,71 @@
 create database if not exists flinkful default character set utf8mb4 collate utf8mb4_unicode_ci;
 use flinkful;
 
-DROP TABLE IF EXISTS `catalog_store`;
-CREATE TABLE `catalog_store`
+drop table if exists `flinkful_catalog_store`;
+create table `flinkful_catalog_store`
 (
-    id            BIGINT       NOT NULL AUTO_INCREMENT,
-    type          VARCHAR(8) NOT NULL,
-    catalog_name  VARCHAR(256) NOT NULL,
-    configuration TEXT,
-    create_time   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    update_time   DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (id),
-    UNIQUE KEY uniq_catalog (type, catalog_name)
-) ENGINE = InnoDB COMMENT ='catalog';
+    id            bigint       not null auto_increment,
+    `type`        varchar(8)   not null,
+    `name`        varchar(256) not null,
+    configuration text,
+    creator       varchar(32),
+    create_time   datetime     not null default current_timestamp,
+    editor        varchar(32),
+    update_time   datetime     not null default current_timestamp on update current_timestamp,
+    primary key (id),
+    unique key uniq_catalog (`type`, `name`)
+) engine = innodb comment ='catalog store';
 
-DROP TABLE IF EXISTS `catalog_database`;
-CREATE TABLE `catalog_database`
+drop table if exists `flinkful_catalog_database`;
+create table `flinkful_catalog_database`
 (
-    id          BIGINT       NOT NULL AUTO_INCREMENT,
-    type        VARCHAR(8) NOT NULL,
-    catalog     VARCHAR(256) NOT NULL,
-    `name`      VARCHAR(256) NOT NULL,
-    properties  TEXT,
-    remark      VARCHAR(256),
-    create_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    update_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (id),
-    UNIQUE KEY uniq_name (type, catalog, `name`)
-) ENGINE = InnoDB COMMENT ='database';
+    id          bigint       not null auto_increment,
+    `type`      varchar(8)   not null,
+    `catalog`   varchar(256) not null,
+    `name`      varchar(256) not null,
+    properties  text,
+    remark      varchar(256),
+    creator     varchar(32),
+    create_time datetime     not null default current_timestamp,
+    editor      varchar(32),
+    update_time datetime     not null default current_timestamp on update current_timestamp,
+    primary key (id),
+    unique key uniq_name (`type`, `catalog`, `name`)
+) engine = innodb comment ='catalog database';
 
-DROP TABLE IF EXISTS `catalog_table`;
-CREATE TABLE `catalog_table`
+drop table if exists `flinkful_catalog_table`;
+create table `flinkful_catalog_table`
 (
-    id             BIGINT       NOT NULL AUTO_INCREMENT,
-    database_id    BIGINT       NOT NULL,
-    kind           VARCHAR(32)  NOT NULL,
-    `name`         VARCHAR(256) NOT NULL,
-    properties     TEXT,
-    `schema`       TEXT,
-    original_query TEXT,
-    expanded_query TEXT,
-    remark         VARCHAR(256),
-    create_time    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    update_time    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (id),
-    UNIQUE KEY uniq_name (database_id, kind, `name`)
-) ENGINE = InnoDB COMMENT ='table';
+    id             bigint       not null auto_increment,
+    database_id    bigint       not null,
+    kind           varchar(32)  not null,
+    `name`         varchar(256) not null,
+    properties     text,
+    `schema`       text,
+    original_query text,
+    expanded_query text,
+    remark         varchar(256),
+    creator        varchar(32),
+    create_time    datetime     not null default current_timestamp,
+    editor         varchar(32),
+    update_time    datetime     not null default current_timestamp on update current_timestamp,
+    primary key (id),
+    unique key uniq_name (database_id, kind, `name`)
+) engine = innodb comment ='catalog table';
 
-DROP TABLE IF EXISTS catalog_function;
-CREATE TABLE `catalog_function`
+drop table if exists flinkful_catalog_function;
+create table `flinkful_catalog_function`
 (
-    id                BIGINT       NOT NULL AUTO_INCREMENT,
-    database_id       BIGINT       NOT NULL,
-    `name`            VARCHAR(256) NOT NULL,
-    class_name        VARCHAR(256) NOT NULL,
-    function_language VARCHAR(8)   NOT NULL,
-    remark            VARCHAR(256),
-    create_time       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    update_time       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (id),
-    UNIQUE KEY uniq_name (database_id, `name`,)
-) ENGINE = InnoDB COMMENT ='function';
+    id                bigint       not null auto_increment,
+    database_id       bigint       not null,
+    `name`            varchar(256) not null,
+    class_name        varchar(256) not null,
+    function_language varchar(8)   not null,
+    remark            varchar(256),
+    creator           varchar(32),
+    create_time       datetime     not null default current_timestamp,
+    editor            varchar(32),
+    update_time       datetime     not null default current_timestamp on update current_timestamp,
+    primary key (id),
+    unique key uniq_name (database_id, `name`)
+) engine = innodb comment ='catalog function';

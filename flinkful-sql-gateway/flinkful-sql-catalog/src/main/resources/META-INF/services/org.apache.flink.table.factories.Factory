@@ -13,5 +13,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cn.sliew.sakura.catalog.SakuraCatalogFactory
-cn.sliew.sakura.catalog.store.JdbcCatalogStoreFactory
+cn.sliew.flinkful.sql.catalog.sakura.SakuraCatalogFactory
+cn.sliew.flinkful.sql.catalog.store.JdbcCatalogStoreFactory

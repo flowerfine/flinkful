@@ -5,30 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.sliew</groupId>
-        <artifactId>flinkful-sql-gateway</artifactId>
+        <artifactId>flinkful</artifactId>
         <version>1.0.3</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>flinkful-sql-catalog</artifactId>
+    <artifactId>flinkful-dao</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>cn.sliew</groupId>
             <artifactId>carp-framework-mybatis</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>${project.parent.groupId}</groupId>
-            <artifactId>flinkful-dao</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-table-runtime</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-table-planner_${scala.binary.version}</artifactId>
         </dependency>
     </dependencies>
 

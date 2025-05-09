@@ -62,6 +62,7 @@
         <module>flinkful-common</module>
         <module>flinkful-cli</module>
         <module>flinkful-rest</module>
+        <module>flinkful-dao</module>
         <module>flinkful-kubernetes</module>
         <module>flinkful-sql-gateway</module>
         <module>flinkful-examples</module>
@@ -135,6 +136,12 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>flinkful-rest-http</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>flinkful-dao</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
