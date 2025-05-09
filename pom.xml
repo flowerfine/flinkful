@@ -99,7 +99,7 @@
         <maven.plugin.frontend.version>1.6</maven.plugin.frontend.version>
         <maven.plugin.assembly.version>3.5.0</maven.plugin.assembly.version>
 
-        <revision>1.0.3</revision>
+        <revision>1.0.4</revision>
         <carp-parent.version>0.0.78</carp-parent.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
         <mapstruct.lombok.binding.version>0.2.0</mapstruct.lombok.binding.version>
