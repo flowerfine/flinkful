@@ -16,50 +16,31 @@ Hope user like and appreciate our work.
 
 ## Quick Start
 
-Flinkful helps people open the door to Flink management and provides `flinkful-examples` module which demonstrates creating session cluster, submitting job and access jobs and cluster status.
-
-* `flinkful-common-examples`. helper module contains flink environment and job utility. 
-* `flinkful-cli-examples`. modules contains how to create session cluster and submit job.
-* `flinkful-rest-examples`. modules contains how to access jobs and cluster status.
-* `flinkful-rest-examples`. modules contains how to access 1.16 flink sql gateway.
-
-Get started with Flinkful firstly, add Flinkful as a dependency in your Java project. 
-
 If you're using Maven, that looks like this:
 
 ```xml
-<repositories>
-    <repository>
-        <id>sonatype-nexus</id>
-        <name>Sonatype Nexus Snapshots</name>
-        <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
-    </repository>
-</repositories>
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>cn.sliew</groupId>
+            <artifactId>flinkful-dependencies</artifactId>
+            <version>${latest}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
 
-<dependencies>
-    <dependency>
-        <groupId>cn.sliew</groupId>
-        <artifactId>flinkful-cli-base</artifactId>
-        <version>${flinkful.version}</version>
-    </dependency>
-    <dependency>
-        <groupId>cn.sliew</groupId>
-        <artifactId>flinkful-cli-descriptor</artifactId>
-        <version>${flinkful.version}</version>
-    </dependency>
-    
-    <dependency>
-        <groupId>cn.sliew</groupId>
-        <artifactId>flinkful-rest-base</artifactId>
-        <version>${flinkful.version}</version>
-    </dependency>
-    <dependency>
-        <groupId>cn.sliew</groupId>
-        <artifactId>flinkful-rest-client</artifactId>
-        <version>${flinkful.version}</version>
-    </dependency>
-</dependencies>
+<!-- 或者 -->
+<parent>
+    <groupId>cn.sliew</groupId>
+    <artifactId>flinkful-spring-boot-parent</artifactId>
+    <version>${latest}</version>
+    <relativePath/>
+</parent>
 ```
+
+flinkful depends on [carp-parent](https://github.com/flowerfine/carp-parent)
 
 ## How Flinkful?
 
