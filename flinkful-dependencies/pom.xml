@@ -30,7 +30,8 @@
     <packaging>pom</packaging>
 
     <properties>
-        <carp-parent.version>0.0.79</carp-parent.version>
+        <carp-parent.version>0.0.78</carp-parent.version>
+        <scala.binary.version>2.12</scala.binary.version>
         <flink.version>1.19.2</flink.version>
         <flink.kubernetes.operator.version>1.11.0</flink.kubernetes.operator.version>
     </properties>
