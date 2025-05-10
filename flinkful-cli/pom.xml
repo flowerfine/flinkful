@@ -22,9 +22,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.sliew</groupId>
-        <artifactId>flinkful</artifactId>
+        <artifactId>flinkful-dependencies</artifactId>
         <version>${revision}</version>
-        <relativePath>../pom.xml</relativePath>
+        <relativePath>../flinkful-dependencies/pom.xml</relativePath>
     </parent>
     <artifactId>flinkful-cli</artifactId>
     <packaging>pom</packaging>
@@ -34,15 +34,5 @@
         <module>flinkful-cli-frontend</module>
         <module>flinkful-cli-descriptor</module>
     </modules>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>flinkful-cli-base</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
 </project>

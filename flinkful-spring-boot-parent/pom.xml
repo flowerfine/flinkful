@@ -22,28 +22,23 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.sliew</groupId>
-        <artifactId>flinkful-dependencies</artifactId>
+        <artifactId>flinkful</artifactId>
         <version>${revision}</version>
-        <relativePath>../flinkful-dependencies/pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>flinkful-rest</artifactId>
+    <artifactId>flinkful-spring-boot-parent</artifactId>
     <packaging>pom</packaging>
-
-    <modules>
-        <module>flinkful-rest-base</module>
-        <module>flinkful-rest-http</module>
-        <module>flinkful-rest-client</module>
-    </modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>flinkful-rest-base</artifactId>
-                <version>${project.version}</version>
+                <groupId>cn.sliew</groupId>
+                <artifactId>flinkful-dependencies</artifactId>
+                <version>${revision}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
-
 
 </project>

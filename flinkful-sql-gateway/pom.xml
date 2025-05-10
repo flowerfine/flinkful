@@ -22,9 +22,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.sliew</groupId>
-        <artifactId>flinkful</artifactId>
+        <artifactId>flinkful-dependencies</artifactId>
         <version>${revision}</version>
-        <relativePath>../pom.xml</relativePath>
+        <relativePath>../flinkful-dependencies/pom.xml</relativePath>
     </parent>
     <artifactId>flinkful-sql-gateway</artifactId>
     <packaging>pom</packaging>
