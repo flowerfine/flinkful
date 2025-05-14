@@ -46,7 +46,7 @@ public class DemoSessionClusterResourceDefinitionFactory implements SessionClust
         FlinkSessionClusterMetadataProvider flinkSessionClusterMetadataProvider = getFlinkSessionClusterMetadataProvider(parameters);
         FlinkSessionClusterSpecProvider flinkSessionClusterSpecProvider = getFlinkSessionClusterSpecProvider(parameters);
         SessionCluster sessionCluster = SessionCluster.builder()
-                .metadata(flinkSessionClusterMetadataProvider.getMetadata())
+                .internalMetadata(flinkSessionClusterMetadataProvider.getMetadata())
                 .spec(flinkSessionClusterSpecProvider.getSpec())
                 .build();
         List<HasMetadata> additionalResources = flinkSessionClusterSpecProvider.getAdditionalResources();
