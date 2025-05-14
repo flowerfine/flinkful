@@ -30,7 +30,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <carp-parent.version>0.0.78</carp-parent.version>
+        <carp-parent.version>0.0.79</carp-parent.version>
         <scala.binary.version>2.12</scala.binary.version>
         <flink.version>1.19.2</flink.version>
         <flink.kubernetes.operator.version>1.11.0</flink.kubernetes.operator.version>
@@ -90,6 +90,10 @@
                 <artifactId>flinkful-dao</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>flinkful-sql-catalog</artifactId>
+            </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
@@ -104,6 +108,16 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>flinkful-kubernetes-operator</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>flinkful-kubernetes-sql-gateway</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>flinkful-kubernetes-controller</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

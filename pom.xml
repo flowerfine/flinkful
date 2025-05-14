@@ -58,22 +58,14 @@
         <snapshotRepository>
             <id>sonatype-nexus</id>
             <name>Sonatype Nexus Snapshots</name>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+            <url>https://central.sonatype.org</url>
         </snapshotRepository>
         <repository>
             <id>sonatype-nexus</id>
             <name>Sonatype Nexus Release</name>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <url>https://central.sonatype.org</url>
         </repository>
     </distributionManagement>
-
-    <repositories>
-        <repository>
-            <id>sonatype-nexus</id>
-            <name>Sonatype Nexus Snapshots</name>
-            <url>https://repo1.maven.org/maven2</url>
-        </repository>
-    </repositories>
 
     <modules>
         <module>flinkful-dependencies</module>
@@ -88,6 +80,9 @@
     </modules>
 
     <properties>
+        <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <revision>1.0.5</revision>
     </properties>
 
