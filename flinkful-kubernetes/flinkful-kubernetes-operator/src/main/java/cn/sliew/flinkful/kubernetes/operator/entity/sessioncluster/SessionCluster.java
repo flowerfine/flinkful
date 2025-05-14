@@ -33,10 +33,12 @@ public final class SessionCluster implements HasMetadata {
     @Builder(toBuilder = true)
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class SessionClusterMetadata {
+        private final String id;
         private final String name;
         private final String namespace;
         private final Map<String, String> labels;
         private final Map<String, String> annotations;
+        private final Integer resourceVersion;
     }
 
     @Data

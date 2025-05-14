@@ -4,17 +4,14 @@ import cn.sliew.flinkful.kubernetes.operator.util.ResourceKinds;
 import cn.sliew.flinkful.kubernetes.operator.util.ResourceVersions;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.google.common.collect.ImmutableList;
 import io.fabric8.kubernetes.api.model.*;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NonNull;
 import lombok.extern.jackson.Jacksonized;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @Data
 @Jacksonized
@@ -34,11 +31,12 @@ public class FileFetcher {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class FileFetcherMetadata {
 
-        private final UUID id;
+        private final String id;
         private final String name;
         private final String namespace;
         private final Map<String, String> labels;
         private final Map<String, String> annotations;
+        private final Integer resourceVersion;
     }
 
     @Data

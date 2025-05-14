@@ -13,7 +13,6 @@ import lombok.extern.jackson.Jacksonized;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
 
 @Data
 @Jacksonized
@@ -38,16 +37,17 @@ public final class Job {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class JobMetadata {
 
-        private final UUID id;
+        private final String id;
         private final String name;
         private final String namespace;
 
-        private final UUID deploymentId;
+        private final String deploymentId;
         private final String deploymentName;
-        private final UUID sessionClusterId;
+        private final String sessionClusterId;
         private final String sessionClusterName;
 
         private final Map<String, String> labels;
         private final Map<String, String> annotations;
+        private final Integer resourceVersion;
     }
 }
