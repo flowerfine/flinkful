@@ -167,7 +167,6 @@
                             <!-- sonatype-nexus 和 github workflow，distributionManagement 都是一一对应的，勿改-->
                             <publishingServerId>sonatype-nexus</publishingServerId>
                             <autoPublish>true</autoPublish>
-                            <waitUntil>uploaded</waitUntil>
                         </configuration>
                     </plugin>
                 </plugins>
