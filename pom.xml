@@ -83,7 +83,7 @@
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <revision>1.0.6</revision>
+        <revision>1.0.7</revision>
     </properties>
 
     <profiles>
