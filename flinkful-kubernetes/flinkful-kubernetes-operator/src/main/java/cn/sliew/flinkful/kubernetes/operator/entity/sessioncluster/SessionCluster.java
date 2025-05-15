@@ -21,11 +21,8 @@ import cn.sliew.flinkful.kubernetes.operator.crd.spec.FlinkSessionClusterSpec;
 import cn.sliew.flinkful.kubernetes.operator.crd.status.FlinkDeploymentStatus;
 import cn.sliew.flinkful.kubernetes.operator.util.ResourceKinds;
 import cn.sliew.flinkful.kubernetes.operator.util.ResourceVersions;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.fabric8.kubernetes.api.model.HasMetadata;
-import io.fabric8.kubernetes.api.model.ObjectMeta;
 import lombok.Builder;
 import lombok.Data;
 import lombok.With;
@@ -39,12 +36,11 @@ import java.util.Map;
 @Builder(toBuilder = true)
 @JsonPropertyOrder({"kind", "apiVersion", "metadata", "spec", "status"})
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class SessionCluster implements HasMetadata {
+public final class SessionCluster {
 
     private final String kind = ResourceKinds.SESSION_CLUSTER;
     private final String apiVersion = ResourceVersions.FLINK_VERSION;
-    @JsonIgnore
-    private final SessionClusterMetadata internalMetadata;
+    private final SessionClusterMetadata metadata;
     private final FlinkSessionClusterSpec spec;
     private final FlinkDeploymentStatus status;
 
@@ -78,23 +74,4 @@ public final class SessionCluster implements HasMetadata {
         private final String sessionClusterName;
     }
 
-    @Override
-    public void setMetadata(ObjectMeta objectMeta) {
-
-    }
-
-    @Override
-    public ObjectMeta getMetadata() {
-        return new ObjectMeta().edit()
-                .withName(internalMetadata.getName())
-                .withNamespace(internalMetadata.getNamespace())
-                .withLabels(internalMetadata.getLabels())
-                .withAnnotations(internalMetadata.getAnnotations())
-                .build();
-    }
-
-    @Override
-    public void setApiVersion(String s) {
-
-    }
 }
