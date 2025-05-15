@@ -15,7 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package cn.sliew.flinkful.kubernetes.operator.crd.util;
 
 import cn.sliew.flinkful.kubernetes.operator.crd.reconciler.ReconciliationMetadata;
