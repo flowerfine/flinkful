@@ -11,12 +11,16 @@ import cn.sliew.flinkful.kubernetes.operator.definitions.handler.DefaultFlinkDep
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.FlinkDeploymentMetadataProvider;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.FlinkDeploymentSpecProvider;
 import cn.sliew.flinkful.kubernetes.operator.entity.deployment.Deployment;
+import cn.sliew.flinkful.kubernetes.operator.entity.logging.DefaultLoggingTemplate;
+import cn.sliew.flinkful.kubernetes.operator.entity.logging.Log4jTemplate;
+import cn.sliew.flinkful.kubernetes.operator.entity.logging.LoggerPair;
 import cn.sliew.flinkful.kubernetes.operator.entity.logging.Logging;
 import cn.sliew.flinkful.kubernetes.operator.parameters.DeploymentParameters;
 import cn.sliew.flinkful.kubernetes.operator.util.ResourceLabels;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.Level;
 
 import java.util.Collections;
 import java.util.List;
@@ -39,12 +43,19 @@ public class DemoDeploymentResourceDefinitionFactory implements DeploymentResour
         s3.setSecretKey("password");
         properties.setS3(s3);
 
+        LoggerPair loggerPair = new LoggerPair();
+        loggerPair.setLogger("cn.sliew");
+        loggerPair.setLevel(Level.INFO.name());
+        Log4jTemplate log4jTemplate = DefaultLoggingTemplate.DEFAULT_PROFILE.toBuilder().log4jLogger(loggerPair).build();
+        Logging logging = DefaultLoggingTemplate.buildLogger(log4jTemplate);
+
         DeploymentParameters parameters = DeploymentParameters.builder()
                 .id(DEFAULT_DEPLOYMENT_ID)
                 .name(StringUtils.truncate(StringUtils.replace(DEFAULT_DEPLOYMENT_NAME, "-", ""), 45))
                 .namespace("default")
                 .internalNamespace("default")
                 .properties(properties)
+                .logging(logging)
                 .artifact(JarArtifact.builder()
                         .jarUri("https://repo1.maven.org/maven2/org/apache/flink/flink-examples-streaming/1.19.0/flink-examples-streaming-1.19.0-TopSpeedWindowing.jar")
                         .entryClass("org.apache.flink.streaming.examples.windowing.TopSpeedWindowing")

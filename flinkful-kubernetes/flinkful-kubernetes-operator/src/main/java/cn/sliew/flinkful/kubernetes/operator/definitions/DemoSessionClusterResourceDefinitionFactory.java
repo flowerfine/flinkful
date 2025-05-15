@@ -6,12 +6,17 @@ import cn.sliew.flinkful.kubernetes.common.dict.FlinkVersion;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.DefaultFlinkSessionClusterSpecProvider;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.FlinkSessionClusterMetadataProvider;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.FlinkSessionClusterSpecProvider;
+import cn.sliew.flinkful.kubernetes.operator.entity.logging.DefaultLoggingTemplate;
+import cn.sliew.flinkful.kubernetes.operator.entity.logging.Log4jTemplate;
+import cn.sliew.flinkful.kubernetes.operator.entity.logging.LoggerPair;
+import cn.sliew.flinkful.kubernetes.operator.entity.logging.Logging;
 import cn.sliew.flinkful.kubernetes.operator.entity.sessioncluster.SessionCluster;
 import cn.sliew.flinkful.kubernetes.operator.parameters.SessionClusterParameters;
 import cn.sliew.flinkful.kubernetes.operator.util.ResourceLabels;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.Level;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +39,14 @@ public class DemoSessionClusterResourceDefinitionFactory implements SessionClust
         s3.setSecretKey("password");
         properties.setS3(s3);
 
+
+        LoggerPair loggerPair = new LoggerPair();
+        loggerPair.setLogger("cn.sliew");
+        loggerPair.setLevel(Level.INFO.name());
+        Log4jTemplate log4jTemplate = DefaultLoggingTemplate.DEFAULT_PROFILE.toBuilder().log4jLogger(loggerPair).build();
+        Logging logging = DefaultLoggingTemplate.buildLogger(log4jTemplate);
+
+
         SessionClusterParameters parameters = SessionClusterParameters.builder()
                 .id(DEFAULT_SESSION_CLUSTER_ID)
                 .name(StringUtils.truncate(StringUtils.replace(DEFAULT_SESSION_CLUSTER_NAME, "-", ""), 45))
@@ -41,6 +54,7 @@ public class DemoSessionClusterResourceDefinitionFactory implements SessionClust
                 .internalNamespace("default")
                 .flinkVersion(FlinkVersion.V_1_18_1)
                 .properties(properties)
+                .logging(logging)
                 .build();
 
         FlinkSessionClusterMetadataProvider flinkSessionClusterMetadataProvider = getFlinkSessionClusterMetadataProvider(parameters);

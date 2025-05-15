@@ -46,6 +46,10 @@
             <groupId>cn.sliew</groupId>
             <artifactId>carp-framework-storage</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.sliew</groupId>
+            <artifactId>carp-framework-template-jinja</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>

@@ -72,7 +72,7 @@ logger.netty.level = OFF
 # User logger here
 {%- if log4jLoggers %}
 {%- for log4jLogger in log4jLoggers %}
-logger.user{{ loop.index }}.name = {{ log4jLogger.logger }}
-logger.user{{ loop.index }}.level = {{ log4jLogger.level }}
+logger.{{ log4jLogger.logger }}.name = {{ log4jLogger.logger }}
+logger.{{ log4jLogger.logger }}.level = {{ log4jLogger.level }}
 {%- endfor %}
 {%- endif %}
