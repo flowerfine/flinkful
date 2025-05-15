@@ -43,6 +43,7 @@ public final class SessionCluster implements HasMetadata {
 
     private final String kind = ResourceKinds.SESSION_CLUSTER;
     private final String apiVersion = ResourceVersions.FLINK_VERSION;
+    @JsonIgnore
     private final SessionClusterMetadata internalMetadata;
     private final FlinkSessionClusterSpec spec;
     private final FlinkDeploymentStatus status;
@@ -77,13 +78,11 @@ public final class SessionCluster implements HasMetadata {
         private final String sessionClusterName;
     }
 
-    @JsonIgnore
     @Override
     public void setMetadata(ObjectMeta objectMeta) {
 
     }
 
-    @JsonIgnore
     @Override
     public ObjectMeta getMetadata() {
         return new ObjectMeta().edit()

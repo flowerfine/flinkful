@@ -28,8 +28,8 @@ import org.apache.flink.kubernetes.shaded.io.fabric8.kubernetes.client.Namespace
 public class TestMain {
 
     public static void main(String[] args) {
-//        String yaml = testSessionCluster();
-        String yaml = testDeployment();
+        String yaml = testSessionCluster();
+//        String yaml = testDeployment();
 //        String yaml = testStateSnapshot();
         System.out.println(yaml);
 
