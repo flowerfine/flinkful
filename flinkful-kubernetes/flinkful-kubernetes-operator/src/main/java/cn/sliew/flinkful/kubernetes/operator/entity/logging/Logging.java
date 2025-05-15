@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.jackson.Jacksonized;
+import org.apache.flink.kubernetes.utils.Constants;
 
 @Data
 @Jacksonized
@@ -28,6 +29,10 @@ import lombok.extern.jackson.Jacksonized;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Logging {
 
-    private final String name;
-    private final String level;
+    public static final String LOG4j_CONSOLE_PROPERTIES = Constants.CONFIG_FILE_LOG4J_NAME;
+    public static final String LOGBACK_CONSOLE_XML = Constants.CONFIG_FILE_LOGBACK_NAME;
+
+    @Builder.Default
+    private final String fileName = LOG4j_CONSOLE_PROPERTIES;
+    private final String fileContent;
 }

@@ -11,6 +11,7 @@ import cn.sliew.flinkful.kubernetes.operator.definitions.handler.DefaultFlinkDep
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.FlinkDeploymentMetadataProvider;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.FlinkDeploymentSpecProvider;
 import cn.sliew.flinkful.kubernetes.operator.entity.deployment.Deployment;
+import cn.sliew.flinkful.kubernetes.operator.entity.logging.Logging;
 import cn.sliew.flinkful.kubernetes.operator.parameters.DeploymentParameters;
 import cn.sliew.flinkful.kubernetes.operator.util.ResourceLabels;
 import io.fabric8.kubernetes.api.model.HasMetadata;

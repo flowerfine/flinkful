@@ -5,7 +5,10 @@ import cn.sliew.carp.framework.kubernetes.model.ContainerImage;
 import cn.sliew.flinkful.kubernetes.common.artifact.Artifact;
 import cn.sliew.flinkful.kubernetes.common.dict.operator.FlinkOperatorFlinkVersion;
 import cn.sliew.flinkful.kubernetes.operator.crd.spec.*;
-import cn.sliew.flinkful.kubernetes.operator.definitions.handler.flinkconfiguration.*;
+import cn.sliew.flinkful.kubernetes.operator.definitions.handler.flinkconfiguration.DeploymentServiceStepDecorator;
+import cn.sliew.flinkful.kubernetes.operator.definitions.handler.flinkconfiguration.FileSystemStepDecorator;
+import cn.sliew.flinkful.kubernetes.operator.definitions.handler.flinkconfiguration.FlinkConfigurationStepDecorator;
+import cn.sliew.flinkful.kubernetes.operator.definitions.handler.flinkconfiguration.FlinkStateStorageStepDecorator;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.job.JarJobSpecProvider;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.jobmanagerspec.FileFetcherInitContainerStepDecorator;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.jobmanagerspec.JobManagerSpecStepDecorator;
@@ -13,10 +16,10 @@ import cn.sliew.flinkful.kubernetes.operator.definitions.handler.podtemplate.Fil
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.podtemplate.FlinkFileSystemPluginStepDecorator;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.podtemplate.FlinkMainContainerStepDecorator;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.podtemplate.PodTemplateStepDecorator;
+import cn.sliew.flinkful.kubernetes.operator.entity.logging.Logging;
 import cn.sliew.flinkful.kubernetes.operator.parameters.DeploymentParameters;
 import cn.sliew.flinkful.kubernetes.operator.util.FlinkConfigurations;
 import cn.sliew.flinkful.kubernetes.operator.util.ResourceLabels;
-import com.google.common.base.Joiner;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.PodBuilder;
@@ -122,9 +125,11 @@ public class DefaultFlinkDeploymentSpecProvider implements FlinkDeploymentSpecPr
     }
 
     private Map<String, String> getLogConfiguration() {
-        Map<String, String> loggers = Map.of("cn.sliew", "DEBUG");
-        String logConfig = Joiner.on("\n").withKeyValueSeparator(" = ").join(loggers);
-        return Map.of("log4j-console.properties", logConfig);
+        Logging logging = parameters.getLogging();
+        if (logging != null) {
+            return Map.of(logging.getFileName(), logging.getFileContent());
+        }
+        return null;
     }
 
     private Map<String, String> getFlinkConfiguration() {

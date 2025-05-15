@@ -15,10 +15,10 @@ import cn.sliew.flinkful.kubernetes.operator.definitions.handler.podtemplate.Fil
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.podtemplate.FlinkFileSystemPluginStepDecorator;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.podtemplate.FlinkMainContainerStepDecorator;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.podtemplate.PodTemplateStepDecorator;
+import cn.sliew.flinkful.kubernetes.operator.entity.logging.Logging;
 import cn.sliew.flinkful.kubernetes.operator.parameters.SessionClusterParameters;
 import cn.sliew.flinkful.kubernetes.operator.util.FlinkConfigurations;
 import cn.sliew.flinkful.kubernetes.operator.util.ResourceLabels;
-import com.google.common.base.Joiner;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.PodBuilder;
@@ -122,9 +122,11 @@ public class DefaultFlinkSessionClusterSpecProvider implements FlinkSessionClust
     }
 
     private Map<String, String> getLogConfiguration() {
-        Map<String, String> loggers = Map.of("cn.sliew", "DEBUG");
-        String logConfig = Joiner.on("\n").withKeyValueSeparator(" = ").join(loggers);
-        return Map.of("log4j-console.properties", logConfig);
+        Logging logging = parameters.getLogging();
+        if (logging != null) {
+            return Map.of(logging.getFileName(), logging.getFileContent());
+        }
+        return null;
     }
 
     private Map<String, String> getFlinkConfiguration() {
