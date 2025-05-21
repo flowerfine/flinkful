@@ -70,9 +70,9 @@ logger.netty.name = org.jboss.netty.channel.DefaultChannelPipeline
 logger.netty.level = OFF
 
 # User logger here
-{%- if log4jLoggers %}
-{%- for log4jLogger in log4jLoggers %}
-logger.{{ log4jLogger.logger }}.name = {{ log4jLogger.logger }}
-logger.{{ log4jLogger.logger }}.level = {{ log4jLogger.level }}
+{%- if loggers %}
+{%- for logger in loggers %}
+logger.{{ logger.logger }}.name = {{ logger.logger }}
+logger.{{ logger.logger }}.level = {{ logger.level }}
 {%- endfor %}
 {%- endif %}

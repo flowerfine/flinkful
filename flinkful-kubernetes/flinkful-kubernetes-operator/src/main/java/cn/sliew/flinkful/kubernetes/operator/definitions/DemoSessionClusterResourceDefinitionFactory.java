@@ -24,7 +24,7 @@ import cn.sliew.flinkful.kubernetes.operator.definitions.handler.DefaultFlinkSes
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.FlinkSessionClusterMetadataProvider;
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.FlinkSessionClusterSpecProvider;
 import cn.sliew.flinkful.kubernetes.operator.entity.logging.DefaultLoggingTemplate;
-import cn.sliew.flinkful.kubernetes.operator.entity.logging.Log4jTemplate;
+import cn.sliew.flinkful.kubernetes.operator.entity.logging.LogTemplate;
 import cn.sliew.flinkful.kubernetes.operator.entity.logging.LoggerPair;
 import cn.sliew.flinkful.kubernetes.operator.entity.logging.Logging;
 import cn.sliew.flinkful.kubernetes.operator.entity.sessioncluster.SessionCluster;
@@ -60,8 +60,8 @@ public class DemoSessionClusterResourceDefinitionFactory implements SessionClust
         LoggerPair loggerPair = new LoggerPair();
         loggerPair.setLogger("cn.sliew");
         loggerPair.setLevel(Level.INFO.name());
-        Log4jTemplate log4jTemplate = DefaultLoggingTemplate.DEFAULT_PROFILE.toBuilder().log4jLogger(loggerPair).build();
-        Logging logging = DefaultLoggingTemplate.buildLogger(log4jTemplate);
+        LogTemplate logTemplate = DefaultLoggingTemplate.DEFAULT_PROFILE.toBuilder().logger(loggerPair).build();
+        Logging logging = DefaultLoggingTemplate.buildLogger(Logging.LOGBACK_CONSOLE_XML, logTemplate);
 
 
         SessionClusterParameters parameters = SessionClusterParameters.builder()

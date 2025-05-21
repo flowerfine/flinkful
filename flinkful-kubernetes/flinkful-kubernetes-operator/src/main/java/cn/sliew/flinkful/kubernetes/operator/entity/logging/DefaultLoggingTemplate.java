@@ -29,27 +29,29 @@ public enum DefaultLoggingTemplate {
     ;
 
     private static final String DEFAULT_TEMPLATE_NAME = "default";
-    private static final String DEFAULT_TEMPLATE_PATH = "/default-log4j-console.tpl";
+    private static final String DEFAULT_LOGBACK_TEMPLATE_PATH = "/default-logback-console.tpl";
+    private static final String DEFAULT_LOG4J_TEMPLATE_PATH = "/default-log4j-console.tpl";
+    private static final String DEFAULT_TEMPLATE_PATH = DEFAULT_LOGBACK_TEMPLATE_PATH;
 
-    public static final Log4jTemplate DEFAULT_PROFILE = Log4jTemplate.builder()
+    public static final LogTemplate DEFAULT_PROFILE = LogTemplate.builder()
             .name(DEFAULT_TEMPLATE_NAME)
-            .log4jTemplate(loadDefaultTemplate())
+            .template(loadDefaultTemplate())
             .build();
 
     private static String loadDefaultTemplate() {
         try {
             return ResourceUtil.loadClassPathResource(DEFAULT_TEMPLATE_PATH);
         } catch (IOException e) {
-            throw new RuntimeException("Load default log4j template error", e);
+            throw new RuntimeException("Load default default template error", e);
         }
     }
 
-    public static Logging buildLogger(Log4jTemplate log4jTemplate) {
+    public static Logging buildLogger(String fileName, LogTemplate template) {
         Jinjava jinjava = JinjaFactory.getInstance();
-        Map<String, Object> params = JacksonUtil.toMap(JacksonUtil.toJsonNode(log4jTemplate));
-        String renderedFileContent = jinjava.render(log4jTemplate.getLog4jTemplate(), params);
+        Map<String, Object> params = JacksonUtil.toMap(JacksonUtil.toJsonNode(template));
+        String renderedFileContent = jinjava.render(template.getTemplate(), params);
         return Logging.builder()
-                .fileName(Logging.LOG4j_CONSOLE_PROPERTIES)
+                .fileName(fileName)
                 .fileContent(renderedFileContent)
                 .build();
     }

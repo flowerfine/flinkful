@@ -29,7 +29,7 @@ import cn.sliew.flinkful.kubernetes.operator.definitions.handler.FlinkDeployment
 import cn.sliew.flinkful.kubernetes.operator.definitions.handler.FlinkDeploymentSpecProvider;
 import cn.sliew.flinkful.kubernetes.operator.entity.deployment.Deployment;
 import cn.sliew.flinkful.kubernetes.operator.entity.logging.DefaultLoggingTemplate;
-import cn.sliew.flinkful.kubernetes.operator.entity.logging.Log4jTemplate;
+import cn.sliew.flinkful.kubernetes.operator.entity.logging.LogTemplate;
 import cn.sliew.flinkful.kubernetes.operator.entity.logging.LoggerPair;
 import cn.sliew.flinkful.kubernetes.operator.entity.logging.Logging;
 import cn.sliew.flinkful.kubernetes.operator.parameters.DeploymentParameters;
@@ -63,8 +63,8 @@ public class DemoDeploymentResourceDefinitionFactory implements DeploymentResour
         LoggerPair loggerPair = new LoggerPair();
         loggerPair.setLogger("cn.sliew");
         loggerPair.setLevel(Level.INFO.name());
-        Log4jTemplate log4jTemplate = DefaultLoggingTemplate.DEFAULT_PROFILE.toBuilder().log4jLogger(loggerPair).build();
-        Logging logging = DefaultLoggingTemplate.buildLogger(log4jTemplate);
+        LogTemplate logTemplate = DefaultLoggingTemplate.DEFAULT_PROFILE.toBuilder().logger(loggerPair).build();
+        Logging logging = DefaultLoggingTemplate.buildLogger(Logging.LOGBACK_CONSOLE_XML, logTemplate);
 
         DeploymentParameters parameters = DeploymentParameters.builder()
                 .id(DEFAULT_DEPLOYMENT_ID)

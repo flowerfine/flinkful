@@ -33,6 +33,6 @@ public class Logging {
     public static final String LOGBACK_CONSOLE_XML = Constants.CONFIG_FILE_LOGBACK_NAME;
 
     @Builder.Default
-    private final String fileName = LOG4j_CONSOLE_PROPERTIES;
+    private final String fileName = LOGBACK_CONSOLE_XML;
     private final String fileContent;
 }

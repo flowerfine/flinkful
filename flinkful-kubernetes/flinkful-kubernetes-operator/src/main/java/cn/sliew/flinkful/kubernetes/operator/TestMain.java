@@ -42,7 +42,7 @@ public class TestMain {
     private static String testSessionCluster() {
         DemoSessionClusterResourceDefinitionFactory sessionClusterResourceDefinitionFactory = new DemoSessionClusterResourceDefinitionFactory();
         SessionClusterResourceDefinition sessionClusterResourceDefinition = sessionClusterResourceDefinitionFactory.create();
-        return Serialization.asJson(sessionClusterResourceDefinition.getResource());
+        return Serialization.asYaml(sessionClusterResourceDefinition.getResource());
     }
 
     private static String testDeployment() {

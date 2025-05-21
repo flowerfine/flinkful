@@ -32,14 +32,14 @@ import java.util.List;
 @Jacksonized
 @Builder(toBuilder = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Log4jTemplate {
+public class LogTemplate {
 
     public static final String ROOT_LOGGER_LEVEL = Level.INFO.name();
 
     private final String name;
-    private final String log4jTemplate;
+    private final String template;
     @Builder.Default
     private final String rootLoggerLevel = ROOT_LOGGER_LEVEL;
     @Singular
-    private final List<LoggerPair> log4jLoggers;
+    private final List<LoggerPair> loggers;
 }
