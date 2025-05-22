@@ -29,9 +29,17 @@ on:
       image:
         required: true
         type: string
-      hub:
+      registry:
         required: true
         type: string
+      repository:
+        required: true
+        type: string
+    secrets:
+      HUB_USERNAME:
+        required: true
+      HUB_PASSWORD:
+        required: true
 
 jobs:
   release:
@@ -56,7 +64,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            $(echo "${{ inputs.hub }}" | jq -r '.registry')/$(echo "${{ inputs.hub }}" | jq -r '.repository')/${{ inputs.image }}
+            ${{ inputs.registry }}/${{ inputs.repository }}/${{ inputs.image }}
           tags: |
             type=raw,value=latest
             type=semver,event=tag,pattern={{version}}
@@ -64,9 +72,9 @@ jobs:
       - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:
-          registry: $(echo "${{ inputs.hub }}" | jq -r '.registry')
-          username: $(echo "${{ inputs.hub }}" | jq -r '.username')
-          password: $(echo "${{ inputs.hub }}" | jq -r '.password')
+          registry: ${{ inputs.registry }}
+          username: ${{ secrets.HUB_PASSWORD }}
+          password: ${{ secrets.HUB_PASSWORD }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
         with:

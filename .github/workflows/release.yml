@@ -41,8 +41,13 @@ jobs:
         os: [ ubuntu-latest ]
         jdk: [ 17 ]
         image: [ flink ]
-    uses: ./.github/workflows/release-maven.yml
+    uses: ./.github/workflows/release-image.yml
     with:
       os: ${{ matrix.os }}
       jdk: ${{ matrix.jdk }}
-      hub: '{"registry": "ghcr.io", "repository": "${{ github.repository }}", "username": "${{ github.actor }}", "password":"${{ secrets.GITHUB_TOKEN }}"}'
+      image: ${{ matrix.image }}
+      registry: ghcr.io
+      repository: ${{ github.repository }}
+    secrets:
+      HUB_USERNAME: ${{ github.actor }}
+      HUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
