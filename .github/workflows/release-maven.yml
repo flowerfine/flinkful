@@ -18,22 +18,27 @@ name: Release
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - 'v*'
+  workflow_call:
+    inputs:
+      os:
+        required: true
+        type: string
+      jdk:
+        required: true
+        type: string
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Set up JDK 17
+      - name: Set up JDK ${{ inputs.jdk }}
         uses: actions/setup-java@v4
         with:
-          java-version: 17
+          java-version: ${{ inputs.jdk }}
           distribution: temurin
           cache: maven
           server-id: sonatype-nexus

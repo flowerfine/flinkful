@@ -28,7 +28,7 @@ on:
         type: string
     outputs:
       dist_name:
-        description: "carp-dist output name"
+        description: "dist output name"
         value: ${{ jobs.build_maven.outputs.dist_name }}
 
 jobs:
@@ -56,5 +56,3 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./**/target/site/jacoco/jacoco.xml
           verbose: true
-      
-      
