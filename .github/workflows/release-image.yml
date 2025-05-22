@@ -66,7 +66,6 @@ jobs:
           images: |
             ${{ inputs.registry }}/${{ inputs.repository }}/${{ inputs.image }}
           tags: |
-            type=raw,value=latest
             type=semver,event=tag,pattern={{version}}
             type=semver,event=tag,pattern={{major}}.{{minor}}
       - name: Log in to the Container registry
