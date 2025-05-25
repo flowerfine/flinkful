@@ -69,7 +69,7 @@ public class DemoSessionClusterResourceDefinitionFactory implements SessionClust
                 .name(StringUtils.truncate(StringUtils.replace(DEFAULT_SESSION_CLUSTER_NAME, "-", ""), 45))
                 .namespace("default")
                 .internalNamespace("default")
-                .flinkVersion(FlinkVersion.V_1_18_1)
+                .flinkVersion(FlinkVersion.V_1_19_2)
                 .properties(properties)
                 .logging(logging)
                 .build();

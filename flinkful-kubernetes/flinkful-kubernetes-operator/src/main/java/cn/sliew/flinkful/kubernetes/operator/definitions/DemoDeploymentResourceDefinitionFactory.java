@@ -77,7 +77,7 @@ public class DemoDeploymentResourceDefinitionFactory implements DeploymentResour
                         .jarUri("https://repo1.maven.org/maven2/org/apache/flink/flink-examples-streaming/1.19.0/flink-examples-streaming-1.19.0-TopSpeedWindowing.jar")
                         .entryClass("org.apache.flink.streaming.examples.windowing.TopSpeedWindowing")
                         .mainArgs(new String[]{"--env", "prod"})
-                        .flinkVersion(FlinkVersion.V_1_19_0)
+                        .flinkVersion(FlinkVersion.V_1_19_2)
                         .containerImage(ContainerImage.builder()
                                 .imagePullPolicy(CarpK8sImagePullPolicy.IF_NOT_PRESENT)
                                 .repository("flink")
