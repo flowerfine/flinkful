@@ -39,6 +39,43 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-sql-gateway</artifactId>
         </dependency>
+
+        <!-- 内部打进去的 okio 与 okhttp 冲突，使用 hadoop-common 代替 -->
+        <!--<dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-shaded-hadoop-2-uber</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>-->
+
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-hdfs-client</artifactId>
+        </dependency>
+
+        <!-- paimon -->
+        <dependency>
+            <groupId>org.apache.paimon</groupId>
+            <artifactId>paimon-flink-1.19</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.paimon</groupId>
+            <artifactId>paimon-s3</artifactId>
+        </dependency>
+
+        <!-- gravitino 使用的 mybatis 版本为 3.5.6，与项目中的 mybatis-plus 不兼容 -->
+        <!--<dependency>
+            <groupId>org.apache.gravitino</groupId>
+            <artifactId>gravitino-flink-connector-runtime-1.18_2.12</artifactId>
+        </dependency>-->
     </dependencies>
 
 </project>

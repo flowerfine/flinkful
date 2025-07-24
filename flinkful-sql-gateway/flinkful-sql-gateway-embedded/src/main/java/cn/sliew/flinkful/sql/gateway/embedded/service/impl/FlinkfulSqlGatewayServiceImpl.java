@@ -7,7 +7,9 @@ import cn.sliew.flinkful.sql.gateway.embedded.service.dto.FunctionInfo;
 import cn.sliew.flinkful.sql.gateway.embedded.service.dto.TableInfo;
 import cn.sliew.flinkful.sql.gateway.embedded.service.param.WsFlinkSqlGatewayQueryParam;
 import org.apache.flink.configuration.*;
+import org.apache.flink.table.catalog.Catalog;
 import org.apache.flink.table.catalog.CatalogBaseTable;
+import org.apache.flink.table.factories.FactoryUtil;
 import org.apache.flink.table.gateway.api.SqlGatewayService;
 import org.apache.flink.table.gateway.api.operation.OperationHandle;
 import org.apache.flink.table.gateway.api.results.ResultSet;
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -39,20 +42,35 @@ public class FlinkfulSqlGatewayServiceImpl implements FlinkfulSqlGatewayService,
 
     @Override
     public void afterPropertiesSet() throws Exception {
-//        s3.endpoint: http://minio:9000
-//        s3.access-key: admin
-//        s3.secret-key: password
-//        s3.path.style.access: true
         Configuration configuration = GlobalConfiguration.loadConfiguration();
         configuration.set(JobManagerOptions.ADDRESS, "localhost");
         configuration.set(RestOptions.ADDRESS, "localhost");
         configuration.set(RestOptions.PORT, 8081);
         configuration.set(DeploymentOptions.TARGET, "remote");
+//        configuration.setString("table.catalog-store.kind", "gravitino");
+//        configuration.setString("table.catalog-store.gravitino.gravitino.metalake", "flink");
+//        configuration.setString("table.catalog-store.gravitino.gravitino.uri", "http://localhost:8090");
+        configuration.setString("s3.endpoint", "http://localhost:9000");
+        configuration.setString("s3.access-key", "admin");
+        configuration.setString("s3.secret-key", "password");
+        configuration.setString("s3.path.style.access", "true");
+
         DefaultContext defaultContext = new DefaultContext(configuration, Collections.emptyList());
         sessionManager = new SessionManagerImpl(defaultContext);
         sessionManager.start();
         sqlGatewayService = new SqlGatewayServiceImpl(sessionManager);
         sessionHandle = sqlGatewayService.openSession(SessionEnvironment.newBuilder()
+                        .registerCatalogCreator("paimon", (config, classloader) -> {
+                            Map<String, String> options = Map.of(
+                                    "type", "paimon",
+                                    "warehouse", "s3://paimon/",
+                                    "s3.endpoint", "http://localhost:9000",
+                                    "s3.access-key", "admin",
+                                    "s3.secret-key", "password",
+                                    "s3.path.style.access", "true"
+                            );
+                            return FactoryUtil.createCatalog("paimon", options, configuration, classloader);
+                        })
                 .setSessionEndpointVersion(SqlGatewayRestAPIVersion.V2)
                 .setSessionName(SESSION_NAME)
                 .build());

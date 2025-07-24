@@ -1,28 +1,134 @@
 version: "3.8"
 
+# 国内代理
+# wget https://maven.aliyun.com/repository/central/org/apache/paimon/paimon-flink-1.19/0.8.1/paimon-flink-1.19-0.8.1.jar
+# wget https://maven.aliyun.com/repository/central/org/apache/paimon/paimon-flink-action/0.8.1/paimon-flink-action-0.8.1.jar
+# wget https://maven.aliyun.com/repository/central/org/apache/paimon/paimon-s3/0.8.1/paimon-s3-0.8.1.jar
+# wget https://maven.aliyun.com/repository/central/org/apache/flink/flink-shaded-hadoop-2-uber/2.8.3-9.0/flink-shaded-hadoop-2-uber-2.8.3-9.0.jar
+# wget https://maven.aliyun.com/repository/central/com/mysql/mysql-connector-j/8.2.0/mysql-connector-j-8.2.0.jar
+# wget https://maven.aliyun.com/repository/central/org/apache/flink/flink-connector-jdbc-mysql/3.3.0-1.19/flink-connector-jdbc-mysql-3.3.0-1.19.jar
+# wget https://maven.aliyun.com/repository/central/org/apache/gravitino/gravitino-flink-connector-runtime-1.18_2.12/0.9.1/gravitino-flink-connector-runtime-1.18_2.12-0.9.1.jar
+
 services:
   jobmanager:
     image: flink:1.19.2-scala_2.12-java17
     environment:
+      JOB_MANAGER_RPC_ADDRESS: jobmanager
       FLINK_PROPERTIES: |
-        jobmanager.rpc.address: jobmanager
+        s3.endpoint: http://host.docker.internal:9000
+        s3.access-key: admin
+        s3.secret-key: password
+        s3.path.style.access: true
+        table.catalog-store.kind: gravitino
+        table.catalog-store.gravitino.gravitino.metalake: flink
+        table.catalog-store.gravitino.gravitino.uri: http://host.docker.internal:8090
     command: jobmanager
     ports:
       - 8081:8081
+    volumes:
+      - /Users/wangqi/Documents/software/paimon/paimon-flink-1.19-0.8.1.jar:/opt/flink/lib/paimon-flink-1.19-0.8.1.jar
+      - /Users/wangqi/Documents/software/paimon/paimon-flink-action-0.8.1.jar:/opt/flink/lib/paimon-flink-action-0.8.1.jar
+      - /Users/wangqi/Documents/software/paimon/paimon-s3-0.8.1.jar:/opt/flink/lib/paimon-s3-0.8.1.jar
+      - /Users/wangqi/Documents/software/paimon/flink-shaded-hadoop-2-uber-2.8.3-9.0.jar:/opt/flink/lib/flink-shaded-hadoop-2-uber-2.8.3-9.0.jar
+      - /Users/wangqi/Documents/software/flink/flink-connector-jdbc-mysql-3.3.0-1.19.jar:/opt/flink/lib/flink-connector-jdbc-mysql-3.3.0-1.19.jar
+      - /Users/wangqi/Documents/software/gravitino/gravitino-flink-connector-runtime-1.18_2.12-0.9.1.jar:/opt/flink/lib/gravitino-flink-connector-runtime-1.18_2.12-0.9.1.jar
     networks:
       - flink
 
   taskmanager:
     image: flink:1.19.2-scala_2.12-java17
     deploy:
-      replicas: 2
+      replicas: 1
     depends_on:
       - jobmanager
     environment:
+      JOB_MANAGER_RPC_ADDRESS: jobmanager
+      TASK_MANAGER_NUMBER_OF_TASK_SLOTS: 8
       FLINK_PROPERTIES: |
-        jobmanager.rpc.address: jobmanager
-        taskmanager.numberOfTaskSlots: 8
+        s3.endpoint: http://host.docker.internal:9000
+        s3.access-key: admin
+        s3.secret-key: password
+        s3.path.style.access: true
+        table.catalog-store.kind: gravitino
+        table.catalog-store.gravitino.gravitino.metalake: flink
+        table.catalog-store.gravitino.gravitino.uri: http://host.docker.internal:8090
     command: taskmanager
+    volumes:
+      - /Users/wangqi/Documents/software/paimon/paimon-flink-1.19-0.8.1.jar:/opt/flink/lib/paimon-flink-1.19-0.8.1.jar
+      - /Users/wangqi/Documents/software/paimon/paimon-flink-action-0.8.1.jar:/opt/flink/lib/paimon-flink-action-0.8.1.jar
+      - /Users/wangqi/Documents/software/paimon/paimon-s3-0.8.1.jar:/opt/flink/lib/paimon-s3-0.8.1.jar
+      - /Users/wangqi/Documents/software/paimon/flink-shaded-hadoop-2-uber-2.8.3-9.0.jar:/opt/flink/lib/flink-shaded-hadoop-2-uber-2.8.3-9.0.jar
+      - /Users/wangqi/Documents/software/flink/flink-connector-jdbc-mysql-3.3.0-1.19.jar:/opt/flink/lib/flink-connector-jdbc-mysql-3.3.0-1.19.jar
+      - /Users/wangqi/Documents/software/gravitino/gravitino-flink-connector-runtime-1.18_2.12-0.9.1.jar:/opt/flink/lib/gravitino-flink-connector-runtime-1.18_2.12-0.9.1.jar
+    networks:
+      - flink
+
+# docker compose --profile gateway up -d
+  sql-gateway:
+    image: flink:1.19.2-scala_2.12-java17
+    container_name: sql-gateway
+    profiles:
+      - gateway
+    depends_on:
+      - jobmanager
+      - taskmanager
+    environment:
+      JOB_MANAGER_RPC_ADDRESS: jobmanager
+      FLINK_PROPERTIES: |
+        execution.target: remote
+        rest.address: jobmanager
+        rest.port: 8081
+        s3.endpoint: http://host.docker.internal:9000
+        s3.access-key: admin
+        s3.secret-key: password
+        s3.path.style.access: true
+        table.catalog-store.kind: gravitino
+        table.catalog-store.gravitino.gravitino.metalake: flink
+        table.catalog-store.gravitino.gravitino.uri: http://host.docker.internal:8090
+    command: >
+      /bin/sh -c "
+      ./bin/sql-gateway.sh start-foreground -Dsql-gateway.endpoint.rest.address=0.0.0.0 -Drest.address=jobmanager
+      "
+    scale: 1
+    ports:
+      - 8083:8083
+    volumes:
+      - /Users/wangqi/Documents/software/paimon/paimon-flink-1.19-0.8.1.jar:/opt/flink/lib/paimon-flink-1.19-0.8.1.jar
+      - /Users/wangqi/Documents/software/paimon/paimon-flink-action-0.8.1.jar:/opt/flink/lib/paimon-flink-action-0.8.1.jar
+      - /Users/wangqi/Documents/software/paimon/paimon-s3-0.8.1.jar:/opt/flink/lib/paimon-s3-0.8.1.jar
+      - /Users/wangqi/Documents/software/paimon/flink-shaded-hadoop-2-uber-2.8.3-9.0.jar:/opt/flink/lib/flink-shaded-hadoop-2-uber-2.8.3-9.0.jar
+      - /Users/wangqi/Documents/software/flink/flink-connector-jdbc-mysql-3.3.0-1.19.jar:/opt/flink/lib/flink-connector-jdbc-mysql-3.3.0-1.19.jar
+      - /Users/wangqi/Documents/software/gravitino/gravitino-flink-connector-runtime-1.18_2.12-0.9.1.jar:/opt/flink/lib/gravitino-flink-connector-runtime-1.18_2.12-0.9.1.jar
+    networks:
+      - flink
+
+  minio:
+    image: bitnami/minio:2025.4.8
+    container_name: minio
+    profiles:
+      - gateway
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=password
+      - MINIO_DEFAULT_BUCKETS=flink:public,paimon:public,gravitino:public
+      - MINIO_PROMETHEUS_AUTH_TYPE=public # 低版本不起效，升级到最新版本
+    ports:
+      - 9000:9000
+      - 9001:9001
+    networks:
+      - flink
+
+  gravitino:
+    image: apache/gravitino:0.9.1
+    container_name: gravitino
+    profiles:
+      - gateway
+    ports:
+      - 8090:8090
+    volumes:
+      - /Users/wangqi/Documents/software/mysql/mysql-connector-j-8.2.0.jar:/root/gravitino/catalogs/jdbc-mysql/libs/mysql.jar
+      - /Users/wangqi/Documents/software/mysql/mysql-connector-j-8.2.0.jar:/root/gravitino/catalogs/jdbc-doris/libs/mysql.jar
+      - /Users/wangqi/Documents/software/paimon/paimon-s3-0.8.1.jar:/root/gravitino/catalogs/lakehouse-paimon/libs/paimon-s3.jar
     networks:
       - flink
 
