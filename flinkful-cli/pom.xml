@@ -28,6 +28,7 @@
     </parent>
     <artifactId>flinkful-cli</artifactId>
     <packaging>pom</packaging>
+    <name>flinkful cli</name>
 
     <modules>
         <module>flinkful-cli-base</module>

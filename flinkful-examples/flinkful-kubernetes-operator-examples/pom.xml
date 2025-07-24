@@ -27,6 +27,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>flinkful-kubernetes-operator-examples</artifactId>
+    <name>flinkful kubernetes operator examples</name>
 
     <dependencies>
         <dependency>

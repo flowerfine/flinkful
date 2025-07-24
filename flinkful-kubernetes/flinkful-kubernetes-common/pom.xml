@@ -27,6 +27,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>flinkful-kubernetes-common</artifactId>
+    <name>flinkful kubernetes common</name>
 
     <dependencies>
         <dependency>

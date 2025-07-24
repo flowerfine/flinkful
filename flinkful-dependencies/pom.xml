@@ -28,6 +28,7 @@
     </parent>
     <artifactId>flinkful-dependencies</artifactId>
     <packaging>pom</packaging>
+    <name>flinkful dependencies</name>
 
     <properties>
         <carp-parent.version>0.0.82</carp-parent.version>
@@ -93,6 +94,12 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>flinkful-sql-catalog</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>flinkful-sql-gateway-embedded</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>

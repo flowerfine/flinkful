@@ -28,12 +28,14 @@
     </parent>
     <artifactId>flinkful-examples</artifactId>
     <packaging>pom</packaging>
+    <name>flinkful examples</name>
 
     <modules>
         <module>flinkful-common-examples</module>
         <module>flinkful-cli-examples</module>
         <module>flinkful-rest-examples</module>
         <module>flinkful-kubernetes-operator-examples</module>
+        <module>flinkful-sql-gateway-examples</module>
     </modules>
 
     <dependencyManagement>

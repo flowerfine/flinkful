@@ -28,6 +28,7 @@
     </parent>
     <artifactId>flinkful-cli-examples</artifactId>
     <packaging>pom</packaging>
+    <name>flinkful cli examples</name>
 
     <modules>
         <module>flinkful-cli-frontend-examples</module>

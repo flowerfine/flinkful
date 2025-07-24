@@ -27,6 +27,7 @@
         <relativePath>../flinkful-dependencies/pom.xml</relativePath>
     </parent>
     <artifactId>flinkful-dao</artifactId>
+    <name>flinkful dao</name>
 
     <dependencies>
         <dependency>

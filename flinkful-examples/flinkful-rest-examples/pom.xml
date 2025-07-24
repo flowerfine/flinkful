@@ -28,6 +28,7 @@
     </parent>
     <artifactId>flinkful-rest-examples</artifactId>
     <packaging>pom</packaging>
+    <name>flinkful rest examples</name>
 
     <modules>
         <module>flinkful-rest-client-examples</module>

@@ -10,6 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>flinkful-kubernetes-controller</artifactId>
+    <name>flinkful kubernetes controller</name>
 
     <dependencies>
         <dependency>

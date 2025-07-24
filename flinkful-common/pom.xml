@@ -27,6 +27,7 @@
         <relativePath>../flinkful-dependencies/pom.xml</relativePath>
     </parent>
     <artifactId>flinkful-common</artifactId>
+    <name>flinkful cli common</name>
 
     <dependencies>
         <dependency>

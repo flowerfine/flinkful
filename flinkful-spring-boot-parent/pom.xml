@@ -28,6 +28,7 @@
     </parent>
     <artifactId>flinkful-spring-boot-parent</artifactId>
     <packaging>pom</packaging>
+    <name>flinkful spring boot parent</name>
 
     <dependencyManagement>
         <dependencies>

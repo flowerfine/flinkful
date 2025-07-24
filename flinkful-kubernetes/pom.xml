@@ -28,6 +28,7 @@
     </parent>
     <artifactId>flinkful-kubernetes</artifactId>
     <packaging>pom</packaging>
+    <name>flinkful kubernetes</name>
 
     <modules>
         <module>flinkful-kubernetes-common</module>

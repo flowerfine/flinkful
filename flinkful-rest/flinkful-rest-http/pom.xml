@@ -27,6 +27,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>flinkful-rest-http</artifactId>
+    <name>flinkful rest http</name>
 
     <dependencies>
         <dependency>

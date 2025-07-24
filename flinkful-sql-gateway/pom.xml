@@ -28,8 +28,10 @@
     </parent>
     <artifactId>flinkful-sql-gateway</artifactId>
     <packaging>pom</packaging>
+    <name>flinkful sql gateway</name>
 
     <modules>
         <module>flinkful-sql-catalog</module>
+        <module>flinkful-sql-gateway-embedded</module>
     </modules>
 </project>

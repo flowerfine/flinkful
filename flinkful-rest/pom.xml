@@ -28,6 +28,7 @@
     </parent>
     <artifactId>flinkful-rest</artifactId>
     <packaging>pom</packaging>
+    <name>flinkful rest</name>
 
     <modules>
         <module>flinkful-rest-base</module>

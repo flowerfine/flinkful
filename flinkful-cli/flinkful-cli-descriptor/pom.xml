@@ -27,6 +27,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>flinkful-cli-descriptor</artifactId>
+    <name>flinkful cli descriptor</name>
 
     <dependencies>
         <dependency>

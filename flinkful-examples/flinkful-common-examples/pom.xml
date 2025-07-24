@@ -27,6 +27,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>flinkful-common-examples</artifactId>
+    <name>flinkful common examples</name>
 
     <dependencies>
         <dependency>

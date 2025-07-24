@@ -27,6 +27,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>flinkful-rest-client-examples</artifactId>
+    <name>flinkful rest client examples</name>
 
     <dependencies>
         <dependency>
