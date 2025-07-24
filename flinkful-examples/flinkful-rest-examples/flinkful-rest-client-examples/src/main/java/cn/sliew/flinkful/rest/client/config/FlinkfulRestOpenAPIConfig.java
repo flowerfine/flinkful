@@ -15,25 +15,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.sliew.flinkful.sql.gateway.param;
+package cn.sliew.flinkful.rest.client.config;
 
-import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.Setter;
+import org.springdoc.core.models.GroupedOpenApi;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-import javax.annotation.Nullable;
-import java.util.Map;
+@Configuration
+public class FlinkfulRestOpenAPIConfig {
 
-@Getter
-@Setter
-public class ExecuteStatementParam {
-
-    @NotBlank
-    private String statement;
-
-    @Nullable
-    private Long timeout;
-
-    @Nullable
-    private Map<String, String> executionConfig;
+    @Bean
+    public GroupedOpenApi flinkfulRestOpenApi() {
+        return GroupedOpenApi.builder().group("Flinkful Rest模块")
+                .pathsToMatch("/flinkful/**")
+                .packagesToScan("cn.sliew.flinkful.rest.client.controller")
+                .build();
+    }
 }

@@ -15,21 +15,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.sliew.flinkful.sql.gateway.param;
+package cn.sliew.flinkful.rest.client.param;
 
-import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.annotation.Nullable;
 import java.util.Map;
 
 @Getter
 @Setter
-public class OpenSessionParam {
+public class ExecuteStatementParam {
+
+    @NotBlank
+    private String statement;
 
     @Nullable
-    private String sessionName;
+    private Long timeout;
 
     @Nullable
-    private Map<String, String> properties;
+    private Map<String, String> executionConfig;
 }

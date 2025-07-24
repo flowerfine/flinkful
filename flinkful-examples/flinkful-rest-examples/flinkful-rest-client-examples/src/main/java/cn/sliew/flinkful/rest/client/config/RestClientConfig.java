@@ -15,20 +15,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.sliew.flinkful.sql.gateway.config;
+package cn.sliew.flinkful.rest.client.config;
 
-import org.springdoc.core.models.GroupedOpenApi;
+import cn.sliew.flinkful.common.examples.FlinkExamples;
+import cn.sliew.flinkful.rest.base.v1.client.RestClient;
+import cn.sliew.flinkful.rest.base.v1.client.SqlGatewayClient;
+import cn.sliew.flinkful.rest.client.FlinkRestClient;
+import cn.sliew.flinkful.rest.client.SqlGatewayRestClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class FlinkfulRestOpenAPIConfig {
+public class RestClientConfig {
 
     @Bean
-    public GroupedOpenApi flinkfulRestOpenApi() {
-        return GroupedOpenApi.builder().group("Flinkful Rest模块")
-                .pathsToMatch("/flinkful/**")
-                .packagesToScan("cn.sliew.flinkful.rest.client.controller")
-                .build();
+    public RestClient restClient() {
+        org.apache.flink.configuration.Configuration configuration = FlinkExamples
+                .loadConfiguration();
+        return new FlinkRestClient("localhost", 8081, configuration);
+    }
+
+    @Bean
+    public SqlGatewayClient sqlGateWayRestClient() {
+        org.apache.flink.configuration.Configuration configuration = FlinkExamples
+                .loadConfiguration();
+        return new SqlGatewayRestClient("localhost", 8083, configuration);
     }
 }

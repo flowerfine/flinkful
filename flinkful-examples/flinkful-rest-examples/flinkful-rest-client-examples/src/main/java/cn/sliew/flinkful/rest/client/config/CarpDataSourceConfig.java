@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.sliew.flinkful.sql.gateway.config;
+package cn.sliew.flinkful.rest.client.config;
 
 import cn.sliew.carp.framework.mybatis.DataSourceConstants;
 import cn.sliew.carp.framework.mybatis.config.CarpMybatisConfig;

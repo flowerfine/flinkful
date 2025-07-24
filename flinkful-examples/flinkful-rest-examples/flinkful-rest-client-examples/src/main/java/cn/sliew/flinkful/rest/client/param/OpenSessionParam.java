@@ -15,18 +15,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.sliew.flinkful.sql.gateway.config;
+package cn.sliew.flinkful.rest.client.param;
 
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import jakarta.annotation.Nullable;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.List;
+import java.util.Map;
 
-//@Configuration
-public class FlinkWebConfig implements WebMvcConfigurer {
+@Getter
+@Setter
+public class OpenSessionParam {
 
-    @Override
-    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-//        converters.add(0, new MappingFlinkShadedJackson2HttpMessageConverter());
-    }
+    @Nullable
+    private String sessionName;
+
+    @Nullable
+    private Map<String, String> properties;
 }
