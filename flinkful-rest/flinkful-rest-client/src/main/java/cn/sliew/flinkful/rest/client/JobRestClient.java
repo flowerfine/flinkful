@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.sliew.flinkful.sql.gateway;
+package cn.sliew.flinkful.rest.client;
 
 import cn.sliew.flinkful.rest.base.v1.client.JobClient;
 import org.apache.flink.runtime.messages.webmonitor.JobIdsWithStatusOverview;
