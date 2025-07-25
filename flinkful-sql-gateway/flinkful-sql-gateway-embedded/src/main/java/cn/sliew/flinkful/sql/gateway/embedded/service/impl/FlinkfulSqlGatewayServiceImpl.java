@@ -84,9 +84,9 @@ public class FlinkfulSqlGatewayServiceImpl implements FlinkfulSqlGatewayService,
                 .build());
         // 心跳
         executorService = Executors.newScheduledThreadPool(2);
-        final ScheduledFuture<?> schedule = executorService.schedule(() -> {
+        future = executorService.scheduleWithFixedDelay(() -> {
             sqlGatewayService.getSessionConfig(sessionHandle);
-        }, 1, TimeUnit.MINUTES);
+        }, 0,1, TimeUnit.MINUTES);
     }
 
     @Override
