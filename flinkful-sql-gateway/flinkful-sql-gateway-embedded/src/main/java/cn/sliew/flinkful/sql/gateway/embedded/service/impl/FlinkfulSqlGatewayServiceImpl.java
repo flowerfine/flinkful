@@ -20,6 +20,7 @@ import org.apache.flink.table.gateway.service.SqlGatewayServiceImpl;
 import org.apache.flink.table.gateway.service.context.DefaultContext;
 import org.apache.flink.table.gateway.service.session.SessionManager;
 import org.apache.flink.table.gateway.service.session.SessionManagerImpl;
+import org.apache.paimon.utils.ThreadUtils;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,10 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,6 +44,9 @@ public class FlinkfulSqlGatewayServiceImpl implements FlinkfulSqlGatewayService,
     private SessionManager sessionManager;
     private SqlGatewayService sqlGatewayService;
     private SessionHandle sessionHandle;
+
+    private ScheduledExecutorService executorService;
+    private ScheduledFuture<?> future;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -74,11 +82,18 @@ public class FlinkfulSqlGatewayServiceImpl implements FlinkfulSqlGatewayService,
                 .setSessionEndpointVersion(SqlGatewayRestAPIVersion.V2)
                 .setSessionName(SESSION_NAME)
                 .build());
+        // 心跳
+        executorService = Executors.newScheduledThreadPool(2);
+        final ScheduledFuture<?> schedule = executorService.schedule(() -> {
+            sqlGatewayService.getSessionConfig(sessionHandle);
+        }, 1, TimeUnit.MINUTES);
     }
 
     @Override
     public void destroy() throws Exception {
         sessionManager.stop();
+        future.cancel(true);
+        executorService.shutdown();
     }
 
     @Override

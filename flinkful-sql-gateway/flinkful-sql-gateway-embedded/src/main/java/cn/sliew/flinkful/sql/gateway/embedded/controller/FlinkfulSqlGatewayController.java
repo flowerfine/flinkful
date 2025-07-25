@@ -19,7 +19,7 @@ public class FlinkfulSqlGatewayController {
     @Autowired
     private FlinkfulSqlGatewayService sqlGatewayService;
 
-    @GetMapping
+    @GetMapping("getCatalogInfo")
     @Operation(summary = "查询 catalogs", description = "查询 catalogs")
     public Set<CatalogInfo> getCatalogInfo() {
         return sqlGatewayService.getCatalogInfo();
