@@ -31,8 +31,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>cn.sliew</groupId>
-            <artifactId>carp-framework-web</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>
@@ -72,10 +76,10 @@
         </dependency>
 
         <!-- gravitino 使用的 mybatis 版本为 3.5.6，与项目中的 mybatis-plus 不兼容 -->
-        <!--<dependency>
+        <dependency>
             <groupId>org.apache.gravitino</groupId>
             <artifactId>gravitino-flink-connector-runtime-1.18_2.12</artifactId>
-        </dependency>-->
+        </dependency>
     </dependencies>
 
 </project>

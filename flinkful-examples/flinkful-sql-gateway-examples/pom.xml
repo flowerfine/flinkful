@@ -33,11 +33,6 @@
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>flinkful-sql-gateway-embedded</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>cn.sliew</groupId>
-            <artifactId>carp-framework-web</artifactId>
-        </dependency>
     </dependencies>
 
 </project>
