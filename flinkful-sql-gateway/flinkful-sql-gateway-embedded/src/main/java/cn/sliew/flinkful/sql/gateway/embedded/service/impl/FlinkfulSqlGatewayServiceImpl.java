@@ -57,7 +57,7 @@ public class FlinkfulSqlGatewayServiceImpl implements FlinkfulSqlGatewayService,
         configuration.set(DeploymentOptions.TARGET, "remote");
         configuration.setString("table.catalog-store.kind", "gravitino");
         configuration.setString("table.catalog-store.gravitino.gravitino.metalake", "flink");
-        configuration.setString("table.catalog-store.gravitino.gravitino.uri", "http://localhost:8090");
+        configuration.setString("table.catalog-store.gravitino.gravitino.uri", "http://42.194.234.138:8090");
         configuration.setString("s3.endpoint", "http://localhost:9000");
         configuration.setString("s3.access-key", "admin");
         configuration.setString("s3.secret-key", "password");

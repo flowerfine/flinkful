@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>CSV</title>
+    <g id="CSV" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M20,10 L68.9276726,10 L68.9276726,10 L81.4063906,22.3417942 C81.7862457,22.7174814 82,23.2295305 82,23.7637877 L82,88 C82,89.1045695 81.1045695,90 80,90 L20,90 C18.8954305,90 18,89.1045695 18,88 L18,12 C18,10.8954305 18.8954305,10 20,10 Z" id="矩形" fill="#13C2C2"></path>
+        <rect id="矩形" fill="#FFFFFF" opacity="0.600000024" x="34" y="26" width="15" height="8" rx="2"></rect>
+        <rect id="矩形备份-2" fill="#FFFFFF" opacity="0.600000024" x="52" y="26" width="15" height="8" rx="2"></rect>
+        <rect id="矩形备份" fill="#FFFFFF" opacity="0.600000024" x="34" y="36" width="15" height="8" rx="2"></rect>
+        <rect id="矩形备份-3" fill="#FFFFFF" opacity="0.600000024" x="52" y="36" width="15" height="8" rx="2"></rect>
+        <rect id="矩形备份-5" fill="#FFFFFF" opacity="0.600000024" x="34" y="46" width="15" height="8" rx="2"></rect>
+        <rect id="矩形备份-6" fill="#FFFFFF" opacity="0.600000024" x="52" y="46" width="15" height="8" rx="2"></rect>
+        <text font-family="Helvetica-Bold, Helvetica" font-size="20" font-weight="bold" fill="#FFFFFF">
+            <tspan x="30" y="82">CSV</tspan>
+        </text>
+    </g>
+</svg>

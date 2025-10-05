@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "errorCode": null,
+    "errorMessage": null,
+    "errorDetail": null,
+    "solutionLink": null,
+    "data": {
+        "id": 2,
+        "nickName": "Administrator",
+        "admin": true,
+        "roleCode": "ADMIN",
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOjIsImRldmljZSI6ImRlZmF1bHQtZGV2aWNlIiwiZWZmIjoxNzYwOTcwNDUzNDE4LCJyblN0ciI6IlhXNkNVcjdyWTIyZnRaUmJIV2s2bk5NZGdNak5jS3JPIn0.kJfY8iTp3lqC7Kw_Kg2NFDir1vsHwUY9PW5MGrN1LR4"
+    },
+    "traceId": null
+}

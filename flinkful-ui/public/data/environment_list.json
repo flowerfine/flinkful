@@ -1,0 +1,22 @@
+{
+    "success": true,
+    "errorCode": null,
+    "errorMessage": null,
+    "data": [
+        {
+            "id": 1,
+            "name": "Release Environment",
+            "shortName": "RELEASE",
+            "color": "RED"
+        },
+        {
+            "id": 2,
+            "name": "Test Environment",
+            "shortName": "TEST",
+            "color": "GREEN"
+        }
+    ],
+    "traceId": null,
+    "errorDetail": null,
+    "solutionLink": null
+}

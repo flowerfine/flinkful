@@ -1,0 +1,157 @@
+{
+    "success": true,
+    "errorCode": null,
+    "errorMessage": null,
+    "data": {
+        "data": [
+            {
+                "id": 2,
+                "alias": "腾讯云",
+                "url": "jdbc:mysql://42.194.234.138:3306/",
+                "user": "root",
+                "password": "123456",
+                "authenticationType": null,
+                "type": "MYSQL",
+                "envType": null,
+                "host": "42.194.234.138",
+                "port": "3306",
+                "ssh": {
+                    "use": false,
+                    "hostName": "",
+                    "port": "22",
+                    "userName": "",
+                    "localPort": "",
+                    "authenticationType": "password",
+                    "password": "",
+                    "keyFile": null,
+                    "passphrase": null,
+                    "rhost": null,
+                    "rport": null
+                },
+                "sid": null,
+                "driver": null,
+                "jdbc": null,
+                "extendInfo": [
+                    {
+                        "key": "zeroDateTimeBehavior",
+                        "value": "convertToNull",
+                        "required": false,
+                        "choices": null
+                    },
+                    {
+                        "key": "useInformationSchema",
+                        "value": "true",
+                        "required": false,
+                        "choices": null
+                    },
+                    {
+                        "key": "tinyInt1isBit",
+                        "value": "false",
+                        "required": false,
+                        "choices": null
+                    }
+                ],
+                "driverConfig": {
+                    "url": null,
+                    "jdbcDriver": "mysql-connector-java-8.0.30.jar",
+                    "jdbcDriverClass": "com.mysql.cj.jdbc.Driver",
+                    "downloadJdbcDriverUrls": null,
+                    "dbType": null,
+                    "custom": false,
+                    "extendInfo": null,
+                    "defaultDriver": false
+                },
+                "environmentId": 2,
+                "environment": {
+                    "id": 2,
+                    "name": "Test Environment",
+                    "shortName": "TEST",
+                    "color": "GREEN"
+                },
+                "kind": "PRIVATE",
+                "serviceName": null,
+                "serviceType": null,
+                "supportDatabase": true,
+                "supportSchema": false
+            },
+            {
+                "id": 3,
+                "alias": "腾讯云-备份",
+                "url": "jdbc:mysql://42.194.234.138:3306/",
+                "user": "root",
+                "password": "123456",
+                "authenticationType": null,
+                "type": "MYSQL",
+                "envType": null,
+                "host": "42.194.234.138",
+                "port": "3306",
+                "ssh": {
+                    "use": false,
+                    "hostName": "",
+                    "port": "22",
+                    "userName": "",
+                    "localPort": "",
+                    "authenticationType": "password",
+                    "password": "",
+                    "keyFile": null,
+                    "passphrase": null,
+                    "rhost": null,
+                    "rport": null
+                },
+                "sid": null,
+                "driver": null,
+                "jdbc": null,
+                "extendInfo": [
+                    {
+                        "key": "zeroDateTimeBehavior",
+                        "value": "convertToNull",
+                        "required": false,
+                        "choices": null
+                    },
+                    {
+                        "key": "useInformationSchema",
+                        "value": "true",
+                        "required": false,
+                        "choices": null
+                    },
+                    {
+                        "key": "tinyInt1isBit",
+                        "value": "false",
+                        "required": false,
+                        "choices": null
+                    }
+                ],
+                "driverConfig": {
+                    "url": null,
+                    "jdbcDriver": "mysql-connector-java-8.0.30.jar",
+                    "jdbcDriverClass": "com.mysql.cj.jdbc.Driver",
+                    "downloadJdbcDriverUrls": null,
+                    "dbType": null,
+                    "custom": false,
+                    "extendInfo": null,
+                    "defaultDriver": false
+                },
+                "environmentId": 2,
+                "environment": {
+                    "id": 2,
+                    "name": "Test Environment",
+                    "shortName": "TEST",
+                    "color": "GREEN"
+                },
+                "kind": "PRIVATE",
+                "serviceName": null,
+                "serviceType": null,
+                "supportDatabase": true,
+                "supportSchema": false
+            }
+        ],
+        "pageNo": 1,
+        "pageSize": 1000,
+        "total": 2,
+        "hasNextPage": false
+    },
+    "traceId": null,
+    "errorDetail": null,
+    "solutionLink": null,
+    "hasNextPage": false
+}

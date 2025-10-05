@@ -1,0 +1,208 @@
+.resourceTree {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  .title {
+    display: flex;
+    flex: 0;
+    flex-basis: 42px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 12px;
+    font-size: 12px;
+    
+    .titleText {
+      font-weight: 600;
+    }
+    .titleAction {
+      margin-left: 4px;
+      flex-shrink: 0;
+      flex-grow: 0;
+    }
+  }
+  .search {
+    flex: 0;
+    display: flex;
+    padding: 0px 6px 4px 6px;
+    align-items: center;
+    .newDataSourceButton {
+      flex-shrink: 0;
+      flex-grow: 0;
+      margin-left: 4px;
+      height: 23px;
+      width: 23px;
+    }
+    .searchInput {
+      flex: 1;
+      height: 25px;
+      :global {
+        .ant-input-wrapper {
+          height: 100%;
+          .ant-input {
+            height: 100%;
+          }
+          .ant-input-affix-wrapper {
+            height: 100%;
+          }
+          .ant-input-group-addon {
+            height: 100%;
+
+            .ant-btn {
+              height: 100%;
+            }
+          }
+        }
+        .anticon {
+          color: var(--icon-color-normal);
+        }
+      }
+    }
+    .shortCut {
+      color: var(--text-color-hint);
+      background-color: var(--hover-color2);
+      .anticon {
+        color: var(--icon-color-normal);
+      }
+      padding: 0px 2px;
+      border: 1px solid transparent;
+      border-radius: 3px;
+      font-size: 10px;
+    }
+  }
+  .tree {
+    flex: 1;
+    min-height: 0px;
+    padding-right: 4px;
+    padding-left: 8px;
+    
+
+    :global {
+      .ant-tree {
+        background-color: var(--code-background-color);
+      }
+      .ant-tree-title {
+        flex: 1;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        word-break: break-all;
+        padding-right: 10px;
+      }
+
+      .ant-tree-treenode {
+        width: 100%;
+        padding: 2px 0px;
+        color: var(--text-color-secondary);
+        :local {
+          .menuActions {
+            position: absolute;
+            top: 0px;
+            right: 4px;
+            bottom: 0px;
+            display: none;
+            align-items: center;
+            background-color: transparent;
+            :global {
+              .anticon {
+                color: var(--icon-color-normal);
+              }
+            }
+          }
+          .env {
+            position: absolute;
+            top: 0px;
+            right: 8px;
+            bottom: 0px;
+            align-items: center;
+            :global {
+              .ant-badge-status-dot {
+                border-radius: 0px;
+              }
+            }
+          }
+        }
+        &.ant-tree-treenode-selected {
+          background-color: var(--code-background-selected-color);
+        }
+        &:not(.ant-tree-treenode-selected) {
+          &:hover {
+            background-color: var(--hover-color2);
+          }
+        }
+        &:hover {
+          :local {
+            .menuActions {
+              display: flex;
+            }
+            .env {
+              display: none;
+            }
+          }
+        }
+        .ant-tree-indent-unit {
+          width: 12px;
+        }
+
+        > .ant-tree-switcher {
+          width: 16px;
+          line-height: 24px;
+          margin-inline-end: 0px;
+          &:hover::before {
+            background-color: transparent;
+          }
+        }
+
+        .ant-tree-node-content-wrapper .ant-tree-iconEle {
+          flex: 0;
+          flex-basis: 20px;
+          width: auto;
+          justify-content: center;
+        }
+      }
+      .ant-tree-node-content-wrapper {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        padding-left: 0px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        &.ant-tree-node-selected {
+          background-color: transparent;
+        }
+        &.ant-tree-node-selected:hover {
+          background-color: transparent;
+        }
+        &:hover {
+          :local(.actions) {
+            display: flex;
+            justify-content: center;
+          }
+          background-color: unset;
+          :local(.envTip.envTipPersonal) {
+            display: none;
+          }
+        }
+        :local(.envTip) {
+          :global {
+            .ant-badge-status-dot {
+              border-radius: 0;
+            }
+          }
+        }
+        :local(.actions) {
+          display: none;
+          flex: 0;
+          flex-basis: 25px;
+        }
+      }
+    }
+  }
+  .content {
+    padding: 4px 12px;
+  }
+}

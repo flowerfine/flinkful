@@ -1,0 +1,77 @@
+@import '@/styles/global.less';
+@import '@/styles/var.less';
+
+.loadingBox {
+  flex: 1;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  flex-direction: column;
+
+  .contact {
+    line-height: 32px;
+    display: flex;
+    align-items: center;
+
+    .icon {
+      cursor: pointer;
+      font-size: 32px;
+      margin-right: 20px;
+    }
+  }
+}
+
+.app {
+  width: 85vw;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  .appBody {
+    flex: 1;
+    position: relative;
+  }
+}
+
+:global {
+  #root {
+    height: 100%;
+
+    .codicon-symbol-text:before {
+      content: '\eb11';
+      width: 16px;
+      height: 16px;
+    }
+
+    .codicon-symbol-function:before {
+      content: '\ebb8';
+      width: 16px;
+      height: 16px;
+    }
+
+    .codicon-symbol-folder:before {
+      content: '\ebb7';
+      width: 16px;
+      height: 16px;
+    }
+
+    .codicon-symbol-field:before {
+      content: '\eb17';
+      width: 16px;
+      height: 16px;
+    }
+
+    .codicon-symbol-unit:before {
+      content: '\ea70';
+      width: 16px;
+      height: 16px;
+    }
+
+    .codicon-symbol-property:before {
+      content: '\eace';
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

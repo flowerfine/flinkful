@@ -82,9 +82,9 @@ services:
         s3.access-key: admin
         s3.secret-key: password
         s3.path.style.access: true
-        table.catalog-store.kind: gravitino
-        table.catalog-store.gravitino.gravitino.metalake: flink
-        table.catalog-store.gravitino.gravitino.uri: http://host.docker.internal:8090
+#        table.catalog-store.kind: gravitino
+#        table.catalog-store.gravitino.gravitino.metalake: flink
+#        table.catalog-store.gravitino.gravitino.uri: http://host.docker.internal:8090
     command: >
       /bin/sh -c "
       ./bin/sql-gateway.sh start-foreground -Dsql-gateway.endpoint.rest.address=0.0.0.0 -Drest.address=jobmanager
@@ -102,35 +102,35 @@ services:
     networks:
       - flink
 
-  minio:
-    image: bitnami/minio:2025.4.8
-    container_name: minio
-    profiles:
-      - gateway
-    environment:
-      - MINIO_ROOT_USER=admin
-      - MINIO_ROOT_PASSWORD=password
-      - MINIO_DEFAULT_BUCKETS=flink:public,paimon:public,gravitino:public
-      - MINIO_PROMETHEUS_AUTH_TYPE=public # 低版本不起效，升级到最新版本
-    ports:
-      - 9000:9000
-      - 9001:9001
-    networks:
-      - flink
-
-  gravitino:
-    image: apache/gravitino:0.9.1
-    container_name: gravitino
-    profiles:
-      - gateway
-    ports:
-      - 8090:8090
-    volumes:
-      - /Users/wangqi/Documents/software/mysql/mysql-connector-j-8.2.0.jar:/root/gravitino/catalogs/jdbc-mysql/libs/mysql.jar
-      - /Users/wangqi/Documents/software/mysql/mysql-connector-j-8.2.0.jar:/root/gravitino/catalogs/jdbc-doris/libs/mysql.jar
-      - /Users/wangqi/Documents/software/paimon/paimon-s3-0.8.1.jar:/root/gravitino/catalogs/lakehouse-paimon/libs/paimon-s3.jar
-    networks:
-      - flink
+#  minio:
+#    image: bitnami/minio:2025.4.8
+#    container_name: minio
+#    profiles:
+#      - gateway
+#    environment:
+#      - MINIO_ROOT_USER=admin
+#      - MINIO_ROOT_PASSWORD=password
+#      - MINIO_DEFAULT_BUCKETS=flink:public,paimon:public,gravitino:public
+#      - MINIO_PROMETHEUS_AUTH_TYPE=public # 低版本不起效，升级到最新版本
+#    ports:
+#      - 9000:9000
+#      - 9001:9001
+#    networks:
+#      - flink
+#
+#  gravitino:
+#    image: apache/gravitino:0.9.1
+#    container_name: gravitino
+#    profiles:
+#      - gateway
+#    ports:
+#      - 8090:8090
+#    volumes:
+#      - /Users/wangqi/Documents/software/mysql/mysql-connector-j-8.2.0.jar:/root/gravitino/catalogs/jdbc-mysql/libs/mysql.jar
+#      - /Users/wangqi/Documents/software/mysql/mysql-connector-j-8.2.0.jar:/root/gravitino/catalogs/jdbc-doris/libs/mysql.jar
+#      - /Users/wangqi/Documents/software/paimon/paimon-s3-0.8.1.jar:/root/gravitino/catalogs/lakehouse-paimon/libs/paimon-s3.jar
+#    networks:
+#      - flink
 
 networks:
   flink:

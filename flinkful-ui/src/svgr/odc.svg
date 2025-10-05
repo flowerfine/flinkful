@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ODC格式</title>
+    <g id="ODC格式" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M18,8 L70.1106521,8 L70.1106521,8 L83.397953,20.9868989 C83.782959,21.3632006 84,21.8788272 84,22.4171882 L84,90 C84,91.1045695 83.1045695,92 82,92 L18,92 C16.8954305,92 16,91.1045695 16,90 L16,10 C16,8.8954305 16.8954305,8 18,8 Z" id="矩形备份" fill="#722ED1"></path>
+        <text id="*ODC" font-family="Helvetica-Bold, Helvetica" font-size="20" font-weight="bold" fill="#FFFFFF">
+            <tspan x="24" y="82">*ODC</tspan>
+        </text>
+        <g id="编组备份" transform="translate(42.000000, 8.000000)" fill="#FFFFFF" opacity="0.600000024">
+            <rect id="矩形" x="0" y="8" width="8" height="8"></rect>
+            <rect id="矩形备份-3" x="8" y="16" width="8" height="8"></rect>
+            <rect id="矩形备份-7" x="8" y="0" width="8" height="8"></rect>
+            <rect id="矩形备份-4" x="0" y="24" width="8" height="8"></rect>
+            <rect id="矩形备份-5" x="8" y="32" width="8" height="8"></rect>
+            <rect id="矩形备份-6" x="0" y="40" width="8" height="8"></rect>
+        </g>
+    </g>
+</svg>

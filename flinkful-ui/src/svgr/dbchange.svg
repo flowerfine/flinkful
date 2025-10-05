@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>SQL</title>
+    <g id="SQL" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M69.70312,9 L82.6989765,21.7020436 C82.8914795,21.8901944 83,22.1480077 83,22.4171882 L83,22.4171882 L83,90 C83,90.2761424 82.8880712,90.5261424 82.7071068,90.7071068 C82.5261424,90.8880712 82.2761424,91 82,91 L82,91 L18,91 C17.7238576,91 17.4738576,90.8880712 17.2928932,90.7071068 C17.1119288,90.5261424 17,90.2761424 17,90 L17,90 L17,10 C17,9.72385763 17.1119288,9.47385763 17.2928932,9.29289322 C17.4738576,9.11192881 17.7238576,9 18,9 L18,9 L69.70312,9 Z" id="矩形" stroke="#1890FF" stroke-width="2" fill="#1890FF"></path>
+        <text font-family="Helvetica-Bold, Helvetica" font-size="20" font-weight="bold" fill="#FFFFFF">
+            <tspan x="30" y="82">SQL</tspan>
+        </text>
+        <rect id="矩形" fill="#FFFFFF" opacity="0.600000024" x="33.85" y="25.85" width="32" height="8" rx="2"></rect>
+        <rect id="矩形备份" fill="#FFFFFF" opacity="0.600000024" x="33.85" y="35.85" width="32" height="8" rx="2"></rect>
+        <rect id="矩形备份-2" fill="#FFFFFF" opacity="0.600000024" x="33.85" y="45.85" width="32" height="8" rx="2"></rect>
+    </g>
+</svg>

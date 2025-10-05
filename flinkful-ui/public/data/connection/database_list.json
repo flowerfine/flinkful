@@ -1,0 +1,35 @@
+{
+    "success": true,
+    "errorCode": null,
+    "errorMessage": null,
+    "data": [
+        {
+            "name": "carp",
+            "description": null,
+            "count": null
+        },
+        {
+            "name": "information_schema",
+            "description": null,
+            "count": null
+        },
+        {
+            "name": "mysql",
+            "description": null,
+            "count": null
+        },
+        {
+            "name": "performance_schema",
+            "description": null,
+            "count": null
+        },
+        {
+            "name": "sys",
+            "description": null,
+            "count": null
+        }
+    ],
+    "traceId": null,
+    "errorDetail": null,
+    "solutionLink": null
+}

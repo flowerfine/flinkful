@@ -1,0 +1,31 @@
+{
+    "success": true,
+    "errorCode": null,
+    "errorMessage": null,
+    "data": {
+        "data": [
+            {
+                "id": 4,
+                "name": "untitled-recover_your_data (腾讯云-备份)",
+                "dataSourceId": 3,
+                "dataSourceName": "腾讯云-备份",
+                "connectable": true,
+                "databaseName": "information_schema",
+                "schemaName": null,
+                "type": "MYSQL",
+                "ddl": "",
+                "status": "DRAFT",
+                "tabOpened": "y",
+                "operationType": "console"
+            }
+        ],
+        "pageNo": 1,
+        "pageSize": 20,
+        "total": 1,
+        "hasNextPage": false
+    },
+    "traceId": null,
+    "errorDetail": null,
+    "solutionLink": null,
+    "hasNextPage": false
+}
