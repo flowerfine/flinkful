@@ -80,6 +80,17 @@
             <groupId>org.apache.gravitino</groupId>
             <artifactId>gravitino-flink-connector-runtime-1.18_2.12</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-jdbc</artifactId>
+            <version>3.2.0-1.19</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

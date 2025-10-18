@@ -36,8 +36,8 @@
         <flink.version>1.19.2</flink.version>
         <flink.kubernetes.operator.version>1.11.0</flink.kubernetes.operator.version>
         <flink.shaded.hadoop.version>2.8.3-9.0</flink.shaded.hadoop.version>
-        <paimon.version>0.8.1</paimon.version>
-        <gravitino.version>0.9.1</gravitino.version>
+        <paimon.version>1.2.0</paimon.version>
+        <gravitino.version>1.0.0</gravitino.version>
     </properties>
 
     <dependencies>
