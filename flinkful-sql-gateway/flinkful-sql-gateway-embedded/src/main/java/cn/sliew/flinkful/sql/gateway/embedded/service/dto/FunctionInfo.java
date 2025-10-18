@@ -31,7 +31,9 @@ import java.util.Map;
 @AllArgsConstructor
 public class FunctionInfo {
 
-    private String functionName;
+    private String name;
+
+    private String type;
 
     private FunctionKind functionKind;
 

@@ -23,6 +23,13 @@ export enum TreeNodeType {
   TRIGGER = 'trigger',  // trigger
   SEQUENCES = 'sequences',
   SEQUENCE = 'sequence',
+
+  FLINK_SQL_GATEWAY = 'FLINK_SQL_GATEWAY',
+  FLINK_CATALOG = 'FLINK_CATALOG',
+  FLINK_DATABASE = 'FLINK_DATABASE',
+  FLINK_TABLE = 'FLINK_TABLE',
+  FLINK_VIEW = 'FLINK_VIEW',
+  FLINK_UDF = 'FLINK_UDF',
 }
 
 // 树右键支持的功能

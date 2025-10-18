@@ -23,3 +23,12 @@ pnpm start
 # build project
 pnpm run build
 ```
+
+
+
+## 开发介绍
+
+* 数据源类型。`DatabaseTypeCode`
+* 数据源配置。`IConnectionConfig`、`dataSourceFormConfigs`
+* 树配置。`TreeNodeType`、`treeConfig`
+

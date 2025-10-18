@@ -31,7 +31,9 @@ import java.util.Set;
 @AllArgsConstructor
 public class DatabaseInfo {
 
-    private String databaseName;
+    private String name;
+
+    private String type;
 
     private Set<TableInfo> tables;
 

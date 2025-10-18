@@ -32,7 +32,9 @@ import java.util.Map;
 @AllArgsConstructor
 public class TableInfo {
 
-    private String tableName;
+    private String name;
+
+    private String type;
 
     private CatalogBaseTable.TableKind tableKind;
 

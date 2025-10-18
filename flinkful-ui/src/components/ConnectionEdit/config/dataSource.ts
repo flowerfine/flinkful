@@ -2104,4 +2104,22 @@ export const dataSourceFormConfigs: IConnectionConfig[] = [
     },
     ssh: sshConfig,
   },
+
+  // Flink SQL Gateway
+  {
+    baseInfo: {
+      items: [
+        {
+          defaultValue: '@localhost',
+          inputType: InputType.INPUT,
+          labelNameCN: '名称',
+          labelNameEN: 'Name',
+          name: 'alias',
+          required: true,
+        },
+        envItem,
+      ],
+    },
+    type: DatabaseTypeCode.FLINK_SQL_GATEWAY,
+  },
 ];

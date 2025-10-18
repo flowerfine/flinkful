@@ -87,6 +87,9 @@ export const useGetRightClickMenu = (props: IProps) => {
       return t.type === treeNodeData.extraParams?.databaseType;
     })!;
 
+    // console.log('treeNodeConfig', treeNodeData, treeNodeConfig)
+    // console.log('dataSourceFormConfig', dataSourceFormConfig, dataSourceFormConfigs)
+
     // 有些数据库不支持的操作，需要排除掉
     function excludeSomeOperation() {
       const excludes = dataSourceFormConfig.baseInfo.excludes;

@@ -1,88 +1,107 @@
-import { ITreeNode, IConnectionDetails } from '@/typings';
-import { TreeNodeType, OperationColumn } from '@/constants';
-import connectionService from '@/service/connection';
-import { v4 as uuid } from 'uuid';
+import { ITreeNode, IConnectionDetails } from "@/typings";
+import { TreeNodeType, OperationColumn } from "@/constants";
+import connectionService from "@/service/connection";
+import { v4 as uuid } from "uuid";
 
-import mysqlServer from '@/service/sql';
+import mysqlServer from "@/service/sql";
+import { CatalogService } from "@/services/flinkful/catalog.service";
 
 export type ITreeConfig = Partial<{ [key in TreeNodeType]: ITreeConfigItem }>;
 
-export const switchIcon: Partial<{ [key in TreeNodeType]: { icon: string; unfoldIcon?: string } }> = {
+export const switchIcon: Partial<{
+  [key in TreeNodeType]: { icon: string; unfoldIcon?: string };
+}> = {
   [TreeNodeType.DATABASE]: {
-    icon: '\ue669',
+    icon: "\ue669",
   },
   [TreeNodeType.SCHEMAS]: {
-    icon: '\ue696',
+    icon: "\ue696",
   },
   [TreeNodeType.TABLE]: {
-    icon: '\ue63e',
+    icon: "\ue63e",
   },
   [TreeNodeType.TABLES]: {
-    icon: '\ueabe',
-    unfoldIcon: '\ueabf',
+    icon: "\ueabe",
+    unfoldIcon: "\ueabf",
   },
   [TreeNodeType.COLUMNS]: {
-    icon: '\ueabe',
-    unfoldIcon: '\ueabf',
+    icon: "\ueabe",
+    unfoldIcon: "\ueabf",
   },
   [TreeNodeType.COLUMN]: {
-    icon: '\ue611',
+    icon: "\ue611",
   },
   [TreeNodeType.KEYS]: {
-    icon: '\ueabe',
-    unfoldIcon: '\ueabf',
+    icon: "\ueabe",
+    unfoldIcon: "\ueabf",
   },
   [TreeNodeType.KEY]: {
-    icon: '\ue775',
+    icon: "\ue775",
   },
   [TreeNodeType.INDEXES]: {
-    icon: '\ueabe',
-    unfoldIcon: '\ueabf',
+    icon: "\ueabe",
+    unfoldIcon: "\ueabf",
   },
   [TreeNodeType.INDEX]: {
-    icon: '\ue65b',
+    icon: "\ue65b",
   },
   [TreeNodeType.VIEWS]: {
-    icon: '\ueabe',
-    unfoldIcon: '\ueabf',
+    icon: "\ueabe",
+    unfoldIcon: "\ueabf",
   },
   [TreeNodeType.VIEW]: {
-    icon: '\ue70c',
+    icon: "\ue70c",
   },
   [TreeNodeType.FUNCTION]: {
-    icon: '\ue76a',
+    icon: "\ue76a",
   },
   [TreeNodeType.PROCEDURE]: {
-    icon: '\ue73c',
+    icon: "\ue73c",
   },
   [TreeNodeType.TRIGGER]: {
-    icon: '\ue64a',
+    icon: "\ue64a",
   },
   [TreeNodeType.VIEWCOLUMNS]: {
-    icon: '\ueabe',
-    unfoldIcon: '\ueabf',
+    icon: "\ueabe",
+    unfoldIcon: "\ueabf",
   },
   [TreeNodeType.VIEWCOLUMN]: {
-    icon: '\ue647',
+    icon: "\ue647",
   },
   [TreeNodeType.FUNCTIONS]: {
-    icon: '\ueabe',
-    unfoldIcon: '\ueabf',
+    icon: "\ueabe",
+    unfoldIcon: "\ueabf",
   },
   [TreeNodeType.PROCEDURES]: {
-    icon: '\ueabe',
-    unfoldIcon: '\ueabf',
+    icon: "\ueabe",
+    unfoldIcon: "\ueabf",
   },
   [TreeNodeType.TRIGGERS]: {
-    icon: '\ueabe',
-    unfoldIcon: '\ueabf',
+    icon: "\ueabe",
+    unfoldIcon: "\ueabf",
   },
   [TreeNodeType.SEQUENCES]: {
-    icon: '\ueabe',
-    unfoldIcon: '\ueabf',
+    icon: "\ueabe",
+    unfoldIcon: "\ueabf",
   },
   [TreeNodeType.SEQUENCE]: {
-    icon: '\ue611',
+    icon: "\ue611",
+  },
+
+  [TreeNodeType.FLINK_CATALOG]: {
+    icon: "\ue669",
+  },
+  [TreeNodeType.FLINK_DATABASE]: {
+    icon: "\ueabe",
+  },
+  [TreeNodeType.FLINK_TABLE]: {
+    icon: "\ue63e",
+  },
+  [TreeNodeType.FLINK_VIEW]: {
+    icon: "\ue70c",
+  },
+  [TreeNodeType.FLINK_UDF]: {
+    icon: "\ue76a",
   },
 };
 
@@ -104,7 +123,6 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
         connectionService
           .getList(p)
           .then((res) => {
-            
             const data: ITreeNode[] = res.data.map((t: IConnectionDetails) => {
               return {
                 uuid: uuid(),
@@ -128,7 +146,11 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
   },
 
   [TreeNodeType.DATA_SOURCE]: {
-    getChildren: (params: { dataSourceId: number; dataSourceName: string; extraParams: any }) => {
+    getChildren: (params: {
+      dataSourceId: number;
+      dataSourceName: string;
+      extraParams: any;
+    }) => {
       return new Promise((r, j) => {
         const _extraParams = params.extraParams;
         delete params.extraParams;
@@ -154,12 +176,16 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
           });
       });
     },
-    operationColumn: [OperationColumn.EditSource, OperationColumn.Refresh, OperationColumn.ShiftOut],
+    operationColumn: [
+      OperationColumn.EditSource,
+      OperationColumn.Refresh,
+      OperationColumn.ShiftOut,
+    ],
     next: TreeNodeType.DATABASE,
   },
 
   [TreeNodeType.DATABASE]: {
-    icon: '\ue62c',
+    icon: "\ue62c",
     getChildren: (params) => {
       const _extraParams = params.extraParams;
       delete params.extraParams;
@@ -197,53 +223,58 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
   },
 
   [TreeNodeType.SCHEMAS]: {
-    icon: '\ue696',
+    icon: "\ue696",
     getChildren: (parentData: ITreeNode) => {
-      const { dataSourceId, databaseName, schemaName } = parentData.extraParams!;
-      const preCode = [dataSourceId, databaseName, schemaName].join('-');
+      const { dataSourceId, databaseName, schemaName } =
+        parentData.extraParams!;
+      const preCode = [dataSourceId, databaseName, schemaName].join("-");
       return new Promise((r: (value: ITreeNode[]) => void) => {
         const data = [
           {
             uuid: uuid(),
             key: `${preCode}-tables`,
-            name: 'tables',
+            name: "tables",
             treeNodeType: TreeNodeType.TABLES,
             extraParams: parentData.extraParams,
           },
           {
             uuid: uuid(),
             key: `${preCode}-views`,
-            name: 'view',
+            name: "view",
             treeNodeType: TreeNodeType.VIEWS,
             extraParams: parentData.extraParams,
           },
           {
             uuid: uuid(),
             key: `${preCode}-functions`,
-            name: 'functions',
+            name: "functions",
             treeNodeType: TreeNodeType.FUNCTIONS,
             extraParams: parentData.extraParams,
           },
           {
             uuid: uuid(),
             key: `${preCode}-procedures`,
-            name: 'procedures',
+            name: "procedures",
             treeNodeType: TreeNodeType.PROCEDURES,
             extraParams: parentData.extraParams,
           },
           {
             uuid: uuid(),
             key: `${preCode}-triggers`,
-            name: 'triggers',
+            name: "triggers",
             treeNodeType: TreeNodeType.TRIGGERS,
             extraParams: parentData.extraParams,
           },
         ];
-        if((parentData.extraParams?.databaseType === 'POSTGRESQL'|| parentData.extraParams?.databaseType === 'ORACLE')&& schemaName==='public'){
+        if (
+          (parentData.extraParams?.databaseType === "POSTGRESQL" ||
+            parentData.extraParams?.databaseType === "ORACLE") &&
+          schemaName === "public"
+        ) {
           data.push({
             uuid: uuid(),
             key: `${preCode}-sequences`,
-            name: 'sequences',
+            name: "sequences",
             treeNodeType: TreeNodeType.SEQUENCES,
             extraParams: parentData.extraParams,
           });
@@ -255,7 +286,7 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
   },
 
   [TreeNodeType.TABLES]: {
-    icon: '\ueac5',
+    icon: "\ueac5",
     getChildren: (params, options) => {
       const _extraParams = params.extraParams;
       delete params.extraParams;
@@ -300,30 +331,36 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
   },
 
   [TreeNodeType.TABLE]: {
-    icon: '\ue63e',
+    icon: "\ue63e",
     getChildren: (params) => {
       return new Promise((r: (value: ITreeNode[]) => void) => {
-        const { dataSourceId, databaseName, schemaName, tableName } = params.extraParams!;
-        const preCode = [dataSourceId, databaseName, schemaName, tableName].join('-');
+        const { dataSourceId, databaseName, schemaName, tableName } =
+          params.extraParams!;
+        const preCode = [
+          dataSourceId,
+          databaseName,
+          schemaName,
+          tableName,
+        ].join("-");
         const list = [
           {
             uuid: uuid(),
             key: `${preCode}-columns`,
-            name: 'columns',
+            name: "columns",
             treeNodeType: TreeNodeType.COLUMNS,
             extraParams: params.extraParams,
           },
           {
             uuid: uuid(),
             key: `${preCode}-keys`,
-            name: 'keys',
+            name: "keys",
             treeNodeType: TreeNodeType.KEYS,
             extraParams: params.extraParams,
           },
           {
             uuid: uuid(),
             key: `${preCode}-indexs`,
-            name: 'indexs',
+            name: "indexs",
             treeNodeType: TreeNodeType.INDEXES,
             extraParams: params.extraParams,
           },
@@ -345,7 +382,7 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
   },
 
   [TreeNodeType.VIEWS]: {
-    icon: '\ue70c',
+    icon: "\ue70c",
     getChildren: (params) => {
       const _extraParams = params.extraParams;
       delete params.extraParams;
@@ -378,7 +415,7 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
   },
 
   [TreeNodeType.FUNCTIONS]: {
-    icon: '\ue76a',
+    icon: "\ue76a",
     getChildren: (params) => {
       const _extraParams = params.extraParams;
       delete params.extraParams;
@@ -412,12 +449,16 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
   },
 
   [TreeNodeType.FUNCTION]: {
-    icon: '\ue76a',
-    operationColumn: [OperationColumn.CreateConsole, OperationColumn.OpenFunction, OperationColumn.CopyName],
+    icon: "\ue76a",
+    operationColumn: [
+      OperationColumn.CreateConsole,
+      OperationColumn.OpenFunction,
+      OperationColumn.CopyName,
+    ],
   },
 
   [TreeNodeType.PROCEDURES]: {
-    icon: '\ue73c',
+    icon: "\ue73c",
     getChildren: (params) => {
       const _extraParams = params.extraParams;
       delete params.extraParams;
@@ -451,12 +492,16 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
   },
 
   [TreeNodeType.PROCEDURE]: {
-    icon: '\ue73c',
-    operationColumn: [OperationColumn.CreateConsole, OperationColumn.OpenProcedure, OperationColumn.CopyName],
+    icon: "\ue73c",
+    operationColumn: [
+      OperationColumn.CreateConsole,
+      OperationColumn.OpenProcedure,
+      OperationColumn.CopyName,
+    ],
   },
 
   [TreeNodeType.TRIGGERS]: {
-    icon: '\ue64a',
+    icon: "\ue64a",
     getChildren: (params) => {
       const _extraParams = params.extraParams;
       delete params.extraParams;
@@ -490,31 +535,39 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
   },
 
   [TreeNodeType.TRIGGER]: {
-    icon: '\ue64a',
-    operationColumn: [OperationColumn.CreateConsole, OperationColumn.OpenTrigger, OperationColumn.CopyName],
+    icon: "\ue64a",
+    operationColumn: [
+      OperationColumn.CreateConsole,
+      OperationColumn.OpenTrigger,
+      OperationColumn.CopyName,
+    ],
   },
 
   [TreeNodeType.VIEW]: {
-    icon: '\ue70c',
+    icon: "\ue70c",
     getChildren: (params) => {
       return new Promise((r: (value: ITreeNode[]) => void) => {
         const list = [
           {
             uuid: uuid(),
-            name: 'columns',
+            name: "columns",
             treeNodeType: TreeNodeType.COLUMNS,
-            key: 'columns',
+            key: "columns",
             extraParams: params.extraParams,
           },
         ];
         r(list);
       });
     },
-    operationColumn: [OperationColumn.CreateConsole, OperationColumn.OpenView, OperationColumn.CopyName],
+    operationColumn: [
+      OperationColumn.CreateConsole,
+      OperationColumn.OpenView,
+      OperationColumn.CopyName,
+    ],
   },
 
   [TreeNodeType.VIEWCOLUMNS]: {
-    icon: '\ue647',
+    icon: "\ue647",
     getChildren: (params) => {
       const _extraParams = params.extraParams;
       delete params.extraParams;
@@ -541,16 +594,20 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
           });
       });
     },
-    operationColumn: [OperationColumn.CreateConsole, OperationColumn.CopyName, OperationColumn.Refresh],
+    operationColumn: [
+      OperationColumn.CreateConsole,
+      OperationColumn.CopyName,
+      OperationColumn.Refresh,
+    ],
   },
 
   [TreeNodeType.VIEWCOLUMN]: {
-    icon: '\ue647',
+    icon: "\ue647",
     operationColumn: [OperationColumn.CreateConsole, OperationColumn.CopyName],
   },
 
   [TreeNodeType.COLUMNS]: {
-    icon: '\ueac5',
+    icon: "\ueac5",
     getChildren: (params) => {
       const _extraParams = params.extraParams;
       delete params.extraParams;
@@ -580,11 +637,11 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
     operationColumn: [OperationColumn.CreateConsole, OperationColumn.Refresh],
   },
   [TreeNodeType.COLUMN]: {
-    icon: '\ue611',
+    icon: "\ue611",
     operationColumn: [OperationColumn.CreateConsole, OperationColumn.CopyName],
   },
   [TreeNodeType.KEYS]: {
-    icon: '\ueac5',
+    icon: "\ueac5",
     getChildren: (params) => {
       const _extraParams = params.extraParams;
       delete params.extraParams;
@@ -609,14 +666,18 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
           });
       });
     },
-    operationColumn: [OperationColumn.CreateConsole, OperationColumn.CopyName, OperationColumn.Refresh],
+    operationColumn: [
+      OperationColumn.CreateConsole,
+      OperationColumn.CopyName,
+      OperationColumn.Refresh,
+    ],
   },
   [TreeNodeType.KEY]: {
-    icon: '\ue775',
+    icon: "\ue775",
     operationColumn: [OperationColumn.CreateConsole, OperationColumn.CopyName],
   },
   [TreeNodeType.INDEXES]: {
-    icon: '\ueac5',
+    icon: "\ueac5",
     getChildren: (params) => {
       const _extraParams = params.extraParams;
       delete params.extraParams;
@@ -641,15 +702,19 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
           });
       });
     },
-    operationColumn: [OperationColumn.CreateConsole, OperationColumn.CopyName, OperationColumn.Refresh],
+    operationColumn: [
+      OperationColumn.CreateConsole,
+      OperationColumn.CopyName,
+      OperationColumn.Refresh,
+    ],
   },
   [TreeNodeType.INDEX]: {
-    icon: '\ue65b',
+    icon: "\ue65b",
     operationColumn: [OperationColumn.CreateConsole, OperationColumn.CopyName],
   },
   [TreeNodeType.SEQUENCES]: {
-    icon: '\ueabe', // 使用现有图标（如文件夹折叠）
-   
+    icon: "\ueabe", // 使用现有图标（如文件夹折叠）
+
     getChildren: (params) => {
       const _extraParams = params.extraParams;
       delete params.extraParams;
@@ -657,7 +722,7 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
         mysqlServer
           .getSequenceList(params)
           .then((res) => {
-            const data: ITreeNode[] = res?.map((item:any) => {
+            const data: ITreeNode[] = res?.map((item: any) => {
               return {
                 uuid: uuid(),
                 key: item.name,
@@ -676,7 +741,7 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
           .catch((error) => {
             j(error);
           });
-      })
+      });
     },
     operationColumn: [
       OperationColumn.CreateSequence,
@@ -685,7 +750,136 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
     ],
   },
   [TreeNodeType.SEQUENCE]: {
-    icon: '\ue611',
-    operationColumn: [OperationColumn.OpenSequence, OperationColumn.EditSequence, OperationColumn.CopyName,OperationColumn.DeleteSequence],
+    icon: "\ue611",
+    operationColumn: [
+      OperationColumn.OpenSequence,
+      OperationColumn.EditSequence,
+      OperationColumn.CopyName,
+      OperationColumn.DeleteSequence,
+    ],
   },
+
+  [TreeNodeType.FLINK_SQL_GATEWAY]: {
+    icon: "\ue62c",
+    getChildren: (params: any) => {
+      return new Promise((r, j) => {
+        const _extraParams = params.extraParams;
+        delete params.extraParams;
+        CatalogService.getCatalogInfo()
+          .then((res) => {
+            const data: ITreeNode[] = res.map((item: any) => {
+              return {
+                ...item,
+                uuid: item.name,
+                key: item.name,
+                treeNodeType: TreeNodeType.FLINK_CATALOG,
+                level: 1,
+                extraParams: {
+                  ..._extraParams,
+                  catalogName: item.name,
+                  databases: item.databases, // 不请求了，直接把下一层作为参数传递过来
+                },
+              };
+            });
+            r(data);
+          })
+          .catch(() => {
+            j();
+          });
+      });
+    },
+    next: TreeNodeType.FLINK_CATALOG,
+    operationColumn: [OperationColumn.CopyName, OperationColumn.Refresh],
+  },
+  [TreeNodeType.FLINK_CATALOG]: {
+    icon: "\ue62c",
+    getChildren: (params: any) => {
+      return new Promise((r, j) => {
+        const _extraParams = params.extraParams;
+        delete params.extraParams;
+        if (_extraParams?.databases) {
+          const data: ITreeNode[] = _extraParams?.databases.map((item: any) => {
+              return {
+                ...item,
+                uuid: item.name,
+                key: item.name,
+                treeNodeType: TreeNodeType.FLINK_DATABASE,
+                extraParams: {
+                  ..._extraParams,
+                  databaseName: item.name,
+                  tables: item.tables, // 不请求了，直接把下一层作为参数传递过来
+                  views: item.views,
+                  userDefinedFunctions: item.userDefinedFunctions,
+                },
+              };
+            });
+            r(data);
+          return;
+        } else {
+          j();
+        }
+      });
+    },
+    next: TreeNodeType.FLINK_DATABASE,
+    operationColumn: [OperationColumn.CopyName, OperationColumn.Refresh],
+  },
+
+  [TreeNodeType.FLINK_DATABASE]: {
+    icon: "\ue696",
+    getChildren: (parentData: ITreeNode) => {
+      const { dataSourceId, catalogName, databaseName } =
+        parentData.extraParams!;
+      const preCode = [dataSourceId, catalogName, databaseName].join("-");
+      return new Promise((r: (value: ITreeNode[]) => void) => {
+        const data = [
+          {
+            uuid: uuid(),
+            key: `${preCode}-tables`,
+            name: "tables",
+            treeNodeType: TreeNodeType.FLINK_TABLE,
+            extraParams: parentData.extraParams,
+          },
+          {
+            uuid: uuid(),
+            key: `${preCode}-views`,
+            name: "view",
+            treeNodeType: TreeNodeType.FLINK_VIEW,
+            extraParams: parentData.extraParams,
+          },
+          {
+            uuid: uuid(),
+            key: `${preCode}-udfs`,
+            name: "functions",
+            treeNodeType: TreeNodeType.FLINK_UDF,
+            extraParams: parentData.extraParams,
+          },
+        ];
+        r(data);
+      });
+    },
+    operationColumn: [OperationColumn.CopyName, OperationColumn.Refresh],
+  },
+
+  [TreeNodeType.FLINK_TABLE]: {
+    icon: "\ue611",
+    operationColumn: [
+      OperationColumn.CopyName,
+      OperationColumn.Refresh,
+    ],
+  },
+  [TreeNodeType.FLINK_VIEW]: {
+    icon: "\ue611",
+    operationColumn: [
+      OperationColumn.CopyName,
+      OperationColumn.Refresh,
+    ],
+  },
+  [TreeNodeType.FLINK_UDF]: {
+    icon: "\ue611",
+    operationColumn: [
+      OperationColumn.CopyName,
+      OperationColumn.Refresh,
+    ],
+  },
+
 };

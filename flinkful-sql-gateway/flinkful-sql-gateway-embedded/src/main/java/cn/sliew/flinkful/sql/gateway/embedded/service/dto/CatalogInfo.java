@@ -31,7 +31,9 @@ import java.util.Set;
 @AllArgsConstructor
 public class CatalogInfo {
 
-    private String catalogName;
+    private String name;
+
+    private String type;
 
     private Set<DatabaseInfo> databases;
 

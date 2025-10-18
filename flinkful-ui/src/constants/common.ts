@@ -16,6 +16,8 @@ export enum DatabaseTypeCode {
   HIVE = 'HIVE',
   KINGBASE = 'KINGBASE',
   TIMEPLUS = 'TIMEPLUS',
+
+  FLINK_SQL_GATEWAY = 'FLINK_SQL_GATEWAY',
 }
 
 export enum ConsoleStatus {
