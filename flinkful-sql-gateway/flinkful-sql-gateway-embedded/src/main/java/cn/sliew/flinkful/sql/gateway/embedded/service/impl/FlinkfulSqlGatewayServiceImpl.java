@@ -55,9 +55,9 @@ public class FlinkfulSqlGatewayServiceImpl implements FlinkfulSqlGatewayService,
         configuration.set(RestOptions.ADDRESS, "localhost");
         configuration.set(RestOptions.PORT, 8081);
         configuration.set(DeploymentOptions.TARGET, "remote");
-        configuration.setString("table.catalog-store.kind", "gravitino");
-        configuration.setString("table.catalog-store.gravitino.gravitino.metalake", "flink");
-        configuration.setString("table.catalog-store.gravitino.gravitino.uri", "http://42.194.234.138:8090");
+//        configuration.setString("table.catalog-store.kind", "gravitino");
+//        configuration.setString("table.catalog-store.gravitino.gravitino.metalake", "flink");
+//        configuration.setString("table.catalog-store.gravitino.gravitino.uri", "http://localhost:8090");
         configuration.setString("s3.endpoint", "http://localhost:9000");
         configuration.setString("s3.access-key", "admin");
         configuration.setString("s3.secret-key", "password");
@@ -78,6 +78,16 @@ public class FlinkfulSqlGatewayServiceImpl implements FlinkfulSqlGatewayService,
                                     "s3.path.style.access", "true"
                             );
                             return FactoryUtil.createCatalog("paimon", options, configuration, classloader);
+                        })
+                        .registerCatalogCreator("jdbc", (config, classloader) -> {
+                            Map<String, String> options = Map.of(
+                                    "type", "jdbc",
+                                    "default-database", "flinkful",
+                                    "base-url", "jdbc:mysql://localhost:3306",
+                                    "username", "root",
+                                    "password", "123456"
+                            );
+                            return FactoryUtil.createCatalog("jdbc", options, configuration, classloader);
                         })
                 .setSessionEndpointVersion(SqlGatewayRestAPIVersion.V2)
                 .setSessionName(SESSION_NAME)
@@ -101,23 +111,28 @@ public class FlinkfulSqlGatewayServiceImpl implements FlinkfulSqlGatewayService,
         Set<String> catalogs = sqlGatewayService.listCatalogs(sessionHandle);
         return catalogs.stream().map(catalogName -> {
             CatalogInfo catalogInfo = new CatalogInfo();
-            catalogInfo.setCatalogName(catalogName);
+            catalogInfo.setName(catalogName);
+            catalogInfo.setType("FLINK_CATALOG");
             Set<DatabaseInfo> databases = sqlGatewayService.listDatabases(sessionHandle, catalogName)
                     .stream().map(databaseName -> {
                         DatabaseInfo databaseInfo = new DatabaseInfo();
-                        databaseInfo.setDatabaseName(databaseName);
+                        databaseInfo.setName(databaseName);
+                        databaseInfo.setType("FLINK_DATABASE");
                         Set<TableInfo> tableInfos = sqlGatewayService.listTables(sessionHandle, catalogName, databaseName, Set.of(CatalogBaseTable.TableKind.TABLE))
                                 .stream().map(table -> {
                                     TableInfo tableInfo = new TableInfo();
-                                    tableInfo.setTableName(table.getIdentifier().getObjectName());
+                                    tableInfo.setName(table.getIdentifier().getObjectName());
+                                    tableInfo.setType("FLINK_TABLE");
                                     tableInfo.setTableKind(table.getTableKind());
                                     return tableInfo;
                                 }).collect(Collectors.toSet());
                         databaseInfo.setTables(tableInfos);
+                        // gravitino 不支持 views
                         Set<TableInfo> viewInfos = sqlGatewayService.listTables(sessionHandle, catalogName, databaseName, Set.of(CatalogBaseTable.TableKind.VIEW))
                                 .stream().map(table -> {
                                     TableInfo viewInfo = new TableInfo();
-                                    viewInfo.setTableName(table.getIdentifier().getObjectName());
+                                    viewInfo.setName(table.getIdentifier().getObjectName());
+                                    viewInfo.setType("FLINK_VIEW");
                                     viewInfo.setTableKind(table.getTableKind());
                                     return viewInfo;
                                 }).collect(Collectors.toSet());
@@ -125,7 +140,8 @@ public class FlinkfulSqlGatewayServiceImpl implements FlinkfulSqlGatewayService,
                         Set<FunctionInfo> functionInfos = sqlGatewayService.listUserDefinedFunctions(sessionHandle, catalogName, databaseName)
                                 .stream().map(function -> {
                                     FunctionInfo functionInfo = new FunctionInfo();
-                                    functionInfo.setFunctionName(function.getIdentifier().getFunctionName());
+                                    functionInfo.setName(function.getIdentifier().getFunctionName());
+                                    functionInfo.setType("FLINK_UDF");
                                     functionInfo.setFunctionKind(function.getKind().orElse(null));
                                     return functionInfo;
                                 }).collect(Collectors.toSet());
