@@ -89,16 +89,28 @@ export const switchIcon: Partial<{
   },
 
   [TreeNodeType.FLINK_CATALOG]: {
-    icon: "\ue669",
+    icon: "\ueabf",
   },
   [TreeNodeType.FLINK_DATABASE]: {
+    icon: "\ue669",
+  },
+  [TreeNodeType.FLINK_TABLES]: {
     icon: "\ueabe",
+    unfoldIcon: "\ueabf",
   },
   [TreeNodeType.FLINK_TABLE]: {
     icon: "\ue63e",
   },
+  [TreeNodeType.FLINK_VIEWS]: {
+    icon: "\ueabe",
+    unfoldIcon: "\ueabf",
+  },
   [TreeNodeType.FLINK_VIEW]: {
     icon: "\ue70c",
+  },
+  [TreeNodeType.FLINK_UDFS]: {
+    icon: "\ueabe",
+    unfoldIcon: "\ueabf",
   },
   [TreeNodeType.FLINK_UDF]: {
     icon: "\ue76a",
@@ -765,19 +777,17 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
       return new Promise((r, j) => {
         const _extraParams = params.extraParams;
         delete params.extraParams;
-        CatalogService.getCatalogInfo()
+        CatalogService.listCatalogs()
           .then((res) => {
             const data: ITreeNode[] = res.map((item: any) => {
               return {
-                ...item,
-                uuid: item.name,
-                key: item.name,
+                uuid: uuid(),
+                key: item,
+                name: item,
                 treeNodeType: TreeNodeType.FLINK_CATALOG,
-                level: 1,
                 extraParams: {
                   ..._extraParams,
-                  catalogName: item.name,
-                  databases: item.databases, // 不请求了，直接把下一层作为参数传递过来
+                  catalogName: item,
                 },
               };
             });
@@ -797,27 +807,26 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
       return new Promise((r, j) => {
         const _extraParams = params.extraParams;
         delete params.extraParams;
-        if (_extraParams?.databases) {
-          const data: ITreeNode[] = _extraParams?.databases.map((item: any) => {
+        const { catalogName } = _extraParams;
+        CatalogService.listDatabases(catalogName)
+          .then((res) => {
+            const data: ITreeNode[] = res.map((item: any) => {
               return {
-                ...item,
-                uuid: item.name,
-                key: item.name,
+                uuid: uuid(),
+                key: item,
+                name: item,
                 treeNodeType: TreeNodeType.FLINK_DATABASE,
                 extraParams: {
                   ..._extraParams,
-                  databaseName: item.name,
-                  tables: item.tables, // 不请求了，直接把下一层作为参数传递过来
-                  views: item.views,
-                  userDefinedFunctions: item.userDefinedFunctions,
+                  databaseName: item,
                 },
               };
             });
             r(data);
-          return;
-        } else {
-          j();
-        }
+          })
+          .catch(() => {
+            j();
+          });
       });
     },
     next: TreeNodeType.FLINK_DATABASE,
@@ -836,21 +845,21 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
             uuid: uuid(),
             key: `${preCode}-tables`,
             name: "tables",
-            treeNodeType: TreeNodeType.FLINK_TABLE,
+            treeNodeType: TreeNodeType.FLINK_TABLES,
             extraParams: parentData.extraParams,
           },
           {
             uuid: uuid(),
             key: `${preCode}-views`,
             name: "view",
-            treeNodeType: TreeNodeType.FLINK_VIEW,
+            treeNodeType: TreeNodeType.FLINK_VIEWS,
             extraParams: parentData.extraParams,
           },
           {
             uuid: uuid(),
             key: `${preCode}-udfs`,
             name: "functions",
-            treeNodeType: TreeNodeType.FLINK_UDF,
+            treeNodeType: TreeNodeType.FLINK_UDFS,
             extraParams: parentData.extraParams,
           },
         ];
@@ -860,26 +869,109 @@ export const treeConfig: { [key in TreeNodeType]: ITreeConfigItem } = {
     operationColumn: [OperationColumn.CopyName, OperationColumn.Refresh],
   },
 
+  [TreeNodeType.FLINK_TABLES]: {
+    icon: "\ue611",
+    getChildren: (params: any) => {
+      return new Promise((r, j) => {
+        const _extraParams = params.extraParams;
+        delete params.extraParams;
+        const { catalogName, databaseName } = _extraParams;
+        CatalogService.listTables(catalogName, databaseName)
+          .then((res) => {
+            const data: ITreeNode[] = res.map((item: any) => {
+              return {
+                ...item,
+                uuid: uuid(),
+                key: item.name,
+                treeNodeType: TreeNodeType.FLINK_TABLE,
+                isLeaf: true,
+                extraParams: {
+                  ..._extraParams,
+                  tableName: item.name,
+                },
+              };
+            });
+            r(data);
+          })
+          .catch(() => {
+            j();
+          });
+      });
+    },
+    operationColumn: [OperationColumn.CopyName, OperationColumn.Refresh],
+  },
+  [TreeNodeType.FLINK_VIEWS]: {
+    icon: "\ue611",
+    getChildren: (params: any) => {
+      return new Promise((r, j) => {
+        const _extraParams = params.extraParams;
+        delete params.extraParams;
+        const { catalogName, databaseName } = _extraParams;
+        CatalogService.listViews(catalogName, databaseName)
+          .then((res) => {
+            const data: ITreeNode[] = res.map((item: any) => {
+              return {
+                ...item,
+                uuid: uuid(),
+                key: item.name,
+                treeNodeType: TreeNodeType.FLINK_VIEW,
+                isLeaf: true,
+                extraParams: {
+                  ..._extraParams,
+                  viewName: item.name,
+                },
+              };
+            });
+            r(data);
+          })
+          .catch(() => {
+            j();
+          });
+      });
+    },
+    operationColumn: [OperationColumn.CopyName, OperationColumn.Refresh],
+  },
+  [TreeNodeType.FLINK_UDFS]: {
+    icon: "\ue611",
+    getChildren: (params: any) => {
+      return new Promise((r, j) => {
+        const _extraParams = params.extraParams;
+        delete params.extraParams;
+        const { catalogName, databaseName } = _extraParams;
+        CatalogService.listUdfs(catalogName, databaseName)
+          .then((res) => {
+            const data: ITreeNode[] = res.map((item: any) => {
+              return {
+                ...item,
+                uuid: uuid(),
+                key: item.name,
+                treeNodeType: TreeNodeType.FLINK_UDF,
+                isLeaf: true,
+                extraParams: {
+                  ..._extraParams,
+                  udfName: item.name,
+                },
+              };
+            });
+            r(data);
+          })
+          .catch(() => {
+            j();
+          });
+      });
+    },
+    operationColumn: [OperationColumn.Refresh],
+  },
   [TreeNodeType.FLINK_TABLE]: {
     icon: "\ue611",
-    operationColumn: [
-      OperationColumn.CopyName,
-      OperationColumn.Refresh,
-    ],
+    operationColumn: [OperationColumn.CopyName, OperationColumn.Refresh],
   },
   [TreeNodeType.FLINK_VIEW]: {
     icon: "\ue611",
-    operationColumn: [
-      OperationColumn.CopyName,
-      OperationColumn.Refresh,
-    ],
+    operationColumn: [OperationColumn.CopyName, OperationColumn.Refresh],
   },
   [TreeNodeType.FLINK_UDF]: {
     icon: "\ue611",
-    operationColumn: [
-      OperationColumn.CopyName,
-      OperationColumn.Refresh,
-    ],
+    operationColumn: [OperationColumn.CopyName, OperationColumn.Refresh],
   },
-
 };

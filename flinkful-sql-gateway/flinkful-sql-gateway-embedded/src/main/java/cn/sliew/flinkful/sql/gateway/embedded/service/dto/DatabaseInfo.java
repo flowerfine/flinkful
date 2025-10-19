@@ -22,6 +22,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -35,11 +36,11 @@ public class DatabaseInfo {
 
     private String type;
 
-    private Set<TableInfo> tables;
+    private List<TableInfo> tables;
 
-    private Set<TableInfo> views;
+    private List<TableInfo> views;
 
-    private Set<FunctionInfo> userDefinedFunctions;
+    private List<FunctionInfo> userDefinedFunctions;
 
     private String description;
 

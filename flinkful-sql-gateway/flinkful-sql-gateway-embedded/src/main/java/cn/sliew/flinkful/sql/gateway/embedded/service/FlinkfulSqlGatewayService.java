@@ -18,14 +18,27 @@
 package cn.sliew.flinkful.sql.gateway.embedded.service;
 
 import cn.sliew.flinkful.sql.gateway.embedded.service.dto.CatalogInfo;
+import cn.sliew.flinkful.sql.gateway.embedded.service.dto.FunctionInfo;
+import cn.sliew.flinkful.sql.gateway.embedded.service.dto.TableInfo;
 import cn.sliew.flinkful.sql.gateway.embedded.service.param.WsFlinkSqlGatewayQueryParam;
 import org.apache.flink.table.gateway.api.results.ResultSet;
 
+import java.util.List;
 import java.util.Set;
 
 public interface FlinkfulSqlGatewayService {
 
     Set<CatalogInfo> getCatalogInfo();
+
+    List<String> listCatalogs();
+
+    List<String> listDatabases(String catalogName);
+
+    List<TableInfo> listTables(String catalogName, String databaseName);
+
+    List<TableInfo> listViews(String catalogName, String databaseName);
+
+    List<FunctionInfo> listUdfs(String catalogName, String databaseName);
 
     String executeSql(WsFlinkSqlGatewayQueryParam params);
 

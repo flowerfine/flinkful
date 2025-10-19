@@ -16,8 +16,6 @@ export interface ITreeNode {
   uuid: string;
   key: string | number;
   name: string;
-  // 用展示的name
-  // displayName: string;
   treeNodeType: TreeNodeType; // 节点的类型 表、列、文件等等
   pretendNodeType?: TreeNodeType; // 伪装的节点类型，当树不连续时，需要用到
   isLeaf?: boolean; // 是否为叶子节点
