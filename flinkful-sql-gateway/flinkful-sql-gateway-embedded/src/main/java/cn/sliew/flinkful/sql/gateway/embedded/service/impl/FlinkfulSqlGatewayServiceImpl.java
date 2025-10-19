@@ -26,10 +26,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -82,7 +79,7 @@ public class FlinkfulSqlGatewayServiceImpl implements FlinkfulSqlGatewayService,
                         .registerCatalogCreator("jdbc", (config, classloader) -> {
                             Map<String, String> options = Map.of(
                                     "type", "jdbc",
-                                    "default-database", "flinkful",
+                                    "default-database", "kalencaya",
                                     "base-url", "jdbc:mysql://localhost:3306",
                                     "username", "root",
                                     "password", "123456"
@@ -118,39 +115,61 @@ public class FlinkfulSqlGatewayServiceImpl implements FlinkfulSqlGatewayService,
                         DatabaseInfo databaseInfo = new DatabaseInfo();
                         databaseInfo.setName(databaseName);
                         databaseInfo.setType("FLINK_DATABASE");
-                        Set<TableInfo> tableInfos = sqlGatewayService.listTables(sessionHandle, catalogName, databaseName, Set.of(CatalogBaseTable.TableKind.TABLE))
-                                .stream().map(table -> {
-                                    TableInfo tableInfo = new TableInfo();
-                                    tableInfo.setName(table.getIdentifier().getObjectName());
-                                    tableInfo.setType("FLINK_TABLE");
-                                    tableInfo.setTableKind(table.getTableKind());
-                                    return tableInfo;
-                                }).collect(Collectors.toSet());
-                        databaseInfo.setTables(tableInfos);
-                        // gravitino 不支持 views
-                        Set<TableInfo> viewInfos = sqlGatewayService.listTables(sessionHandle, catalogName, databaseName, Set.of(CatalogBaseTable.TableKind.VIEW))
-                                .stream().map(table -> {
-                                    TableInfo viewInfo = new TableInfo();
-                                    viewInfo.setName(table.getIdentifier().getObjectName());
-                                    viewInfo.setType("FLINK_VIEW");
-                                    viewInfo.setTableKind(table.getTableKind());
-                                    return viewInfo;
-                                }).collect(Collectors.toSet());
-                        databaseInfo.setViews(viewInfos);
-                        Set<FunctionInfo> functionInfos = sqlGatewayService.listUserDefinedFunctions(sessionHandle, catalogName, databaseName)
-                                .stream().map(function -> {
-                                    FunctionInfo functionInfo = new FunctionInfo();
-                                    functionInfo.setName(function.getIdentifier().getFunctionName());
-                                    functionInfo.setType("FLINK_UDF");
-                                    functionInfo.setFunctionKind(function.getKind().orElse(null));
-                                    return functionInfo;
-                                }).collect(Collectors.toSet());
-                        databaseInfo.setUserDefinedFunctions(functionInfos);
+                        databaseInfo.setTables(listTables(catalogName, databaseName));
+                        // fixme gravitino 不支持 views, gravitino 提供的 flink catalog 会抛异常
+                        databaseInfo.setViews(listViews(catalogName, databaseName));
+                        databaseInfo.setUserDefinedFunctions(listUdfs(catalogName, databaseName));
                         return databaseInfo;
                     }).collect(Collectors.toSet());
             catalogInfo.setDatabases(databases);
             return catalogInfo;
         }).collect(Collectors.toSet());
+    }
+
+    @Override
+    public List<String> listCatalogs() {
+        return sqlGatewayService.listCatalogs(sessionHandle).stream().sorted(String.CASE_INSENSITIVE_ORDER).toList();
+    }
+
+    @Override
+    public List<String> listDatabases(String catalogName) {
+        return sqlGatewayService.listDatabases(sessionHandle, catalogName).stream().sorted(String.CASE_INSENSITIVE_ORDER).toList();
+    }
+
+    @Override
+    public List<TableInfo> listTables(String catalogName, String databaseName) {
+        return sqlGatewayService.listTables(sessionHandle, catalogName, databaseName, Set.of(CatalogBaseTable.TableKind.TABLE))
+                .stream().map(table -> {
+                    TableInfo tableInfo = new TableInfo();
+                    tableInfo.setName(table.getIdentifier().getObjectName());
+                    tableInfo.setType("FLINK_TABLE");
+                    tableInfo.setTableKind(table.getTableKind());
+                    return tableInfo;
+                }).toList();
+    }
+
+    @Override
+    public List<TableInfo> listViews(String catalogName, String databaseName) {
+        return sqlGatewayService.listTables(sessionHandle, catalogName, databaseName, Set.of(CatalogBaseTable.TableKind.VIEW))
+                .stream().map(table -> {
+                    TableInfo viewInfo = new TableInfo();
+                    viewInfo.setName(table.getIdentifier().getObjectName());
+                    viewInfo.setType("FLINK_VIEW");
+                    viewInfo.setTableKind(table.getTableKind());
+                    return viewInfo;
+                }).toList();
+    }
+
+    @Override
+    public List<FunctionInfo> listUdfs(String catalogName, String databaseName) {
+        return sqlGatewayService.listUserDefinedFunctions(sessionHandle, catalogName, databaseName)
+                .stream().map(function -> {
+                    FunctionInfo functionInfo = new FunctionInfo();
+                    functionInfo.setName(function.getIdentifier().getFunctionName());
+                    functionInfo.setType("FLINK_UDF");
+                    functionInfo.setFunctionKind(function.getKind().orElse(null));
+                    return functionInfo;
+                }).toList();
     }
 
     @Override
