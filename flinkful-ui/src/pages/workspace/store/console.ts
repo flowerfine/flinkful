@@ -1,9 +1,8 @@
+import { message } from 'antd';
 import { useWorkspaceStore } from './index';
 import { IConsole, ICreateConsoleParams } from '@/typings/index';
 import { IWorkspaceTab } from '@/typings/workspace';
-import historyService from '@/service/history';
 import { ConsoleStatus, WorkspaceTabType } from '@/constants';
-import { message } from 'antd';
 import i18n from '@/i18n';
 
 export interface IConsoleStore {
@@ -23,27 +22,11 @@ export const initConsoleStore = {
 };
 
 export const getOpenConsoleList = () => {
-  historyService
-    .getConsoleList({
-      tabOpened: 'y',
-      pageNo: 1,
-      pageSize: 20,
-    })
-    .then((res) => {
-      useWorkspaceStore.setState({ consoleList: res?.data });
-    });
+  useWorkspaceStore.setState({ consoleList: [] });
 };
 
 export const getSavedConsoleList = () => { 
-  historyService
-    .getConsoleList({
-      pageNo: 1,
-      pageSize: 100,
-      status: ConsoleStatus.RELEASE,
-    })
-    .then((res) => {
-      useWorkspaceStore.setState({ savedConsoleList: res?.data });
-    });
+  useWorkspaceStore.setState({ savedConsoleList: [] });
 }
 
 export const setActiveConsoleId = (id: IConsoleStore['activeConsoleId']) => {
@@ -75,11 +58,11 @@ export const createConsole = (params: ICreateConsoleParams) => {
     }
 
     useWorkspaceStore.setState({ createConsoleLoading: true });
-    historyService.createConsole(newConsole).then((res) => {
-      const newList = [
+    const newConsoleId = new Date().getTime();
+    const newList = [
         ...(workspaceTabList || []),
         {
-          id: res,
+          id: newConsoleId,
           title: newConsole.name,
           type: newConsole.operationType,
           uniqueData: newConsole,
@@ -87,12 +70,10 @@ export const createConsole = (params: ICreateConsoleParams) => {
       ];
 
       setWorkspaceTabList(newList);
-      setActiveConsoleId(res);
-      resolve(res);
-    })
-      .finally(() => { 
+      setActiveConsoleId(newConsoleId);
       useWorkspaceStore.setState({ createConsoleLoading: false });
-    });
+
+      resolve(newConsoleId);
   });
 };
 

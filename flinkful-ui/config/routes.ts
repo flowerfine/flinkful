@@ -38,6 +38,12 @@ export default [
     ],
   },
   {
+    path: "/dms",
+    name: "dms",
+    icon: "home",
+    component: "@/pages/dms",
+  },
+  {
     component: "404",
     layout: false,
     path: "./*",
