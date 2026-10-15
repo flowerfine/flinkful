@@ -103,7 +103,7 @@ services:
       - flink
 
   minio:
-    image: bitnami/minio:2025.4.8
+    image: soldevelo/minio:2025.4.22
     container_name: minio
     profiles:
       - gateway
